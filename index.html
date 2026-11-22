@@ -1,870 +1,364 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GK GS MASTER | Online Mock Test</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GK GS MASTER | Computer Exam</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#0b1220;
-  color:#f1f5f9;
-}
-header{
-  background:#111e35;
-  border-bottom:2px solid #d9a441;
-  padding:18px;
-  text-align:center;
-}
-header h1{color:#f5c451;margin:0}
-header p{color:#cbd5e1;margin:7px 0 0}
-.container{max-width:1200px;margin:auto;padding:18px}
-.card{
-  background:#17243d;
-  border:1px solid #344766;
-  border-radius:14px;
-  padding:20px;
-  margin-bottom:16px;
-}
-h2{color:#f5c451}
-.info-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-.info{
-  background:#263b5c;
-  padding:16px;
-  border-radius:10px;
-  text-align:center;
-}
-.info strong{font-size:25px;color:#f5c451}
-.instruction-box{
-  background:#1c2d49;
-  border-left:4px solid #f5c451;
-  padding:16px;
-  border-radius:10px;
-  line-height:1.8;
-}
-button{
-  border:0;
-  border-radius:8px;
-  padding:12px 18px;
-  cursor:pointer;
-  font-weight:bold;
-  font-size:14px;
-}
-.start-btn{
-  background:#f5c451;
-  color:#101d35;
-  width:100%;
-  padding:16px;
-  font-size:19px;
-  margin-top:15px;
-}
-.primary{background:#2563eb;color:white}
-.secondary{background:#475569;color:white}
-.danger{background:#dc3545;color:white}
-.success{background:#15803d;color:white}
-#testScreen,#resultScreen{display:none}
-.test-layout{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 245px;
-  gap:18px;
-  align-items:start;
-}
-.timer{
-  background:#263b5c;
-  padding:12px;
-  border-radius:9px;
-  color:#f5c451;
-  font-size:20px;
-  font-weight:bold;
-  text-align:center;
-}
-.question-card{
-  background:#17243d;
-  padding:20px;
-  border-radius:12px;
-  border:1px solid #344766;
-}
-.question-title{font-size:18px;line-height:1.6}
-.option{
-  display:block;
-  background:#263b5c;
-  border:1px solid #405575;
-  padding:13px;
-  margin:10px 0;
-  border-radius:8px;
-  cursor:pointer;
-  line-height:1.5;
-}
-.option:has(input:checked){
-  border-color:#f5c451;
-  background:#354766;
-}
-.option input{margin-right:9px}
-.question-palette{
-  background:#17243d;
-  border:1px solid #344766;
-  padding:15px;
-  border-radius:12px;
-  position:sticky;
-  top:12px;
-}
-.palette-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:8px;
-  margin-top:12px;
-}
-.palette-btn{
-  padding:10px 4px;
-  background:#475569;
-  color:white;
-}
-.palette-btn.current{background:#2563eb}
-.palette-btn.answered{background:#15803d}
-.palette-btn.marked{background:#9333ea}
-.legend{font-size:12px;line-height:2;color:#cbd5e1}
-.nav-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:18px;
-}
-.nav-buttons button{flex:1}
-.result-score{
-  font-size:35px;
-  text-align:center;
-  color:#f5c451;
-  font-weight:bold;
-}
-.result-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-.result-item{
-  background:#263b5c;
-  padding:14px;
-  border-radius:9px;
-}
-.review-item{
-  background:#1c2d49;
-  border-radius:10px;
-  padding:14px;
-  margin:12px 0;
-  line-height:1.7;
-}
-.correct-text{color:#4ade80}
-.wrong-text{color:#f87171}
-.muted{color:#cbd5e1}
-footer{
-  text-align:center;
-  padding:20px;
-  color:#94a3b8;
-}
-@media(max-width:700px){
-  .test-layout{grid-template-columns:1fr}
-  .question-palette{position:static}
-  .palette-grid{grid-template-columns:repeat(5,1fr)}
-  .container{padding:10px}
+body{margin:0;background:#080e1c;color:#edf3ff;font-family:Arial,sans-serif}
+header{background:linear-gradient(120deg,#101d3a,#173b70);padding:22px;text-align:center;border-bottom:2px solid #398aff}
+.logo{font-size:27px;font-weight:900;color:#66b5ff;letter-spacing:2px}
+.tag{font-size:12px;color:#b8c9e7;letter-spacing:3px;margin-top:6px}
+.wrap{max-width:1050px;margin:auto;padding:18px}
+.card{background:#14213a;border:1px solid #293d60;border-radius:16px;padding:22px;margin:18px 0;box-shadow:0 10px 30px #0004}
+h1,h2,h3{margin-top:0}
+.hero{text-align:center;padding:35px 20px}
+.hero h1{font-size:30px;color:#fff}
+.hero h2{color:#60adff}
+.hero p{color:#b9c9e4;line-height:1.8}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:25px 0}
+.stat{background:#203454;padding:18px 5px;border-radius:12px;text-align:center}
+.stat strong{display:block;font-size:27px;color:#67b2ff}
+.stat span{font-size:12px;color:#bdcbe1}
+button{border:0;border-radius:9px;padding:13px 19px;font-size:15px;font-weight:bold;cursor:pointer}
+.start{background:linear-gradient(90deg,#1876f5,#43a7ff);color:white;width:100%;font-size:18px;padding:17px}
+.blue{background:#287cf0;color:white}
+.grey{background:#344663;color:white}
+.red{background:#d94354;color:white}
+.green{background:#16885d;color:white}
+.hide{display:none!important}
+.rule{padding:12px;border-bottom:1px solid #344560;color:#d5e2f6}
+.examtop{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pill{background:#203655;border-radius:9px;padding:12px}
+#timer{color:#ffd166;font-size:23px;font-weight:bold}
+.progress{height:7px;background:#344663;border-radius:20px;margin:16px 0}
+#progress{height:7px;background:#38a1ff;width:0%;border-radius:20px}
+.qhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#a9c9f5}
+#question{font-size:20px;line-height:1.6;margin:22px 0}
+.option{display:block;background:#203452;border:1px solid #3a506f;padding:15px;margin:11px 0;border-radius:10px;cursor:pointer}
+.option:hover{border-color:#58aaff}
+.option.selected{background:#174c7b;border:2px solid #64b4ff}
+.nav{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:22px}
+.palette{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:16px}
+.palette button{padding:10px 2px;background:#34445f;color:white}
+.palette button.done{background:#16875b}
+.palette button.current{outline:2px solid #64b5ff}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#bdcbe1;margin-top:12px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
+.result{text-align:center}
+.result h1{font-size:48px;color:#65b5ff}
+.review{padding:14px 0;border-bottom:1px solid #344663;line-height:1.7}
+@media(max-width:600px){
+.wrap{padding:9px}.card{padding:15px}.stats{gap:6px}
+.stat{padding:13px 3px}.stat strong{font-size:22px}
+.palette{grid-template-columns:repeat(5,1fr)}
+#question{font-size:17px}
 }
 </style>
 </head>
-
 <body>
 
 <header>
-<h1>GK GS MASTER</h1>
-<p>Online Mock Test Platform</p>
+<div class="logo">GK GS MASTER</div>
+<div class="tag">YOUR SUCCESS • OUR MISSION</div>
 </header>
 
-<div class="container">
+<div class="wrap">
 
-<!-- FRONT PAGE -->
-
-<section id="startScreen" class="card">
-<h2 style="text-align:center">ONLINE MOCK TEST</h2>
-<p style="text-align:center;color:#cbd5e1">
-General Knowledge + General Science
-</p>
-
-<div class="info-grid">
-<div class="info">
-<strong>80</strong><br> Total Questions
+<!-- WELCOME PAGE -->
+<section id="welcome" class="card hero">
+<h1>COMPUTER OPERATOR</h1>
+<h2>ADVANCED MOCK TEST</h2>
+<p>Practice • Analyse • Improve<br>
+UP Police Computer Operator Examination Level</p>
+<div class="stats">
+<div class="stat"><strong>100</strong><span>QUESTIONS</span></div>
+<div class="stat"><strong>50</strong><span>MINUTES</span></div>
+<div class="stat"><strong>100</strong><span>MARKS</span></div>
 </div>
-<div class="info">
-<strong>40 Min</strong><br> Total Time
-</div>
-<div class="info">
-<strong>+1</strong><br> Correct Answer
-</div>
-<div class="info">
-<strong>-0.25</strong><br> Wrong Answer
-</div>
-</div>
-
-<div class="instruction-box" style="margin-top:20px">
-<h2>⚠️ IMPORTANT INSTRUCTIONS</h2>
-<p>1. कुल प्रश्नों की संख्या 80 है।</p>
-<p>2. परीक्षा का समय 40 मिनट है।</p>
-<p>3. प्रत्येक सही उत्तर पर +1 अंक मिलेगा।</p>
-<p>4. प्रत्येक गलत उत्तर पर -0.25 अंक काटे जाएँगे।</p>
-<p>5. बिना उत्तर दिए प्रश्न पर 0 अंक मिलेगा।</p>
-<p>6. आप Question Palette से किसी भी प्रश्न पर जा सकते हैं।</p>
-<p>7. समय समाप्त होने पर टेस्ट अपने आप Submit हो जाएगा।</p>
-<p>8. Submit करने के बाद Result और Answer Explanation दिखाई देंगे।</p>
-<p><b>NOTE: इस टेस्ट में Negative Marking लागू है।</b></p>
-</div>
-
-<button class="start-btn" onclick="startTest()">
-START TEST
-</button>
+<button class="start" onclick="showInstructions()">START MOCK TEST →</button>
 </section>
 
-<!-- TEST PAGE -->
+<!-- INSTRUCTIONS -->
+<section id="instructions" class="card hide">
+<h2 style="color:#65b5ff">EXAM INSTRUCTIONS</h2>
+<div class="rule">1. Total Questions: 100</div>
+<div class="rule">2. Total Time: 50 Minutes</div>
+<div class="rule">3. Each Question carries 1 mark.</div>
+<div class="rule">4. Select one correct option.</div>
+<div class="rule">5. You can navigate between questions.</div>
+<div class="rule">6. Timer will continue automatically.</div>
+<div class="rule">7. Test will auto-submit when time ends.</div>
+<div class="rule">8. Review your answers before submission.</div>
+<br>
+<label><input type="checkbox" id="agree"> I have read all instructions.</label>
+<br><br>
+<button class="start" onclick="beginTest()">I AM READY – BEGIN TEST</button>
+</section>
 
-<section id="testScreen">
-<div class="test-layout">
-
-<div>
-<div class="timer">
-TIME LEFT: <span id="timer">40:00</span>
+<!-- EXAM DASHBOARD -->
+<section id="exam" class="hide">
+<div class="card">
+<div class="examtop">
+<div class="pill">QUESTION: <b id="qcount">1/100</b></div>
+<div class="pill">ATTEMPTED: <b id="attempted">0</b></div>
+<div class="pill">TIME: <span id="timer">50:00</span></div>
+</div>
+<div class="progress"><div id="progress"></div></div>
 </div>
 
-<div class="question-card" style="margin-top:15px">
-<p id="questionCount" class="muted"></p>
-<div id="questionText" class="question-title"></div>
+<div class="card">
+<div class="qhead">
+<b>COMPUTER OPERATOR</b>
+<span id="qnumber">Question 1</span>
+</div>
+<div id="question"></div>
 <div id="options"></div>
-
-<div class="nav-buttons">
-<button class="secondary" onclick="prevQuestion()">Previous</button>
-<button class="danger" onclick="clearAnswer()">Clear Response</button>
-<button class="primary" onclick="nextQuestion()">Next</button>
-</div>
-
-<button class="success" style="width:100%;margin-top:15px"
-onclick="markQuestion()">Mark for Review</button>
-
-<button class="danger" style="width:100%;margin-top:12px"
-onclick="submitTest(false)">SUBMIT TEST</button>
+<div class="nav">
+<button class="grey" onclick="previous()">← Previous</button>
+<button class="grey" onclick="clearAnswer()">Clear Answer</button>
+<button class="blue" onclick="next()">Next →</button>
 </div>
 </div>
 
-<!-- RIGHT SIDE PALETTE -->
-
-<aside class="question-palette">
-<h3 style="color:#f5c451;margin-top:0">Question Palette</h3>
+<div class="card">
+<h3>QUESTION PALETTE</h3>
+<div class="palette" id="palette"></div>
 <div class="legend">
-🟦 Current Question<br>
-🟩 Answered<br>
-🟪 Marked for Review<br>
-⬜ Not Answered
+<span><i class="dot" style="background:#16875b"></i>Answered</span>
+<span><i class="dot" style="background:#34445f"></i>Not Answered</span>
+<span><i class="dot" style="background:#64b5ff"></i>Current</span>
 </div>
-<div id="palette" class="palette-grid"></div>
-</aside>
-
+<br>
+<button class="red" style="width:100%" onclick="submitConfirm()">SUBMIT FINAL TEST</button>
 </div>
 </section>
 
-<!-- RESULT PAGE -->
-
-<section id="resultScreen" class="card">
-<h2 style="text-align:center">TEST RESULT</h2>
-
-<div class="result-score" id="finalScore">0 / 80</div>
-<p style="text-align:center" id="percentage"></p>
-
-<div class="result-grid">
-<div class="result-item">Correct Answers: <b id="correct"></b></div>
-<div class="result-item">Wrong Answers: <b id="wrong"></b></div>
-<div class="result-item">Unattempted: <b id="unattempted"></b></div>
-<div class="result-item">Negative Marks: <b id="negative"></b></div>
-</div>
-
-<h2>Answer Analysis</h2>
-<div id="review"></div>
-
-<button class="start-btn" onclick="location.reload()">
-RESTART TEST
-</button>
+<!-- RESULT -->
+<section id="result" class="card result hide">
+<h2>EXAM COMPLETED</h2>
+<h1 id="score">0/100</h1>
+<p id="summary"></p>
+<h3>ANSWER KEY & EXPLANATIONS</h3>
+<div id="review" style="text-align:left"></div>
+<br>
+<button class="start" onclick="location.reload()">RESTART TEST</button>
 </section>
 
 </div>
-
-<footer>
-© 2026 GK GS MASTER | Learn • Practice • Succeed
-</footer>
 
 <script>
 
-// 80 GK + GENERAL SCIENCE QUESTIONS
-// Correct answer index: 0=A, 1=B, 2=C, 3=D
+/*
+IMPORTANT:
+Paste your previous 100-question array here.
+Keep its existing format:
+const questions = [
+["Question","Option A","Option B","Option C","Option D",correctIndex,"Explanation"],
+...
+];
+CorrectIndex: 0=A, 1=B, 2=C, 3=D
+*/
 
 const questions = [
-
-["भारतीय संविधान कब लागू हुआ?",
-["15 अगस्त 1947","26 जनवरी 1950","26 नवंबर 1949","2 अक्टूबर 1950"],1,
-"भारतीय संविधान 26 जनवरी 1950 को लागू हुआ।"],
-
-["संविधान सभा के स्थायी अध्यक्ष कौन थे?",
-["डॉ. राजेंद्र प्रसाद","डॉ. भीमराव अंबेडकर","जवाहरलाल नेहरू","सरदार पटेल"],0,
-"डॉ. राजेंद्र प्रसाद संविधान सभा के स्थायी अध्यक्ष थे।"],
-
-["मौलिक अधिकार संविधान के किस भाग में हैं?",
-["भाग I","भाग II","भाग III","भाग IV"],2,
-"मौलिक अधिकार भाग III में अनुच्छेद 12 से 35 तक हैं।"],
-
-["राज्य के नीति निदेशक तत्व किस भाग में हैं?",
-["भाग III","भाग IV","भाग V","भाग VI"],1,
-"नीति निदेशक तत्व भाग IV में हैं।"],
-
-["भारत के राष्ट्रपति का कार्यकाल कितने वर्ष का होता है?",
-["4 वर्ष","5 वर्ष","6 वर्ष","7 वर्ष"],1,
-"राष्ट्रपति का कार्यकाल 5 वर्ष का होता है।"],
-
-["लोकसभा का सामान्य कार्यकाल कितना है?",
-["4 वर्ष","5 वर्ष","6 वर्ष","7 वर्ष"],1,
-"लोकसभा का सामान्य कार्यकाल 5 वर्ष है।"],
-
-["भारतीय संविधान का अनुच्छेद 21 किससे संबंधित है?",
-["समानता","धर्म की स्वतंत्रता","जीवन एवं व्यक्तिगत स्वतंत्रता","शिक्षा"],2,
-"अनुच्छेद 21 जीवन एवं व्यक्तिगत स्वतंत्रता का संरक्षण करता है।"],
-
-["वित्त आयोग का उल्लेख किस अनुच्छेद में है?",
-["280","324","356","368"],0,
-"वित्त आयोग का प्रावधान अनुच्छेद 280 में है।"],
-
-["भारत में पंचायती राज को संवैधानिक दर्जा किस संशोधन से मिला?",
-["42वाँ","44वाँ","73वाँ","74वाँ"],2,
-"73वें संविधान संशोधन से पंचायती राज को संवैधानिक दर्जा मिला।"],
-
-["भारत के नियंत्रक एवं महालेखा परीक्षक का उल्लेख किस अनुच्छेद में है?",
-["148","280","324","356"],0,
-"अनुच्छेद 148 CAG से संबंधित है।"],
-
-["प्लासी का युद्ध किस वर्ष हुआ?",
-["1757","1764","1857","1773"],0,
-"प्लासी का युद्ध 1757 में हुआ था।"],
-
-["बक्सर का युद्ध किस वर्ष हुआ?",
-["1757","1764","1765","1772"],1,
-"बक्सर का युद्ध 1764 में हुआ था।"],
-
-["स्थायी बंदोबस्त किसने लागू किया?",
-["लॉर्ड डलहौजी","लॉर्ड कॉर्नवालिस","लॉर्ड कर्जन","लॉर्ड वेलेजली"],1,
-"स्थायी बंदोबस्त 1793 में लॉर्ड कॉर्नवालिस ने लागू किया।"],
-
-["1857 की क्रांति का प्रारंभ कहाँ से हुआ?",
-["कानपुर","झाँसी","मेरठ","दिल्ली"],2,
-"1857 की क्रांति का प्रारंभ 10 मई को मेरठ से हुआ।"],
-
-["भारतीय राष्ट्रीय कांग्रेस की स्थापना कब हुई?",
-["1885","1887","1905","1907"],0,
-"भारतीय राष्ट्रीय कांग्रेस की स्थापना 1885 में हुई।"],
-
-["बंगाल विभाजन किस वर्ष हुआ?",
-["1903","1905","1907","1911"],1,
-"लॉर्ड कर्जन ने 1905 में बंगाल विभाजन किया।"],
-
-["दांडी मार्च किस वर्ष हुआ?",
-["1920","1927","1930","1942"],2,
-"महात्मा गांधी ने 1930 में दांडी मार्च किया।"],
-
-["भारत छोड़ो आंदोलन कब शुरू हुआ?",
-["1930","1935","1942","1946"],2,
-"भारत छोड़ो आंदोलन अगस्त 1942 में शुरू हुआ।"],
-
-["आर्य समाज की स्थापना किसने की?",
-["रामकृष्ण परमहंस","स्वामी दयानंद सरस्वती","विवेकानंद","राजा राममोहन राय"],1,
-"आर्य समाज की स्थापना 1875 में स्वामी दयानंद ने की।"],
-
-["आजाद हिंद फौज से प्रमुख रूप से कौन जुड़े थे?",
-["सुभाष चंद्र बोस","गोपाल कृष्ण गोखले","बाल गंगाधर तिलक","दादाभाई नौरोजी"],0,
-"सुभाष चंद्र बोस ने आजाद हिंद फौज का नेतृत्व किया।"],
-
-["भारत की सबसे लंबी नदी कौन-सी है?",
-["गोदावरी","गंगा","नर्मदा","कृष्णा"],1,
-"भारत में प्रवाहित होने वाली सबसे लंबी नदी गंगा है।"],
-
-["कर्क रेखा भारत के कितने राज्यों से गुजरती है?",
-["6","7","8","9"],2,
-"कर्क रेखा भारत के 8 राज्यों से गुजरती है।"],
-
-["भारत का सबसे बड़ा पठार कौन-सा है?",
-["मालवा","दक्कन","छोटानागपुर","मेघालय"],1,
-"दक्कन का पठार भारत का सबसे बड़ा पठार है।"],
-
-["भारत में सबसे अधिक वर्षा वाला स्थान कौन-सा है?",
-["शिलांग","चेरापूंजी","मौसिनराम","गुवाहाटी"],2,
-"मेघालय का मौसिनराम अत्यधिक औसत वार्षिक वर्षा के लिए प्रसिद्ध है।"],
-
-["सुंदरबन डेल्टा किन नदियों से संबंधित है?",
-["गंगा-ब्रह्मपुत्र","नर्मदा-ताप्ती","गोदावरी-कृष्णा","सिंधु-झेलम"],0,
-"सुंदरबन डेल्टा गंगा और ब्रह्मपुत्र नदी तंत्र से संबंधित है।"],
-
-["भारत की सबसे बड़ी खारे पानी की झील कौन-सी है?",
-["डल झील","चिलिका झील","वुलर झील","सांभर झील"],1,
-"चिलिका झील ओडिशा में स्थित बड़ी खारे पानी की लैगून झील है।"],
-
-["काली मिट्टी किस फसल के लिए विशेष रूप से उपयुक्त है?",
-["चाय","कपास","जूट","गेहूँ"],1,
-"काली मिट्टी कपास की खेती के लिए उपयुक्त है।"],
-
-["भारत में मानसून का मुख्य कारण क्या है?",
-["पृथ्वी का घूर्णन","दाब और पवन प्रणाली में मौसमी परिवर्तन","समुद्री लवणता","ज्वार-भाटा"],1,
-"स्थलीय और समुद्री ताप एवं दाब के मौसमी अंतर से मानसूनी पवनें प्रभावित होती हैं।"],
-
-["भारत का सबसे दक्षिणी बिंदु इंदिरा पॉइंट कहाँ है?",
-["लक्षद्वीप","अंडमान-निकोबार","तमिलनाडु","केरल"],1,
-"इंदिरा पॉइंट ग्रेट निकोबार द्वीप में है।"],
-
-["नर्मदा नदी किस दिशा में बहती है?",
-["पूर्व","पश्चिम","उत्तर","दक्षिण"],1,
-"नर्मदा नदी पश्चिम की ओर बहकर अरब सागर में गिरती है।"],
-
-["मानव शरीर की सबसे बड़ी ग्रंथि कौन-सी है?",
-["अग्न्याशय","यकृत","थायरॉइड","पीयूष ग्रंथि"],1,
-"यकृत मानव शरीर की सबसे बड़ी ग्रंथि है।"],
-
-["रक्त का लाल रंग किसके कारण होता है?",
-["प्लाज्मा","हीमोग्लोबिन","प्लेटलेट्स","इंसुलिन"],1,
-"हीमोग्लोबिन में लौह तत्व के कारण रक्त लाल दिखाई देता है।"],
-
-["मानव शरीर में सामान्यतः कितनी हड्डियाँ होती हैं?",
-["206","208","210","212"],0,
-"वयस्क मानव शरीर में सामान्यतः 206 हड्डियाँ होती हैं।"],
-
-["विटामिन C की कमी से कौन-सा रोग होता है?",
-["रिकेट्स","स्कर्वी","बेरी-बेरी","रतौंधी"],1,
-"विटामिन C की कमी से स्कर्वी होता है।"],
-
-["इंसुलिन का स्राव किस अंग से होता है?",
-["यकृत","अग्न्याशय","गुर्दा","हृदय"],1,
-"अग्न्याशय की बीटा कोशिकाएँ इंसुलिन का स्राव करती हैं।"],
-
-["मानव शरीर का सामान्य तापमान लगभग कितना होता है?",
-["35°C","37°C","39°C","40°C"],1,
-"सामान्य औसत शरीर तापमान लगभग 37°C माना जाता है।"],
-
-["प्रकाश संश्लेषण में कौन-सी गैस उपयोग होती है?",
-["ऑक्सीजन","नाइट्रोजन","कार्बन डाइऑक्साइड","हाइड्रोजन"],2,
-"पौधे प्रकाश संश्लेषण में कार्बन डाइऑक्साइड का उपयोग करते हैं।"],
-
-["पौधों में जल का परिवहन किस ऊतक द्वारा होता है?",
-["फ्लोएम","जाइलम","एपिडर्मिस","मेरिस्टेम"],1,
-"जाइलम जल और खनिजों का परिवहन करता है।"],
-
-["मानव हृदय में कितने कक्ष होते हैं?",
-["2","3","4","5"],2,
-"मानव हृदय में चार कक्ष होते हैं।"],
-
-["कौन-सा रक्त समूह सार्वत्रिक लाल रक्त कोशिका दाता माना जाता है?",
-["AB+","O−","A+","B−"],1,
-"O नेगेटिव को सामान्यतः सार्वत्रिक RBC दाता माना जाता है।"],
-
-["बल की SI इकाई क्या है?",
-["जूल","न्यूटन","वाट","पास्कल"],1,
-"बल की SI इकाई न्यूटन है।"],
-
-["विद्युत धारा की SI इकाई क्या है?",
-["वोल्ट","ओम","एम्पियर","कूलॉम"],2,
-"विद्युत धारा की SI इकाई एम्पियर है।"],
-
-["ध्वनि किस माध्यम में संचरित नहीं हो सकती?",
-["ठोस","द्रव","गैस","निर्वात"],3,
-"ध्वनि के संचरण के लिए माध्यम आवश्यक है।"],
-
-["प्रकाश की चाल निर्वात में लगभग कितनी होती है?",
-["3×10⁶ m/s","3×10⁸ m/s","3×10⁵ m/s","3×10⁷ m/s"],1,
-"निर्वात में प्रकाश की चाल लगभग 3×10⁸ मीटर प्रति सेकंड है।"],
-
-["न्यूटन का प्रथम नियम किससे संबंधित है?",
-["संवेग","जड़त्व","ऊर्जा","गुरुत्व"],1,
-"न्यूटन का प्रथम नियम जड़त्व का नियम कहलाता है।"],
-
-["कार्य की SI इकाई क्या है?",
-["न्यूटन","जूल","वाट","एम्पियर"],1,
-"कार्य की SI इकाई जूल है।"],
-
-["आवृत्ति की SI इकाई क्या है?",
-["डेसीबल","हर्ट्ज","मीटर","सेकंड"],1,
-"आवृत्ति की SI इकाई हर्ट्ज है।"],
-
-["अम्ल का pH मान सामान्यतः कितना होता है?",
-["7 से कम","7","7 से अधिक","14"],0,
-"अम्लीय विलयन का pH 7 से कम होता है।"],
-
-["शुद्ध जल का pH लगभग कितना होता है?",
-["5","6","7","8"],2,
-"25°C पर शुद्ध जल का pH लगभग 7 होता है।"],
-
-["साधारण नमक का रासायनिक सूत्र क्या है?",
-["NaOH","NaCl","KCl","HCl"],1,
-"साधारण नमक सोडियम क्लोराइड है।"],
-
-["ओजोन का रासायनिक सूत्र क्या है?",
-["O2","O3","CO2","N2"],1,
-"ओजोन ऑक्सीजन का त्रिपरमाणुक रूप है।"],
-
-["लोहे पर जंग लगने के लिए मुख्यतः क्या आवश्यक है?",
-["केवल धूप","ऑक्सीजन और नमी","केवल नाइट्रोजन","केवल ताप"],1,
-"लोहे में जंग लगने के लिए ऑक्सीजन और नमी आवश्यक हैं।"],
-
-["सबसे हल्की गैस कौन-सी है?",
-["ऑक्सीजन","हाइड्रोजन","नाइट्रोजन","हीलियम"],1,
-"हाइड्रोजन सबसे हल्की गैस है।"],
-
-["आवर्त सारणी के जनक किसे कहा जाता है?",
-["रदरफोर्ड","मेंडलीफ","डाल्टन","बोर"],1,
-"दिमित्री मेंडलीफ को आवर्त सारणी का जनक कहा जाता है।"],
-
-["किस गैस को हँसाने वाली गैस कहा जाता है?",
-["CO2","N2O","SO2","NO2"],1,
-"नाइट्रस ऑक्साइड (N2O) को हँसाने वाली गैस कहा जाता है।"],
-
-["CPU का पूरा नाम क्या है?",
-["Central Processing Unit","Computer Personal Unit","Central Program Utility","Control Processing User"],0,
-"CPU का पूरा नाम Central Processing Unit है।"],
-
-["कंप्यूटर का मस्तिष्क किसे कहा जाता है?",
-["RAM","CPU","Monitor","Keyboard"],1,
-"CPU निर्देशों का प्रसंस्करण करता है।"],
-
-["RAM किस प्रकार की मेमोरी है?",
-["स्थायी","अस्थायी","ऑप्टिकल","केवल पढ़ने योग्य"],1,
-"RAM Volatile अर्थात अस्थायी मेमोरी है।"],
-
-["कंप्यूटर में 1 Byte में कितने Bits होते हैं?",
-["4","8","16","32"],1,
-"एक Byte में 8 Bits होते हैं।"],
-
-["कौन-सी संख्या प्रणाली आधार 2 पर आधारित है?",
-["दशमलव","अष्टाधारी","बाइनरी","षोडश आधारी"],2,
-"बाइनरी संख्या प्रणाली का आधार 2 है।"],
-
-["HTML का पूरा नाम क्या है?",
-["Hyper Text Markup Language","High Text Machine Language","Hyper Transfer Main Link","Home Tool Markup Language"],0,
-"HTML का पूरा नाम HyperText Markup Language है।"],
-
-["URL का पूरा नाम क्या है?",
-["Uniform Resource Locator","Universal Record Link","Unified Resource Language","User Reference Location"],0,
-"URL का पूरा नाम Uniform Resource Locator है।"],
-
-["ई-मेल भेजने के लिए सामान्यतः कौन-सा प्रोटोकॉल उपयोग होता है?",
-["POP3","SMTP","IMAP","FTP"],1,
-"SMTP ई-मेल भेजने के लिए उपयोग किया जाता है।"],
-
-["डेटाबेस में Primary Key का मुख्य कार्य क्या है?",
-["डेटा हटाना","रिकॉर्ड की विशिष्ट पहचान करना","टेबल सजाना","फाइल संपीड़ित करना"],1,
-"Primary Key प्रत्येक रिकॉर्ड की विशिष्ट पहचान करती है।"],
-
-["SQL का पूरा नाम क्या है?",
-["Structured Query Language","Simple Question Language","System Query Link","Standard Queue Language"],0,
-"SQL का पूरा नाम Structured Query Language है।"],
-
-["कंप्यूटर में स्थायी मेमोरी का उदाहरण कौन-सा है?",
-["RAM","Cache","ROM","Register"],2,
-"ROM Non-volatile मेमोरी है।"],
-
-["कंप्यूटर नेटवर्क में LAN का पूरा नाम क्या है?",
-["Local Area Network","Large Access Node","Long Area Number","Logical Application Network"],0,
-"LAN का अर्थ Local Area Network है।"],
-
-["IPv4 Address कितने Bits का होता है?",
-["16","32","64","128"],1,
-"IPv4 Address 32 Bits का होता है।"],
-
-["कंप्यूटर में Firewall का मुख्य कार्य क्या है?",
-["प्रिंटिंग","नेटवर्क ट्रैफिक को नियंत्रित करना","स्क्रीन चमकाना","डेटा टाइप करना"],1,
-"Firewall नेटवर्क ट्रैफिक को नियमों के आधार पर नियंत्रित करता है।"],
-
-["ऑपरेटिंग सिस्टम का उदाहरण कौन-सा है?",
-["MS Word","Linux","HTML","MySQL"],1,
-"Linux एक ऑपरेटिंग सिस्टम है।"],
-
-["Excel में किसी सेल का पता किससे बनता है?",
-["Row और Column","केवल रंग","केवल फॉर्मूला","फाइल नाम"],0,
-"सेल एड्रेस कॉलम अक्षर और रो संख्या से बनता है।"],
-
-["कंप्यूटर में ALU का कार्य क्या है?",
-["प्रिंटिंग","अंकगणितीय एवं तार्किक क्रियाएँ","फाइल खोलना","नेटवर्क जोड़ना"],1,
-"ALU Arithmetic और Logical Operations करता है।"],
-
-["डेटा की सबसे छोटी इकाई क्या है?",
-["Byte","Bit","KB","Nibble"],1,
-"Bit डेटा की सबसे छोटी इकाई है।"],
-
-["कौन-सा उपकरण Output Device है?",
-["Keyboard","Mouse","Monitor","Scanner"],2,
-"Monitor आउटपुट प्रदर्शित करता है।"],
-
-["भारत का राष्ट्रीय जलीय जीव कौन-सा है?",
-["मगरमच्छ","गंगा डॉल्फिन","कछुआ","शार्क"],1,
-"गंगा नदी डॉल्फिन भारत का राष्ट्रीय जलीय जीव है।"],
-
-["भारत का राष्ट्रीय वृक्ष कौन-सा है?",
-["नीम","बरगद","पीपल","साल"],1,
-"बरगद भारत का राष्ट्रीय वृक्ष है।"],
-
-["काजीरंगा राष्ट्रीय उद्यान किस राज्य में है?",
-["असम","मेघालय","मणिपुर","त्रिपुरा"],0,
-"काजीरंगा राष्ट्रीय उद्यान असम में स्थित है।"],
-
-["भारत का प्रथम राष्ट्रीय उद्यान कौन-सा है?",
-["जिम कॉर्बेट","कान्हा","रणथंभौर","गिर"],0,
-"जिम कॉर्बेट राष्ट्रीय उद्यान 1936 में स्थापित हुआ था।"],
-
-["उत्तर प्रदेश की राजधानी कौन-सी है?",
-["कानपुर","प्रयागराज","लखनऊ","वाराणसी"],2,
-"लखनऊ उत्तर प्रदेश की राजधानी है।"],
-
-["उत्तर प्रदेश का राजकीय पशु कौन-सा है?",
-["बाघ","बारहसिंगा","हाथी","नीलगाय"],1,
-"बारहसिंगा उत्तर प्रदेश का राजकीय पशु है।"],
-
-["विश्व पर्यावरण दिवस कब मनाया जाता है?",
-["5 जून","22 अप्रैल","16 सितंबर","1 दिसंबर"],0,
-"विश्व पर्यावरण दिवस 5 जून को मनाया जाता है।"],
-
-["अंतरराष्ट्रीय योग दिवस कब मनाया जाता है?",
-["5 जून","21 जून","11 जुलाई","2 अक्टूबर"],1,
-"अंतरराष्ट्रीय योग दिवस 21 जून को मनाया जाता है।"]
-
+["Which protocol provides reliable communication?","UDP","TCP","ARP","ICMP",1,"TCP provides reliable, connection-oriented communication."],
+["Which normal form eliminates transitive dependency?","1NF","2NF","3NF","BCNF",2,"3NF removes transitive dependencies."],
+["Which page replacement algorithm may show Belady's anomaly?","LRU","Optimal","FIFO","LFU",2,"FIFO may show Belady's anomaly."],
+["Which OSI layer handles routing?","Data Link","Network","Session","Presentation",1,"The Network layer handles routing."],
+["Which SQL clause filters groups?","WHERE","ORDER BY","HAVING","SELECT",2,"HAVING filters grouped records."]
+["Which normal form eliminates transitive dependency?","1NF","2NF","3NF","BCNF",2,"3NF eliminates transitive dependency of non-key attributes."],
+["Which SQL command removes all records but preserves table structure?","DROP","TRUNCATE","ALTER","RENAME",1,"TRUNCATE removes all records while retaining table structure."],
+["Which key uniquely identifies each record in a relation?","Foreign Key","Primary Key","Alternate Key","Partial Key",1,"Primary key uniquely identifies every record."],
+["Which ACID property ensures all-or-nothing execution?","Consistency","Isolation","Atomicity","Durability",2,"Atomicity ensures a transaction completes fully or rolls back."],
+["Which SQL clause filters grouped records?","WHERE","ORDER BY","HAVING","DISTINCT",2,"HAVING filters groups after GROUP BY."],
+["Which JOIN returns only matching rows from both tables?","LEFT JOIN","RIGHT JOIN","INNER JOIN","FULL JOIN",2,"INNER JOIN returns matching rows."],
+["Which SQL function counts non-NULL values in a column?","COUNT(*)","COUNT(column)","SUM()","AVG()",1,"COUNT(column) ignores NULL values."],
+["Which database anomaly is caused by redundant data?","Update anomaly","Compilation error","Deadlock","Paging",0,"Redundancy can cause update anomalies."],
+["A weak entity is identified by which combination?","Only its own key","Owner key and partial key","Only foreign key","No key",1,"A weak entity depends on its owner entity and partial key."],
+["Which ER diagram symbol represents a relationship?","Rectangle","Oval","Diamond","Triangle",2,"A diamond represents a relationship."],
+["Which property ensures committed transactions survive failures?","Atomicity","Consistency","Isolation","Durability",3,"Durability preserves committed data."],
+["Which index structure is widely used in database systems?","B-tree","Stack","Queue","Linked list",0,"B-tree indexes support efficient searching and range queries."],
+["Which SQL command changes an existing table structure?","UPDATE","ALTER","INSERT","SELECT",1,"ALTER TABLE modifies table structure."],
+["Which constraint prevents duplicate values in a column?","CHECK","UNIQUE","DEFAULT","NOT NULL",1,"UNIQUE prevents duplicate values."],
+["Which normal form removes partial dependency?","1NF","2NF","3NF","4NF",1,"2NF removes partial dependency on a composite candidate key."],
+["Which OSI layer performs logical addressing and routing?","Physical","Data Link","Network","Transport",2,"The Network layer handles routing and logical addressing."],
+["Which OSI layer provides end-to-end communication?","Session","Transport","Physical","Presentation",1,"Transport layer provides end-to-end delivery."],
+["Which device forwards frames using MAC addresses?","Hub","Layer 2 Switch","Repeater","Modem",1,"A Layer 2 switch uses MAC address tables."],
+["Which protocol provides reliable connection-oriented communication?","UDP","TCP","IP","ARP",1,"TCP provides reliable ordered delivery."],
+["What is the default port of HTTPS?","21","25","80","443",3,"HTTPS commonly uses TCP port 443."],
+["Which protocol resolves domain names into IP addresses?","FTP","DNS","SMTP","SNMP",1,"DNS translates domain names into IP addresses."],
+["Which protocol dynamically assigns IP configuration?","HTTP","DHCP","SSH","ARP",1,"DHCP automatically provides network configuration."],
+["What is the length of an IPv6 address?","32 bits","64 bits","128 bits","256 bits",2,"IPv6 uses 128-bit addresses."],
+["Which protocol is mainly used to send email?","POP3","IMAP","SMTP","FTP",2,"SMTP is used for sending email."],
+["Which email protocol synchronizes messages across devices?","POP3","IMAP","Telnet","HTTP",1,"IMAP synchronizes messages with the mail server."],
+["What is the default port of DNS?","21","53","110","443",1,"DNS normally uses port 53."],
+["Which command checks connectivity using ICMP?","ipconfig","ping","format","mkdir",1,"Ping uses ICMP echo messages."],
+["Which topology connects all devices to a central device?","Bus","Ring","Star","Mesh",2,"Star topology uses a central connecting device."],
+["Which device connects different IP networks?","Hub","Router","Repeater","Bridge",1,"Routers forward packets between networks."],
+["Which subnet mask corresponds to /26?","255.255.255.0","255.255.255.128","255.255.255.192","255.255.255.224",2,"A /26 prefix corresponds to 255.255.255.192."],
+["How many usable host addresses are available in a /27 IPv4 subnet?","14","30","32","62",1,"32 total addresses minus network and broadcast gives 30 usable hosts."],
+["Which protocol provides secure remote login?","Telnet","SSH","FTP","HTTP",1,"SSH provides encrypted remote access."],
+["Which protocol maps IPv4 addresses to MAC addresses on a local network?","DNS","ARP","SMTP","DHCP",1,"ARP resolves IPv4 addresses to MAC addresses."],
+["Which scheduling algorithm may cause starvation?","FCFS","Round Robin","SSTF","FIFO",2,"SSTF may repeatedly select nearby disk requests."],
+["Which CPU scheduling algorithm uses a fixed time quantum?","FCFS","Round Robin","SJF","Priority",1,"Round Robin allocates a fixed time quantum."],
+["Which scheduling algorithm can cause starvation of low-priority processes?","FCFS","Priority Scheduling","Round Robin","FIFO",1,"Low-priority processes may wait indefinitely."],
+["Which page replacement algorithm can show Belady's anomaly?","LRU","Optimal","FIFO","LFU",2,"FIFO may show Belady's anomaly."],
+["What is thrashing in an operating system?","CPU overheating","Excessive paging","Disk formatting","Deadlock recovery",1,"Thrashing occurs when excessive page faults consume system time."],
+["Which memory management technique eliminates external fragmentation?","Paging","Variable partitioning","Segmentation only","Swapping",0,"Paging uses fixed-size frames and pages."],
+["Which condition is one of the four necessary conditions for deadlock?","Preemption","Circular wait","Unlimited resources","No mutual exclusion",1,"Circular wait is one of the Coffman conditions."],
+["Which memory is volatile?","ROM","SSD","RAM","Flash",2,"RAM loses stored data when power is removed."],
+["Which memory is closest to the CPU?","Hard disk","Cache","DVD","Pen drive",1,"Cache is very close to the CPU and reduces access time."],
+["Which CPU component performs arithmetic and logical operations?","CU","ALU","Register","Bus",1,"ALU performs arithmetic and logical operations."],
+["Which register stores the address of the next instruction?","IR","PC","MAR","MDR",1,"Program Counter stores the next instruction address."],
+["Which register holds the currently executing instruction?","PC","IR","MAR","Accumulator",1,"Instruction Register holds the current instruction."],
+["Which technique overlaps execution of multiple instruction stages?","Paging","Pipelining","Spooling","Fragmentation",1,"Pipelining overlaps instruction processing stages."],
+["Which type of ROM can be electrically erased and reprogrammed?","PROM","EPROM","EEPROM","Mask ROM",2,"EEPROM is electrically erasable and programmable."],
+["Which data structure follows LIFO?","Queue","Stack","Tree","Graph",1,"Stack follows Last In First Out."],
+["Which data structure follows FIFO?","Stack","Queue","Heap","Tree",1,"Queue follows First In First Out."],
+["What is the average time complexity of binary search?","O(n)","O(log n)","O(n²)","O(1)",1,"Binary search halves the search space each iteration."],
+["What is the worst-case time complexity of Quick Sort?","O(n)","O(log n)","O(n log n)","O(n²)",3,"Highly unbalanced partitions can cause O(n²) complexity."],
+["Which traversal of a Binary Search Tree produces sorted order?","Preorder","Postorder","Inorder","Level order",2,"Inorder traversal produces ascending order in a BST."],
+["Which graph traversal uses a queue?","DFS","BFS","Inorder","Postorder",1,"Breadth First Search uses a queue."],
+["Which graph traversal commonly uses recursion or a stack?","BFS","DFS","Level order","Linear search",1,"Depth First Search uses recursion or an explicit stack."],
+["Which sorting algorithm is stable in its standard implementation?","Heap Sort","Selection Sort","Merge Sort","Quick Sort",2,"Standard Merge Sort preserves the relative order of equal elements."],
+["Which data structure is used to implement a priority queue efficiently?","Binary Heap","Stack","Simple Queue","Array only",0,"A binary heap supports efficient priority operations."],
+["What is the time complexity of accessing an array element by index?","O(n)","O(log n)","O(1)","O(n²)",2,"Array indexing provides constant-time access."],
+["Which data structure is most suitable for implementing recursion?","Queue","Stack","Graph","Hash table",1,"Function calls are managed through a call stack."],
+["Which algorithm finds the shortest path in an unweighted graph?","DFS","BFS","Quick Sort","Binary Search",1,"BFS finds shortest paths in an unweighted graph."],
+["Which C storage class gives a local variable static storage duration?","auto","register","static","extern",2,"Static local variables retain their value between function calls."],
+["What does sizeof(char) return in C?","0","1","2","4",1,"sizeof(char) is always 1 byte in C."],
+["Which operator has higher precedence in C?","+","*","=","||",1,"Multiplication has higher precedence than addition and assignment."],
+["What does a pointer store in C?","Only an integer","Memory address","Character only","File extension",1,"A pointer stores the address of an object or function."],
+["Which keyword makes an object read-only through that identifier in C?","static","extern","const","volatile",2,"const prevents modification through that identifier."],
+["Which function allocates dynamic memory in C?","printf()","malloc()","scanf()","strlen()",1,"malloc allocates memory dynamically."],
+["Which function releases dynamically allocated memory in C?","free()","delete()","remove()","clear()",0,"free releases memory allocated dynamically."],
+["Which header file declares printf() in C?","stdlib.h","string.h","stdio.h","math.h",2,"printf is declared in stdio.h."],
+["Which function compares two strings in C?","strcpy()","strcmp()","strcat()","strlen()",1,"strcmp compares two strings."],
+["Which keyword is used to define a class in C++?","struct only","class","object","define",1,"The class keyword defines a class."],
+["Which feature allows the same function name with different parameter lists?","Inheritance","Overloading","Encapsulation","Abstraction",1,"Function overloading supports different parameter lists."],
+["Which Java keyword prevents a method from being overridden?","static","final","this","super",1,"A final method cannot be overridden."],
+["Which Java feature allows a class to implement multiple types?","Multiple class inheritance","Interfaces","Constructors","Packages",1,"A Java class can implement multiple interfaces."],
+["Which Python data structure stores unique elements?","List","Tuple","Set","String",2,"A set stores unique hashable elements."],
+["What is the output of len([2,4,6,8]) in Python?","3","4","5","8",1,"The list contains four elements."],
+["Which Python keyword is used to define a function?","function","func","def","define",2,"Python functions are defined using def."],
+["Which Python collection stores key-value pairs?","List","Tuple","Dictionary","Set",2,"A dictionary stores key-value pairs."],
+["Which translator converts assembly language into machine code?","Compiler","Assembler","Interpreter","Linker",1,"An assembler translates assembly instructions."],
+["Which program combines object files and libraries?","Loader","Linker","Editor","Debugger",1,"A linker combines object modules and resolves symbols."],
+["Which compiler phase identifies tokens?","Parsing","Lexical analysis","Code generation","Optimization",1,"Lexical analysis converts character sequences into tokens."],
+["Which HTML tag creates a hyperlink?","<p>","<a>","<link>","<href>",1,"The anchor tag creates hyperlinks."],
+["Which CSS property controls text size?","font-style","font-size","text-align","text-decoration",1,"font-size controls text size."],
+["Which JavaScript method converts JSON text into an object?","JSON.stringify()","JSON.parse()","JSON.object()","parse.JSON()",1,"JSON.parse converts JSON text into a JavaScript value."],
+["Which HTTP status code means Not Found?","200","301","403","404",3,"HTTP 404 indicates that the requested resource was not found."],
+["Which HTTP method is commonly used to retrieve a resource?","POST","GET","DELETE","PATCH",1,"GET requests a resource from a server."],
+["What does URL stand for?","Uniform Resource Locator","Universal Record Link","Unified Routing Language","User Resource List",0,"URL means Uniform Resource Locator."],
+["Which attack uses deceptive messages to steal credentials?","Phishing","Defragmentation","Indexing","Compression",0,"Phishing tricks users into revealing sensitive information."],
+["Which security principle grants only necessary permissions?","Open access","Least privilege","Full control","Shared access",1,"Least privilege restricts access to what is required."],
+["Which algorithm is an asymmetric cryptographic algorithm?","AES","DES","RSA","MD5",2,"RSA uses a public and private key pair."],
+["Which of these is a cryptographic hash function?","RSA","SHA-256","AES","Diffie-Hellman",1,"SHA-256 produces a 256-bit digest."],
+["Which malware can replicate and spread across networks?","Worm","Cookie","Debugger","Compiler",0,"A worm can self-replicate and spread between systems."],
+["Which security system filters network traffic according to rules?","Firewall","Compiler","Assembler","Cache",0,"A firewall controls incoming and outgoing network traffic."],
+["Which RAID level uses disk mirroring?","RAID 0","RAID 1","RAID 5","RAID 6",1,"RAID 1 stores mirrored copies of data."],
+["Which backup type copies changes made since the last full backup?","Full","Differential","Mirror only","Cold boot",1,"Differential backup stores changes since the last full backup."],
+["Which Linux command displays the current working directory?","ls","pwd","cd","mkdir",1,"pwd displays the present working directory."],
+["Which Linux command changes file permissions?","chmod","chown","grep","cat",0,"chmod modifies file permissions."],
+["Which Linux command searches text using patterns?","grep","pwd","mkdir","touch",0,"grep searches text using patterns."],
 ];
 
-// TEST VARIABLES
+// Add your remaining 95 questions above this line.
 
-let currentQuestion = 0;
-let answers = new Array(questions.length).fill(null);
-let marked = new Array(questions.length).fill(false);
-let timeLeft = 40 * 60;
-let clock = null;
-let submitted = false;
+let current=0;
+let answers=Array(questions.length).fill(-1);
+let seconds=50*60;
+let clock=null;
+let submitted=false;
 
-// START TEST
-
-function startTest(){
-  document.getElementById("startScreen").style.display="none";
-  document.getElementById("testScreen").style.display="block";
-
-  renderPalette();
-  showQuestion();
-
-  clock = setInterval(tick,1000);
+function showInstructions(){
+welcome.classList.add("hide");
+instructions.classList.remove("hide");
 }
 
-// TIMER
-
-function tick(){
-  if(submitted) return;
-
-  let min = Math.floor(timeLeft/60);
-  let sec = timeLeft%60;
-
-  document.getElementById("timer").textContent =
-    String(min).padStart(2,"0")+":"+
-    String(sec).padStart(2,"0");
-
-  if(timeLeft<=0){
-    submitTest(true);
-    return;
-  }
-
-  timeLeft--;
+function beginTest(){
+if(!agree.checked){alert("Please accept the instructions first.");return;}
+if(questions.length!==100){
+alert("Please add all 100 questions before starting the exam. Current questions: "+questions.length);
+return;
+}
+instructions.classList.add("hide");
+exam.classList.remove("hide");
+render();
+clock=setInterval(()=>{
+seconds--;
+let m=Math.floor(seconds/60);
+let s=seconds%60;
+timer.textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+if(seconds<=0)finishTest();
+},1000);
 }
 
-// SHOW QUESTION
-
-function showQuestion(){
-  let q = questions[currentQuestion];
-
-  document.getElementById("questionCount").textContent =
-    "Question "+(currentQuestion+1)+" / "+questions.length;
-
-  document.getElementById("questionText").textContent=q[0];
-
-  let html="";
-
-  q[1].forEach((option,index)=>{
-    html+=`
-      <label class="option">
-        <input type="radio" name="answer"
-        value="${index}"
-        ${answers[currentQuestion]===index?"checked":""}
-        onchange="selectAnswer(${index})">
-        ${String.fromCharCode(65+index)}. ${option}
-      </label>`;
-  });
-
-  document.getElementById("options").innerHTML=html;
-  renderPalette();
+function render(){
+let q=questions[current];
+qcount.textContent=(current+1)+"/"+questions.length;
+qnumber.textContent="Question "+(current+1);
+question.textContent=q[0];
+options.innerHTML="";
+q.slice(1,5).forEach((op,i)=>{
+let el=document.createElement("div");
+el.className="option"+(answers[current]===i?" selected":"");
+el.textContent=String.fromCharCode(65+i)+". "+op;
+el.onclick=()=>{answers[current]=i;render();};
+options.appendChild(el);
+});
+attempted.textContent=answers.filter(x=>x!==-1).length;
+progress.style.width=(answers.filter(x=>x!==-1).length/questions.length*100)+"%";
+palette.innerHTML="";
+questions.forEach((q,i)=>{
+let b=document.createElement("button");
+b.textContent=i+1;
+if(answers[i]!==-1)b.classList.add("done");
+if(i===current)b.classList.add("current");
+b.onclick=()=>{current=i;render();};
+palette.appendChild(b);
+});
 }
 
-// SELECT ANSWER
+function next(){if(current<questions.length-1){current++;render();}}
+function previous(){if(current>0){current--;render();}}
+function clearAnswer(){answers[current]=-1;render();}
 
-function selectAnswer(index){
-  answers[currentQuestion]=index;
-  renderPalette();
+function submitConfirm(){
+if(confirm("Are you sure you want to submit the test?"))finishTest();
 }
 
-// QUESTION PALETTE
-
-function renderPalette(){
-  let html="";
-
-  questions.forEach((q,index)=>{
-    let cls="palette-btn";
-
-    if(answers[index]!==null) cls+=" answered";
-    if(marked[index]) cls+=" marked";
-    if(index===currentQuestion) cls+=" current";
-
-    html+=`
-      <button class="${cls}"
-      onclick="jumpQuestion(${index})">
-      ${index+1}
-      </button>`;
-  });
-
-  document.getElementById("palette").innerHTML=html;
-}
-
-// NAVIGATION
-
-function nextQuestion(){
-  if(currentQuestion<questions.length-1){
-    currentQuestion++;
-    showQuestion();
-  }
-}
-
-function prevQuestion(){
-  if(currentQuestion>0){
-    currentQuestion--;
-    showQuestion();
-  }
-}
-
-function jumpQuestion(index){
-  currentQuestion=index;
-  showQuestion();
-}
-
-function clearAnswer(){
-  answers[currentQuestion]=null;
-  showQuestion();
-}
-
-function markQuestion(){
-  marked[currentQuestion]=!marked[currentQuestion];
-  renderPalette();
-}
-
-// SUBMIT TEST
-
-function submitTest(auto){
-  if(submitted) return;
-
-  if(!auto){
-    if(!confirm("Are you sure you want to submit the test?")){
-      return;
-    }
-  }
-
-  submitted=true;
-  clearInterval(clock);
-
-  let correct=0;
-  let wrong=0;
-  let unattempted=0;
-
-  questions.forEach((q,index)=>{
-    if(answers[index]===null){
-      unattempted++;
-    }
-    else if(answers[index]===q[2]){
-      correct++;
-    }
-    else{
-      wrong++;
-    }
-  });
-
-  let negative=wrong*0.25;
-  let score=correct-negative;
-  let percentage=(score/questions.length)*100;
-
-  document.getElementById("testScreen").style.display="none";
-  document.getElementById("resultScreen").style.display="block";
-
-  document.getElementById("finalScore").textContent=
-    score.toFixed(2)+" / "+questions.length;
-
-  document.getElementById("percentage").textContent=
-    "Percentage: "+percentage.toFixed(2)+"%";
-
-  document.getElementById("correct").textContent=correct;
-  document.getElementById("wrong").textContent=wrong;
-  document.getElementById("unattempted").textContent=unattempted;
-  document.getElementById("negative").textContent=
-    "-"+negative.toFixed(2);
-
-  showReview();
-
-  window.scrollTo(0,0);
-}
-
-// ANSWER REVIEW
-
-function showReview(){
-  let html="";
-
-  questions.forEach((q,index)=>{
-    let user=answers[index];
-    let correct=q[2];
-
-    let status="Not Attempted";
-    let statusClass="muted";
-
-    if(user===null){
-      status="Not Attempted";
-    }
-    else if(user===correct){
-      status="Correct";
-      statusClass="correct-text";
-    }
-    else{
-      status="Wrong";
-      statusClass="wrong-text";
-    }
-
-    html+=`
-      <div class="review-item">
-        <b>Q${index+1}. ${q[0]}</b><br>
-
-        <span class="${statusClass}">
-          Result: ${status}
-        </span><br>
-
-        Your Answer:
-        ${user===null?"Not Attempted":q[1][user]}<br>
-
-        Correct Answer:
-        <span class="correct-text">
-          ${q[1][correct]}
-        </span><br>
-
-        Explanation: ${q[3]}
-      </div>`;
-  });
-
-  document.getElementById("review").innerHTML=html;
+function finishTest(){
+if(submitted)return;
+submitted=true;
+clearInterval(clock);
+let correct=0,wrong=0,blank=0;
+questions.forEach((q,i)=>{
+if(answers[i]===-1)blank++;
+else if(answers[i]===q[5])correct++;
+else wrong++;
+});
+exam.classList.add("hide");
+result.classList.remove("hide");
+score.textContent=correct+"/"+questions.length;
+summary.innerHTML="Correct: "+correct+" | Wrong: "+wrong+
+" | Unattempted: "+blank+"<br>Percentage: "+
+(correct/questions.length*100).toFixed(2)+"%";
+review.innerHTML="";
+questions.forEach((q,i)=>{
+let div=document.createElement("div");
+div.className="review";
+let chosen=answers[i]===-1?"Not Attempted":String.fromCharCode(65+answers[i])+". "+q[answers[i]+1];
+div.innerHTML="<b>Q"+(i+1)+". "+q[0]+"</b><br>"+
+"Your Answer: "+chosen+"<br>"+
+"Correct Answer: <b style='color:#55dc9a'>"+
+String.fromCharCode(65+q[5])+". "+q[q[5]+1]+"</b><br>"+
+"Explanation: "+q[6];
+review.appendChild(div);
+});
+window.scrollTo(0,0);
 }
 
 </script>
