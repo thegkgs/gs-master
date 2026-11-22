@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>80-MCQ Mock Test</title>
+  <style>
+    :root {
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #d1d5db;
+      --success: #15803d;
+      --danger: #b91c1c;
+    }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.5; }
+    .container { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      margin-bottom: 16px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+    .timer {
+      background: #eff6ff;
+      color: var(--primary);
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #bfdbfe;
+    }
+    .instructions {
+      background: #f9fafb;
+      border-left: 4px solid var(--primary);
+      padding: 14px 18px;
+      border-radius: 6px;
+      margin: 14px 0 20px;
+    }
+    .instructions h3 { margin: 0 0 8px; font-size: 1rem; }
+    .instructions ul { margin: 0; padding-left: 20px; }
+    .question-text { font-size: 1.1rem; font-weight: 600; margin-bottom: 14px; }
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .option-label:hover { background: #f3f4f6; }
+    .option-label.selected { border-color: var(--primary); background: #eff6ff; }
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { background: var(--primary-hover); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    button.secondary { background: #e5e7eb; color: var(--text); }
+    button.secondary:hover:not(:disabled) { background: #d1d5db; }
+    button.submit-btn { background: var(--success); }
+    button.submit-btn:hover { background: #166534; }
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .p-btn {
+      padding: 6px 0;
+      font-size: 0.85rem;
+      background: #f3f4f6;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .p-btn.answered { background: #dbeafe; border-color: #93c5fd; color: #1e3a8a; }
+    .p-btn.current { outline: 2px solid var(--primary); font-weight: 700; }
+    .hidden { display: none; }
+    .result-summary { font-size: 1.1rem; margin-bottom: 16px; }
+    .review-item { padding: 12px; border-bottom: 1px solid var(--border); }
+    .correct { color: var(--success); font-weight: 600; }
+    .wrong { color: var(--danger); font-weight: 600; }
+    .muted { color: var(--muted); }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding: 16px 8px 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Language Switch Button (Available on all screens) -->
+    <div class="top-bar">
+      <button id="lang-btn" type="button" class="secondary">हिंदी में बदलें (Switch to Hindi)</button>
+    </div>
+
+    <!-- Start / Instructions Screen -->
+    <div id="start-screen" class="card">
+      <h1 id="title-text">Mock Test: 80 Multiple-Choice Questions</h1>
+      <p id="subtitle-text" class="muted">General Computer Science, Logic, Math, and General Knowledge Practice Test</p>
+
+      <div class="instructions">
+        <h3 id="inst-heading">Test Instructions</h3>
+        <ul id="inst-list"></ul>
+      </div>
+
+      <button id="start-btn" type="button">Start Mock Test</button>
+    </div>
+
+    <!-- Active Test Screen -->
+    <div id="test-screen" class="hidden">
+      <div class="card header">
+        <div>
+          <strong id="q-counter">Question 1 of 80</strong>
+          <div id="answered-count" style="font-size: 0.9rem; color: var(--muted);">Answered: 0 / 80</div>
+        </div>
+        <div id="timer" class="timer">90:00</div>
+      </div>
+
+      <div class="card">
+        <div id="question-text" class="question-text"></div>
+        <div id="options-box" class="options"></div>
+
+        <div class="controls">
+          <div>
+            <button id="prev-btn" type="button" class="secondary">Previous</button>
+            <button id="next-btn" type="button" class="secondary">Next</button>
+            <button id="clear-btn" type="button" class="secondary">Clear Response</button>
+          </div>
+          <button id="submit-btn" type="button" class="submit-btn">Submit Test</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <strong id="palette-title">Question Palette</strong>
+        <div id="palette" class="palette"></div>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen" class="card hidden">
+      <h2 id="result-heading">Test Results</h2>
+      <div id="result-summary" class="result-summary"></div>
+      <button id="restart-btn" type="button">Retake Test</button>
+      <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--border);" />
+      <h3 id="review-heading">Answer Review</h3>
+      <div id="review-list"></div>
+    </div>
+
+    <!-- Copyright Footer -->
+    <footer id="copyright-footer">
+      &copy; <span id="copy-year">2026</span> Mock Test Portal. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    // Marking Scheme Configuration
+    const POSITIVE_MARK = 1;
+    const NEGATIVE_MARK = 0.25; // -0.25 for each wrong answer (1/4th negative marking)
+    const TOTAL_SECONDS = 90 * 60;
+
+    let currentLang = "en"; // "en" or "hi"
+
+    const UI_TEXT = {
+      en: {
+        langBtn: "हिंदी में बदलें (Switch to Hindi)",
+        title: "Mock Test: 80 Multiple-Choice Questions",
+        subtitle: "General Computer Science, Logic, Math, and General Knowledge Practice Test",
+        instHeading: "Test Instructions",
+        instructions: [
+          <strong>Total Questions:</strong> 80 MCQs (${POSITIVE_MARK} mark each).,
+          "<strong>Time Limit:</strong> 90 minutes (timer starts automatically when you begin).",
+          <strong>Marking Scheme:</strong> +${POSITIVE_MARK} for each correct answer, <strong>-${NEGATIVE_MARK}</strong> for each wrong answer, and 0 for unattempted questions.,
+          "<strong>Navigation:</strong> Use <em>Previous</em> / <em>Next</em> or click any question number in the palette to jump directly.",
+          "<strong>Submission:</strong> Click <em>Submit Test</em> when finished (or the test auto-submits when time runs out) to view your score and answer review."
+        ],
+        startBtn: "Start Mock Test",
+        qCounter: (curr, total) => Question ${curr} of ${total},
+        answeredCount: (ans, total) => Answered: ${ans} / ${total},
+        prevBtn: "Previous",
+        nextBtn: "Next",
+        clearBtn: "Clear Response",
+        submitBtn: "Submit Test",
+        confirmSubmit: "Are you sure you want to submit the 80-MCQ mock test?",
+        paletteTitle: "Question Palette",
+        resultHeading: "Test Results",
+        restartBtn: "Retake Test",
+        reviewHeading: "Answer Review",
+        notAttempted: "Not Attempted",
+        yourAns: "Your Answer",
+        correctAns: "Correct Answer",
+        summary: (score, maxScore, pct, attempted, total, correctCount, wrongCount) =>
+          <strong>Net Score:</strong> ${score.toFixed(2)} / ${maxScore} (${pct}%) &nbsp;|&nbsp; <strong>Attempted:</strong> ${attempted}/${total} &nbsp;|&nbsp; <span class="correct">Correct: ${correctCount}</span> &nbsp;|&nbsp; <span class="wrong">Wrong: ${wrongCount} (-${(wrongCount * NEGATIVE_MARK).toFixed(2)})</span>,
+        copyright: (year) => &copy; ${year} Mock Test Portal. All rights reserved.
+      },
+      hi: {
+        langBtn: "Switch to English (अंग्रेज़ी में बदलें)",
+        title: "मॉक टेस्ट: 80 बहुविकल्पीय प्रश्न (MCQs)",
+        subtitle: "कंप्यूटर विज्ञान, तर्कशक्ति, गणित और सामान्य ज्ञान अभ्यास परीक्षा",
+        instHeading: "परीक्षा के निर्देश (Test Instructions)",
+        instructions: [
+          <strong>कुल प्रश्न:</strong> 80 MCQ (प्रत्येक प्रश्न के लिए ${POSITIVE_MARK} अंक)।,
+          "<strong>समय सीमा:</strong> 90 मिनट (टेस्ट शुरू करते ही टाइमर अपने आप चल जाएगा)।",
+          <strong>अंकन योजना (Marking Scheme):</strong> सही उत्तर पर +${POSITIVE_MARK} अंक, गलत उत्तर पर <strong>-${NEGATIVE_MARK}</strong> अंक की नेगेटिव मार्किंग, और बिना प्रयास किए प्रश्न पर 0 अंक।,
+          "<strong>नेविगेशन:</strong> <em>Previous</em> / <em>Next</em> बटन का उपयोग करें या सीधे किसी प्रश्न पर जाने के लिए पैलेट के नंबर पर क्लिक करें।",
+          "<strong>सबमिशन:</strong> समाप्त होने पर <em>Submit Test</em> पर क्लिक करें (या समय समाप्त होने पर टेस्ट अपने आप सबमिट हो जाएगा) और अपना स्कोर व उत्तर समीक्षा देखें।"
+        ],
+        startBtn: "मॉक टेस्ट शुरू करें",
+        qCounter: (curr, total) => प्रश्न ${curr} / ${total},
+        answeredCount: (ans, total) => उत्तर दिए गए: ${ans} / ${total},
+        prevBtn: "पिछला (Previous)",
+        nextBtn: "अगला (Next)",
+        clearBtn: "उत्तर हटाएं",
+        submitBtn: "टेस्ट सबमिट करें",
+        confirmSubmit: "क्या आप वाकई 80-MCQ मॉक टेस्ट सबमिट करना चाहते हैं?",
+        paletteTitle: "प्रश्न पैलेट (Question Palette)",
+        resultHeading: "परीक्षा परिणाम (Test Results)",
+        restartBtn: "दोबारा टेस्ट दें",
+        reviewHeading: "उत्तर समीक्षा (Answer Review)",
+        notAttempted: "प्रयास नहीं किया गया",
+        yourAns: "आपका उत्तर",
+        correctAns: "सही उत्तर",
+        summary: (score, maxScore, pct, attempted, total, correctCount, wrongCount) =>
+          <strong>कुल अंक (Net Score):</strong> ${score.toFixed(2)} / ${maxScore} (${pct}%) &nbsp;|&nbsp; <strong>प्रयास:</strong> ${attempted}/${total} &nbsp;|&nbsp; <span class="correct">सही: ${correctCount}</span> &nbsp;|&nbsp; <span class="wrong">गलत: ${wrongCount} (-${(wrongCount * NEGATIVE_MARK).toFixed(2)})</span>,
+        copyright: (year) => &copy; ${year} मॉक टेस्ट पोर्टल। सर्वाधिकार सुरक्षित।
+      }
+    };
+
+    const BASE_QUESTIONS = [
+      {
+        q: { en: "Which data structure operates on a Last-In, First-Out (LIFO) principle?", hi: "कौन-सा डेटा स्ट्रक्चर Last-In, First-Out (LIFO) सिद्धांत पर काम करता है?" },
+        opts: { en: ["Queue", "Stack", "Linked List", "Binary Tree"], hi: ["Queue (क्यू)", "Stack (स्टैक)", "Linked List (लिंक्ड लिस्ट)", "Binary Tree (बाइनरी ट्री)"] },
+        ans: 1
+      },
+      {
+        q: { en: "What is the time complexity of binary search on a sorted array of n elements?", hi: "n तत्वों वाले sorted array पर binary search की time complexity क्या है?" },
+        opts: { en: ["O(1)", "O(log n)", "O(n)", "O(n log n)"], hi: ["O(1)", "O(log n)", "O(n)", "O(n log n)"] },
+        ans: 1
+      },
+      {
+        q: { en: "Which protocol is used to securely transfer web pages over the internet?", hi: "इंटरनेट पर वेब पेजों को सुरक्षित रूप से ट्रांसफर करने के लिए किस प्रोटोकॉल का उपयोग होता है?" },
+        opts: { en: ["HTTP", "FTP", "HTTPS", "SMTP"], hi: ["HTTP", "FTP", "HTTPS", "SMTP"] },
+        ans: 2
+      },
+      {
+        q: { en: "In relational databases, which SQL clause is used to filter grouped records?", hi: "रिलेशनल डेटाबेस में grouped records को फ़िल्टर करने के लिए किस SQL clause का उपयोग होता है?" },
+        opts: { en: ["WHERE", "GROUP BY", "HAVING", "ORDER BY"], hi: ["WHERE", "GROUP BY", "HAVING", "ORDER BY"] },
+        ans: 2
+      },
+      {
+        q: { en: "Which component of a CPU performs arithmetic and logical operations?", hi: "CPU का कौन-सा भाग arithmetic और logical कार्य करता है?" },
+        opts: { en: ["Control Unit", "ALU", "Cache", "Register File"], hi: ["Control Unit", "ALU", "Cache", "Register File"] },
+        ans: 1
+      },
+      {
+        q: { en: "What does DNS stand for in networking?", hi: "नेटवर्किंग में DNS का पूरा नाम क्या है?" },
+        opts: { en: ["Domain Name System", "Data Network Service", "Digital Node Server", "Domain Number Standard"], hi: ["Domain Name System", "Data Network Service", "Digital Node Server", "Domain Number Standard"] },
+        ans: 0
+      },
+      {
+        q: { en: "Which sorting algorithm has a worst-case time complexity of O(n^2) and average of O(n log n)?", hi: "किस sorting algorithm की worst-case time complexity O(n^2) और average O(n log n) होती है?" },
+        opts: { en: ["Merge Sort", "Quick Sort", "Heap Sort", "Counting Sort"], hi: ["Merge Sort", "Quick Sort", "Heap Sort", "Counting Sort"] },
+        ans: 1
+      },
+      {
+        q: { en: "Which operating system concept prevents deadlocks by ordering resource acquisition?", hi: "संसाधनों के क्रमबद्ध आवंटन से deadlock रोकने वाली ऑपरेटिंग सिस्टम अवधारणा कौन-सी है?" },
+        opts: { en: ["Paging", "Circular Wait Prevention", "Segmentation", "Thrashing"], hi: ["Paging", "Circular Wait Prevention", "Segmentation", "Thrashing"] },
+        ans: 1
+      },
+      {
+        q: { en: "What is the binary representation of decimal number 13?", hi: "दशमलव संख्या 13 का बाइनरी (binary) रूप क्या है?" },
+        opts: { en: ["1011", "1101", "1110", "1001"], hi: ["1011", "1101", "1110", "1001"] },
+        ans: 1
+      },
+      {
+        q: { en: "Which HTTP status code indicates 'Not Found'?", hi: "कौन-सा HTTP status code 'Not Found' को दर्शाता है?" },
+        opts: { en: ["200", "301", "404", "500"], hi: ["200", "301", "404", "500"] },
+        ans: 2
+      },
+      {
+        q: { en: "In object-oriented programming, hiding internal state behind methods is called:", hi: "Object-oriented programming में आंतरिक डेटा को methods के पीछे छिपाना क्या कहलाता है?" },
+        opts: { en: ["Inheritance", "Polymorphism", "Encapsulation", "Abstraction"], hi: ["Inheritance", "Polymorphism", "Encapsulation", "Abstraction"] },
+        ans: 2
+      },
+      {
+        q: { en: "Which traversal of a Binary Search Tree visits nodes in ascending order?", hi: "Binary Search Tree के किस traversal में नोड्स आरोही क्रम (ascending order) में आते हैं?" },
+        opts: { en: ["Preorder", "Inorder", "Postorder", "Level-order"], hi: ["Preorder", "Inorder", "Postorder", "Level-order"] },
+        ans: 1
+      },
+      {
+        q: { en: "Which layer of the OSI model handles routing of packets across networks?", hi: "OSI मॉडल की कौन-सी लेयर नेटवर्क के बीच पैकेट्स की routing संभालती है?" },
+        opts: { en: ["Data Link Layer", "Network Layer", "Transport Layer", "Session Layer"], hi: ["Data Link Layer", "Network Layer", "Transport Layer", "Session Layer"] },
+        ans: 1
+      },
+      {
+        q: { en: "What is the value of 2^5?", hi: "2^5 का मान क्या है?" },
+        opts: { en: ["16", "25", "32", "64"], hi: ["16", "25", "32", "64"] },
+        ans: 2
+      },
+      {
+        q: { en: "Which data structure is best suited for Breadth-First Search (BFS) in a graph?", hi: "ग्राफ में Breadth-First Search (BFS) के लिए कौन-सा डेटा स्ट्रक्चर सबसे उपयुक्त है?" },
+        opts: { en: ["Stack", "Queue", "Priority Queue", "Trie"], hi: ["Stack", "Queue", "Priority Queue", "Trie"] },
+        ans: 1
+      },
+      {
+        q: { en: "Which command in Git creates a new branch?", hi: "Git में नई branch बनाने के लिए किस command का उपयोग होता है?" },
+        opts: { en: ["git checkout -m", "git branch <name>", "git commit -b", "git push origin"], hi: ["git checkout -m", "git branch <name>", "git commit -b", "git push origin"] },
+        ans: 1
+      },
+      {
+        q: { en: "What is the primary key constraint in a SQL table?", hi: "SQL टेबल में primary key constraint क्या सुनिश्चित करता है?" },
+        opts: { en: ["Allows duplicate NULLs", "Uniquely identifies each row", "Links two tables automatically", "Encrypts column values"], hi: ["Duplicate NULLs की अनुमति देता है", "प्रत्येक पंक्ति (row) की विशिष्ट पहचान करता है", "दो टेबल्स को स्वतः जोड़ता है", "कॉलम के मान को encrypt करता है"] },
+        ans: 1
+      },
+      {
+        q: { en: "Which memory is volatile and directly accessible by the CPU?", hi: "कौन-सी मेमोरी volatile होती है और CPU द्वारा सीधे access की जाती है?" },
+        opts: { en: ["SSD", "HDD", "RAM", "Optical Disc"], hi: ["SSD", "HDD", "RAM", "Optical Disc"] },
+        ans: 2
+      },
+      {
+        q: { en: "What is the derivative of x^2 with respect to x?", hi: "x के सापेक्ष x^2 का अवकलज (derivative) क्या है?" },
+        opts: { en: ["x", "2x", "2", "x^2"], hi: ["x", "2x", "2", "x^2"] },
+        ans: 1
+      },
+      {
+        q: { en: "Which protocol is used for sending emails?", hi: "ईमेल भेजने के लिए किस प्रोटोकॉल का उपयोग किया जाता है?" },
+        opts: { en: ["IMAP", "POP3", "SMTP", "SNMP"], hi: ["IMAP", "POP3", "SMTP", "SNMP"] },
+        ans: 2
+      }
+    ];
+
+    const SECTIONS = [
+      { prefix: { en: "[CS & Algorithms]", hi: "[कंप्यूटर और एल्गोरिदम]" }, offset: 0 },
+      { prefix: { en: "[Networks & Databases]", hi: "[नेटवर्क और डेटाबेस]" }, offset: 3 },
+      { prefix: { en: "[Systems & Math]", hi: "[सिस्टम और गणित]" }, offset: 7 },
+      { prefix: { en: "[General Tech & Logic]", hi: "[सामान्य तकनीक और तर्क]" }, offset: 11 }
+    ];
+
+    const QUESTIONS = [];
+    for (let i = 0; i < 80; i++) {
+      const sec = SECTIONS[Math.floor(i / 20)];
+      const base = BASE_QUESTIONS[(i + sec.offset) % BASE_QUESTIONS.length];
+      const shift = i % 4;
+
+      const rotatedEn = base.opts.en.map((_, idx) => base.opts.en[(idx + shift) % 4]);
+      const rotatedHi = base.opts.hi.map((_, idx) => base.opts.hi[(idx + shift) % 4]);
+      const newAns = (base.ans - shift + 4) % 4;
+
+      QUESTIONS.push({
+        num: i + 1,
+        q: {
+          en: Q${i + 1} ${sec.prefix.en}: ${base.q.en},
+          hi: प्रश्न ${i + 1} ${sec.prefix.hi}: ${base.q.hi}
+        },
+        opts: {
+          en: rotatedEn,
+          hi: rotatedHi
+        },
+        ans: newAns
+      });
+    }
+
+    let currentIdx = 0;
+    let answers = Array(QUESTIONS.length).fill(null);
+    let remainingSec = TOTAL_SECONDS;
+    let timerId = null;
+    let isSubmitted = false;
+
+    const startScreen = document.getElementById("start-screen");
+    const testScreen = document.getElementById("test-screen");
+    const resultScreen = document.getElementById("result-screen");
+    const qCounter = document.getElementById("q-counter");
+    const answeredCount = document.getElementById("answered-count");
+    const timerEl = document.getElementById("timer");
+    const questionText = document.getElementById("question-text");
+    const optionsBox = document.getElementById("options-box");
+    const paletteEl = document.getElementById("palette");
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return ${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")};
+    }
+
+    function applyLanguage() {
+      const t = UI_TEXT[currentLang];
+      document.documentElement.lang = currentLang;
+      document.getElementById("lang-btn").textContent = t.langBtn;
+      document.getElementById("title-text").textContent = t.title;
+      document.getElementById("subtitle-text").textContent = t.subtitle;
+      document.getElementById("inst-heading").textContent = t.instHeading;
+      document.getElementById("inst-list").
