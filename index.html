@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK GS MASTER | Online Mock Test</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0b1220;
+  color:#f1f5f9;
+}
+header{
+  background:#111e35;
+  border-bottom:2px solid #d9a441;
+  padding:18px;
+  text-align:center;
+}
+header h1{color:#f5c451;margin:0}
+header p{color:#cbd5e1;margin:7px 0 0}
+.container{max-width:1200px;margin:auto;padding:18px}
+.card{
+  background:#17243d;
+  border:1px solid #344766;
+  border-radius:14px;
+  padding:20px;
+  margin-bottom:16px;
+}
+h2{color:#f5c451}
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.info{
+  background:#263b5c;
+  padding:16px;
+  border-radius:10px;
+  text-align:center;
+}
+.info strong{font-size:25px;color:#f5c451}
+.instruction-box{
+  background:#1c2d49;
+  border-left:4px solid #f5c451;
+  padding:16px;
+  border-radius:10px;
+  line-height:1.8;
+}
+button{
+  border:0;
+  border-radius:8px;
+  padding:12px 18px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:14px;
+}
+.start-btn{
+  background:#f5c451;
+  color:#101d35;
+  width:100%;
+  padding:16px;
+  font-size:19px;
+  margin-top:15px;
+}
+.primary{background:#2563eb;color:white}
+.secondary{background:#475569;color:white}
+.danger{background:#dc3545;color:white}
+.success{background:#15803d;color:white}
+#testScreen,#resultScreen{display:none}
+.test-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 245px;
+  gap:18px;
+  align-items:start;
+}
+.timer{
+  background:#263b5c;
+  padding:12px;
+  border-radius:9px;
+  color:#f5c451;
+  font-size:20px;
+  font-weight:bold;
+  text-align:center;
+}
+.question-card{
+  background:#17243d;
+  padding:20px;
+  border-radius:12px;
+  border:1px solid #344766;
+}
+.question-title{font-size:18px;line-height:1.6}
+.option{
+  display:block;
+  background:#263b5c;
+  border:1px solid #405575;
+  padding:13px;
+  margin:10px 0;
+  border-radius:8px;
+  cursor:pointer;
+  line-height:1.5;
+}
+.option:has(input:checked){
+  border-color:#f5c451;
+  background:#354766;
+}
+.option input{margin-right:9px}
+.question-palette{
+  background:#17243d;
+  border:1px solid #344766;
+  padding:15px;
+  border-radius:12px;
+  position:sticky;
+  top:12px;
+}
+.palette-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+.palette-btn{
+  padding:10px 4px;
+  background:#475569;
+  color:white;
+}
+.palette-btn.current{background:#2563eb}
+.palette-btn.answered{background:#15803d}
+.palette-btn.marked{background:#9333ea}
+.legend{font-size:12px;line-height:2;color:#cbd5e1}
+.nav-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+.nav-buttons button{flex:1}
+.result-score{
+  font-size:35px;
+  text-align:center;
+  color:#f5c451;
+  font-weight:bold;
+}
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.result-item{
+  background:#263b5c;
+  padding:14px;
+  border-radius:9px;
+}
+.review-item{
+  background:#1c2d49;
+  border-radius:10px;
+  padding:14px;
+  margin:12px 0;
+  line-height:1.7;
+}
+.correct-text{color:#4ade80}
+.wrong-text{color:#f87171}
+.muted{color:#cbd5e1}
+footer{
+  text-align:center;
+  padding:20px;
+  color:#94a3b8;
+}
+@media(max-width:700px){
+  .test-layout{grid-template-columns:1fr}
+  .question-palette{position:static}
+  .palette-grid{grid-template-columns:repeat(5,1fr)}
+  .container{padding:10px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>GK GS MASTER</h1>
+<p>Online Mock Test Platform</p>
+</header>
+
+<div class="container">
+
+<!-- FRONT PAGE -->
+
+<section id="startScreen" class="card">
+<h2 style="text-align:center">ONLINE MOCK TEST</h2>
+<p style="text-align:center;color:#cbd5e1">
+General Knowledge + General Science
+</p>
+
+<div class="info-grid">
+<div class="info">
+<strong>80</strong><br> Total Questions
+</div>
+<div class="info">
+<strong>40 Min</strong><br> Total Time
+</div>
+<div class="info">
+<strong>+1</strong><br> Correct Answer
+</div>
+<div class="info">
+<strong>-0.25</strong><br> Wrong Answer
+</div>
+</div>
+
+<div class="instruction-box" style="margin-top:20px">
+<h2>⚠️ IMPORTANT INSTRUCTIONS</h2>
+<p>1. कुल प्रश्नों की संख्या 80 है।</p>
+<p>2. परीक्षा का समय 40 मिनट है।</p>
+<p>3. प्रत्येक सही उत्तर पर +1 अंक मिलेगा।</p>
+<p>4. प्रत्येक गलत उत्तर पर -0.25 अंक काटे जाएँगे।</p>
+<p>5. बिना उत्तर दिए प्रश्न पर 0 अंक मिलेगा।</p>
+<p>6. आप Question Palette से किसी भी प्रश्न पर जा सकते हैं।</p>
+<p>7. समय समाप्त होने पर टेस्ट अपने आप Submit हो जाएगा।</p>
+<p>8. Submit करने के बाद Result और Answer Explanation दिखाई देंगे।</p>
+<p><b>NOTE: इस टेस्ट में Negative Marking लागू है।</b></p>
+</div>
+
+<button class="start-btn" onclick="startTest()">
+START TEST
+</button>
+</section>
+
+<!-- TEST PAGE -->
+
+<section id="testScreen">
+<div class="test-layout">
+
+<div>
+<div class="timer">
+TIME LEFT: <span id="timer">40:00</span>
+</div>
+
+<div class="question-card" style="margin-top:15px">
+<p id="questionCount" class="muted"></p>
+<div id="questionText" class="question-title"></div>
+<div id="options"></div>
+
+<div class="nav-buttons">
+<button class="secondary" onclick="prevQuestion()">Previous</button>
+<button class="danger" onclick="clearAnswer()">Clear Response</button>
+<button class="primary" onclick="nextQuestion()">Next</button>
+</div>
+
+<button class="success" style="width:100%;margin-top:15px"
+onclick="markQuestion()">Mark for Review</button>
+
+<button class="danger" style="width:100%;margin-top:12px"
+onclick="submitTest(false)">SUBMIT TEST</button>
+</div>
+</div>
+
+<!-- RIGHT SIDE PALETTE -->
+
+<aside class="question-palette">
+<h3 style="color:#f5c451;margin-top:0">Question Palette</h3>
+<div class="legend">
+🟦 Current Question<br>
+🟩 Answered<br>
+🟪 Marked for Review<br>
+⬜ Not Answered
+</div>
+<div id="palette" class="palette-grid"></div>
+</aside>
+
+</div>
+</section>
+
+<!-- RESULT PAGE -->
+
+<section id="resultScreen" class="card">
+<h2 style="text-align:center">TEST RESULT</h2>
+
+<div class="result-score" id="finalScore">0 / 80</div>
+<p style="text-align:center" id="percentage"></p>
+
+<div class="result-grid">
+<div class="result-item">Correct Answers: <b id="correct"></b></div>
+<div class="result-item">Wrong Answers: <b id="wrong"></b></div>
+<div class="result-item">Unattempted: <b id="unattempted"></b></div>
+<div class="result-item">Negative Marks: <b id="negative"></b></div>
+</div>
+
+<h2>Answer Analysis</h2>
+<div id="review"></div>
+
+<button class="start-btn" onclick="location.reload()">
+RESTART TEST
+</button>
+</section>
+
+</div>
+
+<footer>
+© 2026 GK GS MASTER | Learn • Practice • Succeed
+</footer>
+
+<script>
+
+// 80 GK + GENERAL SCIENCE QUESTIONS
+// Correct answer index: 0=A, 1=B, 2=C, 3=D
+
+const questions = [
+
+["भारतीय संविधान कब लागू हुआ?",
+["15 अगस्त 1947","26 जनवरी 1950","26 नवंबर 1949","2 अक्टूबर 1950"],1,
+"भारतीय संविधान 26 जनवरी 1950 को लागू हुआ।"],
+
+["संविधान सभा के स्थायी अध्यक्ष कौन थे?",
+["डॉ. राजेंद्र प्रसाद","डॉ. भीमराव अंबेडकर","जवाहरलाल नेहरू","सरदार पटेल"],0,
+"डॉ. राजेंद्र प्रसाद संविधान सभा के स्थायी अध्यक्ष थे।"],
+
+["मौलिक अधिकार संविधान के किस भाग में हैं?",
+["भाग I","भाग II","भाग III","भाग IV"],2,
+"मौलिक अधिकार भाग III में अनुच्छेद 12 से 35 तक हैं।"],
+
+["राज्य के नीति निदेशक तत्व किस भाग में हैं?",
+["भाग III","भाग IV","भाग V","भाग VI"],1,
+"नीति निदेशक तत्व भाग IV में हैं।"],
+
+["भारत के राष्ट्रपति का कार्यकाल कितने वर्ष का होता है?",
+["4 वर्ष","5 वर्ष","6 वर्ष","7 वर्ष"],1,
+"राष्ट्रपति का कार्यकाल 5 वर्ष का होता है।"],
+
+["लोकसभा का सामान्य कार्यकाल कितना है?",
+["4 वर्ष","5 वर्ष","6 वर्ष","7 वर्ष"],1,
+"लोकसभा का सामान्य कार्यकाल 5 वर्ष है।"],
+
+["भारतीय संविधान का अनुच्छेद 21 किससे संबंधित है?",
+["समानता","धर्म की स्वतंत्रता","जीवन एवं व्यक्तिगत स्वतंत्रता","शिक्षा"],2,
+"अनुच्छेद 21 जीवन एवं व्यक्तिगत स्वतंत्रता का संरक्षण करता है।"],
+
+["वित्त आयोग का उल्लेख किस अनुच्छेद में है?",
+["280","324","356","368"],0,
+"वित्त आयोग का प्रावधान अनुच्छेद 280 में है।"],
+
+["भारत में पंचायती राज को संवैधानिक दर्जा किस संशोधन से मिला?",
+["42वाँ","44वाँ","73वाँ","74वाँ"],2,
+"73वें संविधान संशोधन से पंचायती राज को संवैधानिक दर्जा मिला।"],
+
+["भारत के नियंत्रक एवं महालेखा परीक्षक का उल्लेख किस अनुच्छेद में है?",
+["148","280","324","356"],0,
+"अनुच्छेद 148 CAG से संबंधित है।"],
+
+["प्लासी का युद्ध किस वर्ष हुआ?",
+["1757","1764","1857","1773"],0,
+"प्लासी का युद्ध 1757 में हुआ था।"],
+
+["बक्सर का युद्ध किस वर्ष हुआ?",
+["1757","1764","1765","1772"],1,
+"बक्सर का युद्ध 1764 में हुआ था।"],
+
+["स्थायी बंदोबस्त किसने लागू किया?",
+["लॉर्ड डलहौजी","लॉर्ड कॉर्नवालिस","लॉर्ड कर्जन","लॉर्ड वेलेजली"],1,
+"स्थायी बंदोबस्त 1793 में लॉर्ड कॉर्नवालिस ने लागू किया।"],
+
+["1857 की क्रांति का प्रारंभ कहाँ से हुआ?",
+["कानपुर","झाँसी","मेरठ","दिल्ली"],2,
+"1857 की क्रांति का प्रारंभ 10 मई को मेरठ से हुआ।"],
+
+["भारतीय राष्ट्रीय कांग्रेस की स्थापना कब हुई?",
+["1885","1887","1905","1907"],0,
+"भारतीय राष्ट्रीय कांग्रेस की स्थापना 1885 में हुई।"],
+
+["बंगाल विभाजन किस वर्ष हुआ?",
+["1903","1905","1907","1911"],1,
+"लॉर्ड कर्जन ने 1905 में बंगाल विभाजन किया।"],
+
+["दांडी मार्च किस वर्ष हुआ?",
+["1920","1927","1930","1942"],2,
+"महात्मा गांधी ने 1930 में दांडी मार्च किया।"],
+
+["भारत छोड़ो आंदोलन कब शुरू हुआ?",
+["1930","1935","1942","1946"],2,
+"भारत छोड़ो आंदोलन अगस्त 1942 में शुरू हुआ।"],
+
+["आर्य समाज की स्थापना किसने की?",
+["रामकृष्ण परमहंस","स्वामी दयानंद सरस्वती","विवेकानंद","राजा राममोहन राय"],1,
+"आर्य समाज की स्थापना 1875 में स्वामी दयानंद ने की।"],
+
+["आजाद हिंद फौज से प्रमुख रूप से कौन जुड़े थे?",
+["सुभाष चंद्र बोस","गोपाल कृष्ण गोखले","बाल गंगाधर तिलक","दादाभाई नौरोजी"],0,
+"सुभाष चंद्र बोस ने आजाद हिंद फौज का नेतृत्व किया।"],
+
+["भारत की सबसे लंबी नदी कौन-सी है?",
+["गोदावरी","गंगा","नर्मदा","कृष्णा"],1,
+"भारत में प्रवाहित होने वाली सबसे लंबी नदी गंगा है।"],
+
+["कर्क रेखा भारत के कितने राज्यों से गुजरती है?",
+["6","7","8","9"],2,
+"कर्क रेखा भारत के 8 राज्यों से गुजरती है।"],
+
+["भारत का सबसे बड़ा पठार कौन-सा है?",
+["मालवा","दक्कन","छोटानागपुर","मेघालय"],1,
+"दक्कन का पठार भारत का सबसे बड़ा पठार है।"],
+
+["भारत में सबसे अधिक वर्षा वाला स्थान कौन-सा है?",
+["शिलांग","चेरापूंजी","मौसिनराम","गुवाहाटी"],2,
+"मेघालय का मौसिनराम अत्यधिक औसत वार्षिक वर्षा के लिए प्रसिद्ध है।"],
+
+["सुंदरबन डेल्टा किन नदियों से संबंधित है?",
+["गंगा-ब्रह्मपुत्र","नर्मदा-ताप्ती","गोदावरी-कृष्णा","सिंधु-झेलम"],0,
+"सुंदरबन डेल्टा गंगा और ब्रह्मपुत्र नदी तंत्र से संबंधित है।"],
+
+["भारत की सबसे बड़ी खारे पानी की झील कौन-सी है?",
+["डल झील","चिलिका झील","वुलर झील","सांभर झील"],1,
+"चिलिका झील ओडिशा में स्थित बड़ी खारे पानी की लैगून झील है।"],
+
+["काली मिट्टी किस फसल के लिए विशेष रूप से उपयुक्त है?",
+["चाय","कपास","जूट","गेहूँ"],1,
+"काली मिट्टी कपास की खेती के लिए उपयुक्त है।"],
+
+["भारत में मानसून का मुख्य कारण क्या है?",
+["पृथ्वी का घूर्णन","दाब और पवन प्रणाली में मौसमी परिवर्तन","समुद्री लवणता","ज्वार-भाटा"],1,
+"स्थलीय और समुद्री ताप एवं दाब के मौसमी अंतर से मानसूनी पवनें प्रभावित होती हैं।"],
+
+["भारत का सबसे दक्षिणी बिंदु इंदिरा पॉइंट कहाँ है?",
+["लक्षद्वीप","अंडमान-निकोबार","तमिलनाडु","केरल"],1,
+"इंदिरा पॉइंट ग्रेट निकोबार द्वीप में है।"],
+
+["नर्मदा नदी किस दिशा में बहती है?",
+["पूर्व","पश्चिम","उत्तर","दक्षिण"],1,
+"नर्मदा नदी पश्चिम की ओर बहकर अरब सागर में गिरती है।"],
+
+["मानव शरीर की सबसे बड़ी ग्रंथि कौन-सी है?",
+["अग्न्याशय","यकृत","थायरॉइड","पीयूष ग्रंथि"],1,
+"यकृत मानव शरीर की सबसे बड़ी ग्रंथि है।"],
+
+["रक्त का लाल रंग किसके कारण होता है?",
+["प्लाज्मा","हीमोग्लोबिन","प्लेटलेट्स","इंसुलिन"],1,
+"हीमोग्लोबिन में लौह तत्व के कारण रक्त लाल दिखाई देता है।"],
+
+["मानव शरीर में सामान्यतः कितनी हड्डियाँ होती हैं?",
+["206","208","210","212"],0,
+"वयस्क मानव शरीर में सामान्यतः 206 हड्डियाँ होती हैं।"],
+
+["विटामिन C की कमी से कौन-सा रोग होता है?",
+["रिकेट्स","स्कर्वी","बेरी-बेरी","रतौंधी"],1,
+"विटामिन C की कमी से स्कर्वी होता है।"],
+
+["इंसुलिन का स्राव किस अंग से होता है?",
+["यकृत","अग्न्याशय","गुर्दा","हृदय"],1,
+"अग्न्याशय की बीटा कोशिकाएँ इंसुलिन का स्राव करती हैं।"],
+
+["मानव शरीर का सामान्य तापमान लगभग कितना होता है?",
+["35°C","37°C","39°C","40°C"],1,
+"सामान्य औसत शरीर तापमान लगभग 37°C माना जाता है।"],
+
+["प्रकाश संश्लेषण में कौन-सी गैस उपयोग होती है?",
+["ऑक्सीजन","नाइट्रोजन","कार्बन डाइऑक्साइड","हाइड्रोजन"],2,
+"पौधे प्रकाश संश्लेषण में कार्बन डाइऑक्साइड का उपयोग करते हैं।"],
+
+["पौधों में जल का परिवहन किस ऊतक द्वारा होता है?",
+["फ्लोएम","जाइलम","एपिडर्मिस","मेरिस्टेम"],1,
+"जाइलम जल और खनिजों का परिवहन करता है।"],
+
+["मानव हृदय में कितने कक्ष होते हैं?",
+["2","3","4","5"],2,
+"मानव हृदय में चार कक्ष होते हैं।"],
+
+["कौन-सा रक्त समूह सार्वत्रिक लाल रक्त कोशिका दाता माना जाता है?",
+["AB+","O−","A+","B−"],1,
+"O नेगेटिव को सामान्यतः सार्वत्रिक RBC दाता माना जाता है।"],
+
+["बल की SI इकाई क्या है?",
+["जूल","न्यूटन","वाट","पास्कल"],1,
+"बल की SI इकाई न्यूटन है।"],
+
+["विद्युत धारा की SI इकाई क्या है?",
+["वोल्ट","ओम","एम्पियर","कूलॉम"],2,
+"विद्युत धारा की SI इकाई एम्पियर है।"],
+
+["ध्वनि किस माध्यम में संचरित नहीं हो सकती?",
+["ठोस","द्रव","गैस","निर्वात"],3,
+"ध्वनि के संचरण के लिए माध्यम आवश्यक है।"],
+
+["प्रकाश की चाल निर्वात में लगभग कितनी होती है?",
+["3×10⁶ m/s","3×10⁸ m/s","3×10⁵ m/s","3×10⁷ m/s"],1,
+"निर्वात में प्रकाश की चाल लगभग 3×10⁸ मीटर प्रति सेकंड है।"],
+
+["न्यूटन का प्रथम नियम किससे संबंधित है?",
+["संवेग","जड़त्व","ऊर्जा","गुरुत्व"],1,
+"न्यूटन का प्रथम नियम जड़त्व का नियम कहलाता है।"],
+
+["कार्य की SI इकाई क्या है?",
+["न्यूटन","जूल","वाट","एम्पियर"],1,
+"कार्य की SI इकाई जूल है।"],
+
+["आवृत्ति की SI इकाई क्या है?",
+["डेसीबल","हर्ट्ज","मीटर","सेकंड"],1,
+"आवृत्ति की SI इकाई हर्ट्ज है।"],
+
+["अम्ल का pH मान सामान्यतः कितना होता है?",
+["7 से कम","7","7 से अधिक","14"],0,
+"अम्लीय विलयन का pH 7 से कम होता है।"],
+
+["शुद्ध जल का pH लगभग कितना होता है?",
+["5","6","7","8"],2,
+"25°C पर शुद्ध जल का pH लगभग 7 होता है।"],
+
+["साधारण नमक का रासायनिक सूत्र क्या है?",
+["NaOH","NaCl","KCl","HCl"],1,
+"साधारण नमक सोडियम क्लोराइड है।"],
+
+["ओजोन का रासायनिक सूत्र क्या है?",
+["O2","O3","CO2","N2"],1,
+"ओजोन ऑक्सीजन का त्रिपरमाणुक रूप है।"],
+
+["लोहे पर जंग लगने के लिए मुख्यतः क्या आवश्यक है?",
+["केवल धूप","ऑक्सीजन और नमी","केवल नाइट्रोजन","केवल ताप"],1,
+"लोहे में जंग लगने के लिए ऑक्सीजन और नमी आवश्यक हैं।"],
+
+["सबसे हल्की गैस कौन-सी है?",
+["ऑक्सीजन","हाइड्रोजन","नाइट्रोजन","हीलियम"],1,
+"हाइड्रोजन सबसे हल्की गैस है।"],
+
+["आवर्त सारणी के जनक किसे कहा जाता है?",
+["रदरफोर्ड","मेंडलीफ","डाल्टन","बोर"],1,
+"दिमित्री मेंडलीफ को आवर्त सारणी का जनक कहा जाता है।"],
+
+["किस गैस को हँसाने वाली गैस कहा जाता है?",
+["CO2","N2O","SO2","NO2"],1,
+"नाइट्रस ऑक्साइड (N2O) को हँसाने वाली गैस कहा जाता है।"],
+
+["CPU का पूरा नाम क्या है?",
+["Central Processing Unit","Computer Personal Unit","Central Program Utility","Control Processing User"],0,
+"CPU का पूरा नाम Central Processing Unit है।"],
+
+["कंप्यूटर का मस्तिष्क किसे कहा जाता है?",
+["RAM","CPU","Monitor","Keyboard"],1,
+"CPU निर्देशों का प्रसंस्करण करता है।"],
+
+["RAM किस प्रकार की मेमोरी है?",
+["स्थायी","अस्थायी","ऑप्टिकल","केवल पढ़ने योग्य"],1,
+"RAM Volatile अर्थात अस्थायी मेमोरी है।"],
+
+["कंप्यूटर में 1 Byte में कितने Bits होते हैं?",
+["4","8","16","32"],1,
+"एक Byte में 8 Bits होते हैं।"],
+
+["कौन-सी संख्या प्रणाली आधार 2 पर आधारित है?",
+["दशमलव","अष्टाधारी","बाइनरी","षोडश आधारी"],2,
+"बाइनरी संख्या प्रणाली का आधार 2 है।"],
+
+["HTML का पूरा नाम क्या है?",
+["Hyper Text Markup Language","High Text Machine Language","Hyper Transfer Main Link","Home Tool Markup Language"],0,
+"HTML का पूरा नाम HyperText Markup Language है।"],
+
+["URL का पूरा नाम क्या है?",
+["Uniform Resource Locator","Universal Record Link","Unified Resource Language","User Reference Location"],0,
+"URL का पूरा नाम Uniform Resource Locator है।"],
+
+["ई-मेल भेजने के लिए सामान्यतः कौन-सा प्रोटोकॉल उपयोग होता है?",
+["POP3","SMTP","IMAP","FTP"],1,
+"SMTP ई-मेल भेजने के लिए उपयोग किया जाता है।"],
+
+["डेटाबेस में Primary Key का मुख्य कार्य क्या है?",
+["डेटा हटाना","रिकॉर्ड की विशिष्ट पहचान करना","टेबल सजाना","फाइल संपीड़ित करना"],1,
+"Primary Key प्रत्येक रिकॉर्ड की विशिष्ट पहचान करती है।"],
+
+["SQL का पूरा नाम क्या है?",
+["Structured Query Language","Simple Question Language","System Query Link","Standard Queue Language"],0,
+"SQL का पूरा नाम Structured Query Language है।"],
+
+["कंप्यूटर में स्थायी मेमोरी का उदाहरण कौन-सा है?",
+["RAM","Cache","ROM","Register"],2,
+"ROM Non-volatile मेमोरी है।"],
+
+["कंप्यूटर नेटवर्क में LAN का पूरा नाम क्या है?",
+["Local Area Network","Large Access Node","Long Area Number","Logical Application Network"],0,
+"LAN का अर्थ Local Area Network है।"],
+
+["IPv4 Address कितने Bits का होता है?",
+["16","32","64","128"],1,
+"IPv4 Address 32 Bits का होता है।"],
+
+["कंप्यूटर में Firewall का मुख्य कार्य क्या है?",
+["प्रिंटिंग","नेटवर्क ट्रैफिक को नियंत्रित करना","स्क्रीन चमकाना","डेटा टाइप करना"],1,
+"Firewall नेटवर्क ट्रैफिक को नियमों के आधार पर नियंत्रित करता है।"],
+
+["ऑपरेटिंग सिस्टम का उदाहरण कौन-सा है?",
+["MS Word","Linux","HTML","MySQL"],1,
+"Linux एक ऑपरेटिंग सिस्टम है।"],
+
+["Excel में किसी सेल का पता किससे बनता है?",
+["Row और Column","केवल रंग","केवल फॉर्मूला","फाइल नाम"],0,
+"सेल एड्रेस कॉलम अक्षर और रो संख्या से बनता है।"],
+
+["कंप्यूटर में ALU का कार्य क्या है?",
+["प्रिंटिंग","अंकगणितीय एवं तार्किक क्रियाएँ","फाइल खोलना","नेटवर्क जोड़ना"],1,
+"ALU Arithmetic और Logical Operations करता है।"],
+
+["डेटा की सबसे छोटी इकाई क्या है?",
+["Byte","Bit","KB","Nibble"],1,
+"Bit डेटा की सबसे छोटी इकाई है।"],
+
+["कौन-सा उपकरण Output Device है?",
+["Keyboard","Mouse","Monitor","Scanner"],2,
+"Monitor आउटपुट प्रदर्शित करता है।"],
+
+["भारत का राष्ट्रीय जलीय जीव कौन-सा है?",
+["मगरमच्छ","गंगा डॉल्फिन","कछुआ","शार्क"],1,
+"गंगा नदी डॉल्फिन भारत का राष्ट्रीय जलीय जीव है।"],
+
+["भारत का राष्ट्रीय वृक्ष कौन-सा है?",
+["नीम","बरगद","पीपल","साल"],1,
+"बरगद भारत का राष्ट्रीय वृक्ष है।"],
+
+["काजीरंगा राष्ट्रीय उद्यान किस राज्य में है?",
+["असम","मेघालय","मणिपुर","त्रिपुरा"],0,
+"काजीरंगा राष्ट्रीय उद्यान असम में स्थित है।"],
+
+["भारत का प्रथम राष्ट्रीय उद्यान कौन-सा है?",
+["जिम कॉर्बेट","कान्हा","रणथंभौर","गिर"],0,
+"जिम कॉर्बेट राष्ट्रीय उद्यान 1936 में स्थापित हुआ था।"],
+
+["उत्तर प्रदेश की राजधानी कौन-सी है?",
+["कानपुर","प्रयागराज","लखनऊ","वाराणसी"],2,
+"लखनऊ उत्तर प्रदेश की राजधानी है।"],
+
+["उत्तर प्रदेश का राजकीय पशु कौन-सा है?",
+["बाघ","बारहसिंगा","हाथी","नीलगाय"],1,
+"बारहसिंगा उत्तर प्रदेश का राजकीय पशु है।"],
+
+["विश्व पर्यावरण दिवस कब मनाया जाता है?",
+["5 जून","22 अप्रैल","16 सितंबर","1 दिसंबर"],0,
+"विश्व पर्यावरण दिवस 5 जून को मनाया जाता है।"],
+
+["अंतरराष्ट्रीय योग दिवस कब मनाया जाता है?",
+["5 जून","21 जून","11 जुलाई","2 अक्टूबर"],1,
+"अंतरराष्ट्रीय योग दिवस 21 जून को मनाया जाता है।"]
+
+];
+
+// TEST VARIABLES
+
+let currentQuestion = 0;
+let answers = new Array(questions.length).fill(null);
+let marked = new Array(questions.length).fill(false);
+let timeLeft = 40 * 60;
+let clock = null;
+let submitted = false;
+
+// START TEST
+
+function startTest(){
+  document.getElementById("startScreen").style.display="none";
+  document.getElementById("testScreen").style.display="block";
+
+  renderPalette();
+  showQuestion();
+
+  clock = setInterval(tick,1000);
+}
+
+// TIMER
+
+function tick(){
+  if(submitted) return;
+
+  let min = Math.floor(timeLeft/60);
+  let sec = timeLeft%60;
+
+  document.getElementById("timer").textContent =
+    String(min).padStart(2,"0")+":"+
+    String(sec).padStart(2,"0");
+
+  if(timeLeft<=0){
+    submitTest(true);
+    return;
+  }
+
+  timeLeft--;
+}
+
+// SHOW QUESTION
+
+function showQuestion(){
+  let q = questions[currentQuestion];
+
+  document.getElementById("questionCount").textContent =
+    "Question "+(currentQuestion+1)+" / "+questions.length;
+
+  document.getElementById("questionText").textContent=q[0];
+
+  let html="";
+
+  q[1].forEach((option,index)=>{
+    html+=`
+      <label class="option">
+        <input type="radio" name="answer"
+        value="${index}"
+        ${answers[currentQuestion]===index?"checked":""}
+        onchange="selectAnswer(${index})">
+        ${String.fromCharCode(65+index)}. ${option}
+      </label>`;
+  });
+
+  document.getElementById("options").innerHTML=html;
+  renderPalette();
+}
+
+// SELECT ANSWER
+
+function selectAnswer(index){
+  answers[currentQuestion]=index;
+  renderPalette();
+}
+
+// QUESTION PALETTE
+
+function renderPalette(){
+  let html="";
+
+  questions.forEach((q,index)=>{
+    let cls="palette-btn";
+
+    if(answers[index]!==null) cls+=" answered";
+    if(marked[index]) cls+=" marked";
+    if(index===currentQuestion) cls+=" current";
+
+    html+=`
+      <button class="${cls}"
+      onclick="jumpQuestion(${index})">
+      ${index+1}
+      </button>`;
+  });
+
+  document.getElementById("palette").innerHTML=html;
+}
+
+// NAVIGATION
+
+function nextQuestion(){
+  if(currentQuestion<questions.length-1){
+    currentQuestion++;
+    showQuestion();
+  }
+}
+
+function prevQuestion(){
+  if(currentQuestion>0){
+    currentQuestion--;
+    showQuestion();
+  }
+}
+
+function jumpQuestion(index){
+  currentQuestion=index;
+  showQuestion();
+}
+
+function clearAnswer(){
+  answers[currentQuestion]=null;
+  showQuestion();
+}
+
+function markQuestion(){
+  marked[currentQuestion]=!marked[currentQuestion];
+  renderPalette();
+}
+
+// SUBMIT TEST
+
+function submitTest(auto){
+  if(submitted) return;
+
+  if(!auto){
+    if(!confirm("Are you sure you want to submit the test?")){
+      return;
+    }
+  }
+
+  submitted=true;
+  clearInterval(clock);
+
+  let correct=0;
+  let wrong=0;
+  let unattempted=0;
+
+  questions.forEach((q,index)=>{
+    if(answers[index]===null){
+      unattempted++;
+    }
+    else if(answers[index]===q[2]){
+      correct++;
+    }
+    else{
+      wrong++;
+    }
+  });
+
+  let negative=wrong*0.25;
+  let score=correct-negative;
+  let percentage=(score/questions.length)*100;
+
+  document.getElementById("testScreen").style.display="none";
+  document.getElementById("resultScreen").style.display="block";
+
+  document.getElementById("finalScore").textContent=
+    score.toFixed(2)+" / "+questions.length;
+
+  document.getElementById("percentage").textContent=
+    "Percentage: "+percentage.toFixed(2)+"%";
+
+  document.getElementById("correct").textContent=correct;
+  document.getElementById("wrong").textContent=wrong;
+  document.getElementById("unattempted").textContent=unattempted;
+  document.getElementById("negative").textContent=
+    "-"+negative.toFixed(2);
+
+  showReview();
+
+  window.scrollTo(0,0);
+}
+
+// ANSWER REVIEW
+
+function showReview(){
+  let html="";
+
+  questions.forEach((q,index)=>{
+    let user=answers[index];
+    let correct=q[2];
+
+    let status="Not Attempted";
+    let statusClass="muted";
+
+    if(user===null){
+      status="Not Attempted";
+    }
+    else if(user===correct){
+      status="Correct";
+      statusClass="correct-text";
+    }
+    else{
+      status="Wrong";
+      statusClass="wrong-text";
+    }
+
+    html+=`
+      <div class="review-item">
+        <b>Q${index+1}. ${q[0]}</b><br>
+
+        <span class="${statusClass}">
+          Result: ${status}
+        </span><br>
+
+        Your Answer:
+        ${user===null?"Not Attempted":q[1][user]}<br>
+
+        Correct Answer:
+        <span class="correct-text">
+          ${q[1][correct]}
+        </span><br>
+
+        Explanation: ${q[3]}
+      </div>`;
+  });
+
+  document.getElementById("review").innerHTML=html;
+}
+
+</script>
+</body>
+</html>
