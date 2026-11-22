@@ -212,14 +212,28 @@ const questions = [
 {q:"Which memory is volatile and is commonly used as main memory?",o:["ROM","SSD","RAM","DVD"],a:2,e:"RAM is volatile memory used to hold currently running programs and data."},
 ];
 
-let current=0,answers=Array(40).fill(null),marked=Array(40).fill(false);
+let current=0,answers=Array(questions.length).fill(null),marked=Array(questions.length).fill(false);
 let timeLeft=1200,timerInterval=null,finished=false;
 
 function startTest(){
+ if(!Array.isArray(questions) || questions.length !== 40){
+   alert("Question data error! Please check questions array.");
+   return;
+ }
+
+ current=0;
+ answers=Array(questions.length).fill(null);
+ marked=Array(questions.length).fill(false);
+
  document.getElementById("home").style.display="none";
+ document.getElementById("resultArea").style.display="none";
  document.getElementById("testArea").style.display="block";
+
  renderQuestion();
+
+ if(timerInterval) clearInterval(timerInterval);
  timerInterval=setInterval(updateTimer,1000);
+
  window.scrollTo(0,0);
 }
 function updateTimer(){
