@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK GS MASTER | Computer Mock Test</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ font-family:Arial,sans-serif;
+ background:#eef2f9;color:#17233c;
+}
+header{
+ background:linear-gradient(120deg,#09152e,#164477,#087f9b);
+ color:white;text-align:center;padding:24px 12px;
+}
+header h1{font-size:26px}
+header p{margin-top:8px;color:#d9eaff}
+.telegram{
+ display:inline-block;margin-top:12px;
+ background:#159bd7;color:white;
+ padding:9px 17px;border-radius:20px;
+ text-decoration:none;font-weight:bold;
+}
+.container{
+ max-width:1000px;margin:22px auto;padding:15px;
+}
+.card{
+ background:white;padding:22px;border-radius:15px;
+ box-shadow:0 5px 20px #00000012;margin-bottom:18px;
+}
+h2{color:#123d70;margin-bottom:15px}
+.instructions li{margin:12px 0;line-height:1.5}
+button{
+ border:0;padding:12px 22px;border-radius:8px;
+ cursor:pointer;font-weight:bold;font-size:15px;
+}
+.start,.submit{
+ background:#087f9b;color:white;
+}
+.start{width:100%;margin-top:18px}
+.nav{
+ display:flex;justify-content:space-between;
+ gap:10px;margin-top:20px;flex-wrap:wrap;
+}
+.prev{background:#64748b;color:white}
+.next{background:#174b83;color:white}
+.submit{background:#159447}
+.timer{
+ position:sticky;top:0;z-index:10;
+ background:#102e53;color:white;
+ padding:14px;text-align:center;
+ font-size:21px;font-weight:bold;border-radius:10px;
+}
+.progress{
+ height:9px;background:#dce5f1;
+ border-radius:20px;margin:15px 0;overflow:hidden;
+}
+.bar{height:100%;background:#08a3a8;width:0%}
+.question{font-size:19px;font-weight:bold;line-height:1.5}
+.option{
+ display:block;border:1px solid #d4dce8;
+ padding:13px;margin:10px 0;
+ border-radius:9px;cursor:pointer;
+ transition:.2s;
+}
+.option:hover{background:#eaf5ff}
+.option.selected{
+ background:#d9efff;border:2px solid #087f9b;
+}
+.palette{
+ display:grid;grid-template-columns:repeat(8,1fr);
+ gap:8px;margin-top:15px;
+}
+.palette button{
+ padding:10px 2px;background:#e3e9f1;color:#17233c;
+}
+.palette button.answered{background:#159447;color:white}
+.palette button.current{outline:3px solid #1687bd}
+.hidden{display:none!important}
+.result{text-align:center}
+.score{font-size:35px;color:#087f9b;font-weight:bold;margin:15px}
+.review-item{
+ padding:14px;border-bottom:1px solid #ddd;
+ line-height:1.6;
+}
+.correct{color:green;font-weight:bold}
+.wrong{color:#dc2626;font-weight:bold}
+footer{
+ background:#09152e;color:white;
+ text-align:center;padding:20px;margin-top:30px;
+}
+footer a{color:#48c5ff;text-decoration:none}
+@media(max-width:600px){
+ header h1{font-size:21px}
+ .card{padding:15px}
+ .palette{grid-template-columns:repeat(5,1fr)}
+ .question{font-size:17px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>GK GS MASTER</h1>
+<p>Computer Operator | Advanced Mock Test</p>
+<a class="telegram" href="https://t.me/staticgkgsmaster" target="_blank">
+Join Telegram Channel
+</a>
+</header>
+
+<div class="container">
+
+<!-- INSTRUCTIONS -->
+<div class="card" id="instructions">
+<h2>📋 परीक्षा निर्देश (Instructions)</h2>
+<ul class="instructions">
+<li>Total Questions: <b>40</b></li>
+<li>Time Duration: <b>20 Minutes</b></li>
+<li>Each Question: <b>1 Mark</b></li>
+<li>Negative Marking: <b>No Negative Marking</b></li>
+<li>All questions are compulsory to attempt.</li>
+<li>Use Next and Previous buttons to navigate.</li>
+<li>You can change your selected answer anytime.</li>
+<li>Test will automatically submit when time ends.</li>
+<li>Click Submit Test to finish the examination.</li>
+</ul>
+<button class="start" onclick="startTest()">START TEST</button>
+</div>
+
+<!-- TEST -->
+<div id="testArea" class="hidden">
+
+<div class="timer">
+⏱️ Time Left: <span id="timer">20:00</span>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;gap:8px">
+<b id="qCount">Question 1 / 40</b>
+<b>Computer Science</b>
+</div>
+<div class="progress"><div class="bar" id="progress"></div></div>
+
+<div class="question" id="question"></div>
+<div id="options"></div>
+
+<div class="nav">
+<button class="prev" onclick="previousQuestion()">Previous</button>
+<button class="next" onclick="nextQuestion()">Next</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Question Palette</h2>
+<div class="palette" id="palette"></div>
+<p style="margin-top:15px">
+🟩 Attempted &nbsp; ⬜ Not Attempted
+</p>
+<button class="submit" style="width:100%;margin-top:20px"
+onclick="submitTest()">SUBMIT TEST</button>
+</div>
+
+</div>
+
+<!-- RESULT -->
+<div id="resultArea" class="hidden">
+<div class="card result">
+<h2>🏆 Test Completed!</h2>
+<div class="score" id="score"></div>
+<p id="percentage"></p>
+<p id="attempted"></p>
+<p id="correctCount"></p>
+<p id="wrongCount"></p>
+<p id="unattempted"></p>
+<button class="start" onclick="showReview()">VIEW ANSWERS & REVIEW</button>
+<button class="next" style="margin-top:12px" onclick="location.reload()">RESTART TEST</button>
+</div>
+<div class="card hidden" id="review">
+<h2>Answer Review</h2>
+<div id="reviewContent"></div>
+</div>
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 GK GS MASTER. All Rights Reserved.</p>
+<p>Computer Operator Mock Test Series</p>
+<p><a href="https://t.me/staticgkgsmaster" target="_blank">@staticgkgsmaster</a></p>
+</footer>
+
+<script>
+
+const questions = [
+
+{q:"Which CPU component is primarily responsible for performing arithmetic and logical operations?",o:["Control Unit","ALU","Register","Cache"],a:1},
+
+{q:"Which of the following is a volatile memory?",o:["ROM","EEPROM","SRAM","Flash Memory"],a:2},
+
+{q:"In an operating system, which scheduling algorithm may cause starvation?",o:["FCFS","Round Robin","Priority Scheduling","FIFO"],a:2},
+
+{q:"Which normal form eliminates transitive dependency?",o:["1NF","2NF","3NF","BCNF"],a:2},
+
+{q:"Which protocol is used to translate domain names into IP addresses?",o:["FTP","DNS","SMTP","SNMP"],a:1},
+
+{q:"What is the hexadecimal equivalent of decimal 255?",o:["FE","FF","EF","F1"],a:1},
+
+{q:"Which data structure is used in recursive function calls?",o:["Queue","Stack","Tree","Graph"],a:1},
+
+{q:"Which SQL command removes all records while retaining table structure?",o:["DROP","DELETE","TRUNCATE","ALTER"],a:2},
+
+{q:"Which OSI layer is responsible for routing packets?",o:["Data Link","Network","Transport","Session"],a:1},
+
+{q:"What does ACID stand for in DBMS?",o:["Atomicity Consistency Isolation Durability","Accuracy Control Integrity Data","Access Consistency Information Database","None"],a:0},
+
+{q:"Which page replacement algorithm replaces the page that has not been used for the longest time?",o:["FIFO","LRU","Optimal","LFU"],a:1},
+
+{q:"Which of the following is a connectionless transport protocol?",o:["TCP","UDP","FTP","HTTP"],a:1},
+
+{q:"What is the time complexity of binary search in a sorted array?",o:["O(n)","O(log n)","O(n²)","O(1)"],a:1},
+
+{q:"Which logic gate produces output 1 only when all inputs are 0?",o:["AND","OR","NOR","XOR"],a:2},
+
+{q:"Which of the following is not a primary key characteristic?",o:["Unique","Not Null","Can contain duplicate values","Identifies a record"],a:2},
+
+{q:"Which technique allows multiple processes to share CPU time?",o:["Multiprogramming","Time Sharing","Spooling","Batch Processing"],a:1},
+
+{q:"Which command is used to display IP configuration in Windows?",o:["ping","ipconfig","netstat","tracert"],a:1},
+
+{q:"Which protocol provides secure communication over HTTP?",o:["FTP","HTTPS","Telnet","SMTP"],a:1},
+
+{q:"What is the main purpose of a compiler?",o:["Execute hardware","Translate source code","Manage memory","Connect networks"],a:1},
+
+{q:"Which addressing mode uses the operand value directly in the instruction?",o:["Direct","Indirect","Immediate","Indexed"],a:2},
+
+{q:"Which of the following is a non-volatile memory?",o:["RAM","Cache","ROM","Register"],a:2},
+
+{q:"What is the maximum number of nodes in a binary tree of height h, considering root at height 0?",o:["2h","2^(h+1)-1","2^h-1","h²"],a:1},
+
+{q:"Which SQL clause is used to filter grouped records?",o:["WHERE","ORDER BY","HAVING","GROUP BY"],a:2},
+
+{q:"Which device operates primarily at the Data Link Layer?",o:["Router","Switch","Repeater","Hub"],a:1},
+
+{q:"Which scheduling algorithm is designed for time-sharing systems?",o:["FCFS","Round Robin","SJF","LIFO"],a:1},
+
+{q:"Which of the following is a deadlock necessary condition?",o:["Preemption","Circular Wait","Unlimited Resources","Process Termination"],a:1},
+
+{q:"In IPv6, the address length is:",o:["32 bits","64 bits","128 bits","256 bits"],a:2},
+
+{q:"Which type of JOIN returns all records from both tables with matching rows where available?",o:["INNER JOIN","LEFT JOIN","FULL OUTER JOIN","CROSS JOIN"],a:2},
+
+{q:"Which data structure is best suited for implementing BFS?",o:["Stack","Queue","Heap","Array only"],a:1},
+
+{q:"Which of the following is an asymmetric encryption algorithm?",o:["AES","DES","RSA","3DES"],a:2},
+
+{q:"What is the output of 1 XOR 1?",o:["0","1","10","Undefined"],a:0},
+
+{q:"Which register stores the address of the next instruction?",o:["IR","MAR","PC","Accumulator"],a:2},
+
+{q:"Which testing technique examines internal program logic?",o:["Black Box","White Box","Acceptance","Usability"],a:1},
+
+{q:"Which file system is commonly associated with modern Windows systems?",o:["EXT4","NTFS","HFS+","APFS"],a:1},
+
+{q:"Which algorithm is commonly used for shortest paths with non-negative edge weights?",o:["Kruskal","Prim","Dijkstra","DFS"],a:2},
+
+{q:"What is the purpose of a semaphore in operating systems?",o:["File compression","Process synchronization","Memory formatting","Network routing"],a:1},
+
+{q:"Which command is used to retrieve data from a database?",o:["INSERT","UPDATE","SELECT","DELETE"],a:2},
+
+{q:"Which translator converts assembly language into machine code?",o:["Compiler","Assembler","Interpreter","Linker"],a:1},
+
+{q:"Which of the following is a characteristic of a star topology?",o:["Single backbone cable","Central connecting device","Circular connection","No central device"],a:1},
+
+{q:"Which concept allows a class to acquire properties of another class?",o:["Encapsulation","Inheritance","Polymorphism","Abstraction"],a:1}
+
+];
+
+let current=0;
+let answers=new Array(questions.length).fill(null);
+let time=1200;
+let interval=null;
+let submitted=false;
+
+function startTest(){
+ document.getElementById("instructions").classList.add("hidden");
+ document.getElementById("testArea").classList.remove("hidden");
+ renderPalette();
+ renderQuestion();
+ interval=setInterval(()=>{
+  if(submitted)return;
+  time--;
+  let m=Math.floor(time/60);
+  let s=time%60;
+  document.getElementById("timer").textContent=
+  String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+  if(time<=0)submitTest();
+ },1000);
+}
+
+function renderQuestion(){
+ let q=questions[current];
+ document.getElementById("qCount").textContent=
+ "Question "+(current+1)+" / "+questions.length;
+ document.getElementById("question").textContent=q.q;
+ document.getElementById("progress").style.width=
+ ((current+1)/questions.length*100)+"%";
+
+ let html="";
+ q.o.forEach((option,index)=>{
+ html+=`<div class="option ${answers[current]===index?'selected':''}"
+ onclick="selectAnswer(${index})">
+ ${String.fromCharCode(65+index)}. ${option}
+ </div>`;
+ });
+ document.getElementById("options").innerHTML=html;
+ renderPalette();
+}
+
+function selectAnswer(index){
+ if(submitted)return;
+ answers[current]=index;
+ renderQuestion();
+}
+
+function nextQuestion(){
+ if(current<questions.length-1){
+ current++;renderQuestion();
+ }
+}
+
+function previousQuestion(){
+ if(current>0){
+ current--;renderQuestion();
+ }
+}
+
+function renderPalette(){
+ let html="";
+ questions.forEach((q,index)=>{
+ html+=`<button class="${answers[index]!==null?'answered':''} ${current===index?'current':''}"
+ onclick="goToQuestion(${index})">${index+1}</button>`;
+ });
+ document.getElementById("palette").innerHTML=html;
+}
+
+function goToQuestion(index){
+ current=index;renderQuestion();
+}
+
+function submitTest(){
+ if(submitted)return;
+ submitted=true;
+ clearInterval(interval);
+
+ let correct=0,wrong=0,attempted=0;
+ answers.forEach((ans,i)=>{
+ if(ans!==null){
+ attempted++;
+ if(ans===questions[i].a)correct++;
+ else wrong++;
+ }
+ });
+
+ let unattempted=questions.length-attempted;
+ let percentage=(correct/questions.length*100).toFixed(2);
+
+ document.getElementById("testArea").classList.add("hidden");
+ document.getElementById("resultArea").classList.remove("hidden");
+
+ document.getElementById("score").textContent=
+ correct+" / "+questions.length;
+ document.getElementById("percentage").textContent=
+ "Percentage: "+percentage+"%";
+ document.getElementById("attempted").textContent=
+ "Attempted: "+attempted;
+ document.getElementById("correctCount").textContent=
+ "Correct: "+correct;
+ document.getElementById("wrongCount").textContent=
+ "Wrong: "+wrong;
+ document.getElementById("unattempted").textContent=
+ "Unattempted: "+unattempted;
+}
+
+function showReview(){
+ let html="";
+ questions.forEach((q,i)=>{
+ let ans=answers[i];
+ html+=`<div class="review-item">
+ <b>Q${i+1}. ${q.q}</b><br>
+ Your Answer: <span class="${ans===q.a?'correct':'wrong'}">
+ ${ans===null?'Not Attempted':q.o[ans]}
+ </span><br>
+ Correct Answer: <span class="correct">${q.o[q.a]}</span>
+ </div>`;
+ });
+ document.getElementById("reviewContent").innerHTML=html;
+ document.getElementById("review").classList.remove("hidden");
+}
+
+</script>
+</body>
+</html>
