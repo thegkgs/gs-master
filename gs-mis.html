@@ -552,7 +552,19 @@ options: ["1991", "1993", "1995", "2001"],
 answer: 2
 }
 ];
+// Validate question count
+if (questions.length !== 40) {
+    throw new Error("Exactly 40 questions are required");
+}
 
+// Randomize question order
+questions.sort(() => Math.random() - 0.5);
+
+let currentQuestion = 0;
+let score = 0;
+let userAnswers = Array(40).fill(null);
+
+console.log("Advanced GK GS Quiz Loaded:", questions.length);
 // LANGUAGE
 let lang="en";
 
