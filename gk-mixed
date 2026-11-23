@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK GS MASTER | Premium Mock Test</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#071426;
+ color:#fff;
+}
+header{
+ background:linear-gradient(135deg,#08152b,#123c70,#087f91);
+ padding:25px 15px;
+ text-align:center;
+ border-bottom:2px solid #d6aa51;
+}
+header h1{
+ margin:0;
+ font-size:30px;
+ letter-spacing:2px;
+ color:#fff;
+}
+header p{color:#c9e7ff;font-size:13px}
+.gold{color:#f4c76b}
+.container{max-width:1050px;margin:25px auto;padding:12px}
+.card{
+ background:#10233e;
+ border:1px solid #244568;
+ border-radius:16px;
+ padding:22px;
+ margin-bottom:18px;
+ box-shadow:0 8px 30px #0005;
+}
+.hero{text-align:center;padding:35px 20px}
+.hero h2{font-size:30px;color:#f4c76b}
+.hero p{color:#c1d2e7;line-height:1.7}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:10px;
+ margin:25px 0;
+}
+.stat{
+ background:#172f50;
+ padding:17px 5px;
+ border-radius:11px;
+ border:1px solid #31577f;
+}
+.stat b{display:block;font-size:24px;color:#f4c76b}
+.stat span{font-size:12px;color:#c2d3e8}
+.btn{
+ border:0;
+ padding:13px 20px;
+ border-radius:9px;
+ cursor:pointer;
+ font-size:14px;
+ font-weight:bold;
+ transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);opacity:.9}
+.start{
+ width:100%;
+ background:linear-gradient(90deg,#d49a32,#f5cf77);
+ color:#14233a;
+ font-size:18px;
+ padding:16px;
+}
+.blue{background:#176bc0;color:white}
+.gray{background:#294461;color:white}
+.red{background:#c83950;color:white}
+.green{background:#13865b;color:white}
+.language{
+ display:flex;
+ justify-content:center;
+ gap:10px;
+ margin:20px;
+}
+.language button{
+ background:#203d60;
+ color:white;
+ border:1px solid #52749a;
+ padding:10px 20px;
+ border-radius:8px;
+ cursor:pointer;
+}
+.language button.active{
+ background:#e9b64f;
+ color:#15243a;
+}
+.instructions{
+ text-align:left;
+ color:#d0deed;
+ line-height:2;
+ font-size:14px;
+}
+#testArea,#resultArea{display:none}
+.top{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:12px;
+ flex-wrap:wrap;
+}
+.timer{
+ background:#4a2b21;
+ color:#ffd28c;
+ padding:12px 20px;
+ border-radius:10px;
+ font-size:21px;
+ font-weight:bold;
+}
+.timer.alert{background:#8c2020;color:white}
+.progress{
+ height:8px;
+ background:#253d5a;
+ border-radius:10px;
+ overflow:hidden;
+ margin:17px 0;
+}
+#progressBar{
+ height:100%;
+ width:0;
+ background:#e8b34e;
+ transition:.3s;
+}
+.layout{
+ display:grid;
+ grid-template-columns:1fr 250px;
+ gap:15px;
+}
+.qno{color:#eabb5c;font-weight:bold}
+.qtitle{font-size:19px;line-height:1.6;margin:20px 0}
+.options{display:grid;gap:12px}
+.option{
+ padding:15px;
+ border:1px solid #355373;
+ background:#172f4c;
+ border-radius:9px;
+ cursor:pointer;
+ line-height:1.5;
+}
+.option:hover{border-color:#e9bd65}
+.option.selected{
+ background:#244b75;
+ border:2px solid #e9bd65;
+}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.nav button{flex:1}
+.palette{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:8px;
+ margin:15px 0;
+}
+.pbtn{
+ padding:10px 3px;
+ border:0;
+ border-radius:6px;
+ background:#29415e;
+ color:white;
+ cursor:pointer;
+}
+.pbtn.answered{background:#14865b}
+.pbtn.current{outline:2px solid #e9bd65}
+.resultgrid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+}
+.resultitem{
+ text-align:center;
+ background:#172f4c;
+ padding:17px 5px;
+ border-radius:10px;
+}
+.resultitem b{display:block;font-size:27px}
+.review{
+ border:1px solid #355373;
+ padding:14px;
+ border-radius:10px;
+ margin:12px 0;
+ line-height:1.7;
+}
+.explain{
+ background:#1a3555;
+ padding:12px;
+ border-radius:8px;
+ color:#d6e5f5;
+}
+.telegram{
+ display:inline-block;
+ text-decoration:none;
+ background:#168bd1;
+ color:white;
+ padding:12px 22px;
+ border-radius:9px;
+ font-weight:bold;
+ margin-top:12px;
+}
+footer{text-align:center;color:#91a7c0;padding:25px;font-size:12px}
+@media(max-width:700px){
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .layout{grid-template-columns:1fr}
+ .hero h2{font-size:24px}
+ .card{padding:15px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>GK GS <span class="gold">MASTER</span></h1>
+<p>PREMIUM COMPETITIVE EXAM TEST SERIES</p>
+<div class="gold">KNOWLEDGE • PRACTICE • SUCCESS</div>
+</header>
+
+<div class="container">
+
+<!-- HOME PAGE -->
+<section id="home" class="card hero">
+
+<h2 id="heading">ULTIMATE GK CHALLENGE</h2>
+<p id="subtitle">History • Polity • Geography • Economics<br>Moderate to Advanced Level</p>
+
+<div class="language">
+<button id="enBtn" class="active" onclick="setLanguage('en')">English</button>
+<button id="hiBtn" onclick="setLanguage('hi')">हिन्दी</button>
+</div>
+
+<div class="stats">
+<div class="stat"><b>40</b><span id="st1">Questions</span></div>
+<div class="stat"><b>20 Min</b><span id="st2">Duration</span></div>
+<div class="stat"><b>40</b><span id="st3">Maximum Marks</span></div>
+<div class="stat"><b>0</b><span id="st4">Negative Marking</span></div>
+</div>
+
+<div class="instructions">
+<h3 id="instTitle">TEST INSTRUCTIONS</h3>
+<div id="instText">
+1. Total 40 multiple-choice questions.<br>
+2. Each question carries 1 mark.<br>
+3. No negative marking.<br>
+4. Total duration is 20 minutes.<br>
+5. Use Next and Previous buttons to navigate.<br>
+6. You can change your answers anytime.<br>
+7. Submit your test to see your result.
+</div>
+</div>
+
+<br>
+<button class="btn start" id="startBtn" onclick="startTest()">START TEST NOW →</button>
+
+<p>
+<a class="telegram" href="https://t.me/staticgkgsmaster" target="_blank">
+JOIN TELEGRAM CHANNEL ↗️
+</a>
+</p>
+
+<p style="font-size:12px;color:#a9bed5">© 2026 GK GS MASTER | All Rights Reserved</p>
+</section>
+
+<!-- TEST PAGE -->
+<section id="testArea">
+
+<div class="card top">
+<div>
+<b id="testHeading">GK GS MASTER MOCK TEST</b>
+<p style="color:#a9bed5;font-size:12px">40 Questions | 20 Minutes</p>
+</div>
+<div class="timer" id="timer">20:00</div>
+</div>
+
+<div class="card">
+<div class="top">
+<b id="progressText">Question 1 of 40</b>
+<b id="attemptText">Attempted: 0/40</b>
+</div>
+
+<div class="progress">
+<div id="progressBar"></div>
+</div>
+
+<div class="layout">
+<div>
+<div class="qno" id="qno">QUESTION 01</div>
+<div class="qtitle" id="question"></div>
+<div class="options" id="options"></div>
+
+<div class="nav">
+<button class="btn gray" onclick="previousQ()" id="prevBtn">← Previous</button>
+<button class="btn blue" onclick="nextQ()" id="nextBtn">Next →</button>
+</div>
+</div>
+
+<div class="card" style="margin:0">
+<h3 id="paletteTitle">Question Palette</h3>
+<div class="palette" id="palette"></div>
+<button class="btn red" style="width:100%" onclick="submitTest(false)" id="submitBtn">SUBMIT TEST</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- RESULT PAGE -->
+<section id="resultArea">
+<div class="card" style="text-align:center">
+<h2 id="resultTitle">TEST RESULT</h2>
+<div id="score" style="font-size:48px;color:#f4c76b;font-weight:bold">0/40</div>
+<h3 id="message"></h3>
+</div>
+
+<div class="card">
+<div class="resultgrid">
+<div class="resultitem"><b id="correct" style="color:#32d99b">0</b><span id="correctLabel">Correct</span></div>
+<div class="resultitem"><b id="wrong" style="color:#ff6b79">0</b><span id="wrongLabel">Wrong</span></div>
+<div class="resultitem"><b id="skip">0</b><span id="skipLabel">Skipped</span></div>
+</div>
+<p id="percentage" style="text-align:center;margin-top:20px"></p>
+</div>
+
+<div class="card">
+<h3 id="answerTitle">ANSWER KEY & EXPLANATIONS</h3>
+<div id="answerReview"></div>
+</div>
+
+<button class="btn start" onclick="restartTest()" id="restartBtn">RESTART TEST ↻</button>
+</section>
+
+</div>
+
+<footer>
+© 2026 GK GS MASTER | Premium Test Series
+<br>
+<a href="https://t.me/staticgkgsmaster" style="color:#56b8f4">Telegram Channel</a>
+</footer>
+
+<script>
+
+// QUESTION DATA
+// Each question contains English and Hindi text.
+
+const questions = [
+{en:"Who introduced the Permanent Settlement in Bengal in 1793?",hi:"1793 में बंगाल में स्थायी बंदोबस्त किसने लागू किया?",o:["Lord Wellesley","Lord Cornwallis","Warren Hastings","Lord Dalhousie"],oh:["लॉर्ड वेलेजली","लॉर्ड कॉर्नवालिस","वॉरेन हेस्टिंग्स","लॉर्ड डलहौजी"],a:1,e:"Lord Cornwallis introduced the Permanent Settlement in 1793.",eh:"लॉर्ड कॉर्नवालिस ने 1793 में स्थायी बंदोबस्त लागू किया।"},
+
+{en:"Which Harappan site is famous for its ancient dockyard?",hi:"किस हड़प्पा स्थल का प्राचीन गोदीवाड़ा प्रसिद्ध है?",o:["Kalibangan","Harappa","Lothal","Dholavira"],oh:["कालीबंगा","हड़प्पा","लोथल","धोलावीरा"],a:2,e:"Lothal is famous for its ancient dockyard.",eh:"लोथल अपने प्राचीन गोदीवाड़े के लिए प्रसिद्ध है।"},
+
+{en:"Who founded the Slave Dynasty in India?",hi:"भारत में गुलाम वंश की स्थापना किसने की?",o:["Iltutmish","Balban","Qutb-ud-din Aibak","Razia"],oh:["इल्तुतमिश","बलबन","कुतुबुद्दीन ऐबक","रजिया"],a:2,e:"Qutb-ud-din Aibak founded the dynasty in 1206.",eh:"कुतुबुद्दीन ऐबक ने 1206 में इस वंश की स्थापना की।"},
+
+{en:"The Battle of Buxar was fought in which year?",hi:"बक्सर का युद्ध किस वर्ष लड़ा गया?",o:["1757","1764","1761","1773"],oh:["1757","1764","1761","1773"],a:1,e:"The Battle of Buxar was fought in 1764.",eh:"बक्सर का युद्ध 1764 में लड़ा गया था।"},
+
+{en:"Who founded Satyashodhak Samaj?",hi:"सत्यशोधक समाज की स्थापना किसने की?",o:["Raja Ram Mohan Roy","Jyotirao Phule","Swami Dayanand","Vidyasagar"],oh:["राजा राममोहन राय","ज्योतिबा फुले","स्वामी दयानंद","विद्यासागर"],a:1,e:"Jyotirao Phule founded it in 1873.",eh:"ज्योतिबा फुले ने 1873 में इसकी स्थापना की।"},
+
+{en:"Who was the first Indian Governor-General of independent India?",hi:"स्वतंत्र भारत के प्रथम भारतीय गवर्नर जनरल कौन थे?",o:["Rajendra Prasad","C. Rajagopalachari","Nehru","Patel"],oh:["राजेंद्र प्रसाद","सी. राजगोपालाचारी","नेहरू","पटेल"],a:1,e:"C. Rajagopalachari was the first Indian Governor-General.",eh:"सी. राजगोपालाचारी स्वतंत्र भारत के प्रथम भारतीय गवर्नर जनरल थे।"},
+
+{en:"Who composed the Allahabad Pillar inscription of Samudragupta?",hi:"समुद्रगुप्त की प्रयाग प्रशस्ति की रचना किसने की?",o:["Kalidasa","Harisena","Banabhatta","Ravikirti"],oh:["कालिदास","हरिषेण","बाणभट्ट","रविकीर्ति"],a:1,e:"Harisena composed the inscription.",eh:"हरिषेण ने प्रयाग प्रशस्ति की रचना की।"},
+
+{en:"Who led the Bardoli Satyagraha of 1928?",hi:"1928 के बारडोली सत्याग्रह का नेतृत्व किसने किया?",o:["Gandhi","Nehru","Vallabhbhai Patel","Rajendra Prasad"],oh:["गांधी","नेहरू","वल्लभभाई पटेल","राजेंद्र प्रसाद"],a:2,e:"Vallabhbhai Patel led the Bardoli Satyagraha.",eh:"वल्लभभाई पटेल ने बारडोली सत्याग्रह का नेतृत्व किया।"},
+
+{en:"The Ilbert Bill controversy occurred during whose tenure?",hi:"इल्बर्ट बिल विवाद किसके कार्यकाल में हुआ?",o:["Lord Ripon","Lord Curzon","Lord Lytton","Lord Dufferin"],oh:["लॉर्ड रिपन","लॉर्ड कर्जन","लॉर्ड लिटन","लॉर्ड डफरिन"],a:0,e:"It occurred during Lord Ripon's tenure.",eh:"यह विवाद लॉर्ड रिपन के कार्यकाल में हुआ।"},
+
+{en:"Who founded the Vijayanagara Empire?",hi:"विजयनगर साम्राज्य की स्थापना किसने की?",o:["Harihara and Bukka","Krishnadevaraya","Devaraya II","Saluvanarasimha"],oh:["हरिहर और बुक्का","कृष्णदेवराय","देवराय द्वितीय","सालुव नरसिंह"],a:0,e:"Harihara and Bukka founded it in 1336.",eh:"हरिहर और बुक्का ने 1336 में इसकी स्थापना की।"},
+
+{en:"Which Article abolishes untouchability?",hi:"अस्पृश्यता का अंत किस अनुच्छेद में किया गया है?",o:["14","17","19","21"],oh:["14","17","19","21"],a:1,e:"Article 17 abolishes untouchability.",eh:"अनुच्छेद 17 अस्पृश्यता का अंत करता है।"},
+
+{en:"Constitutional amendment procedure is given in which Article?",hi:"संविधान संशोधन की प्रक्रिया किस अनुच्छेद में है?",o:["352","356","368","370"],oh:["352","356","368","370"],a:2,e:"Article 368 deals with constitutional amendments.",eh:"अनुच्छेद 368 संविधान संशोधन से संबंधित है।"},
+
+{en:"Who certifies a Money Bill in Lok Sabha?",hi:"लोकसभा में धन विधेयक को प्रमाणित कौन करता है?",o:["President","Prime Minister","Speaker","Finance Minister"],oh:["राष्ट्रपति","प्रधानमंत्री","लोकसभा अध्यक्ष","वित्त मंत्री"],a:2,e:"The Lok Sabha Speaker certifies a Money Bill.",eh:"लोकसभा अध्यक्ष धन विधेयक को प्रमाणित करते हैं।"},
+
+{en:"Which amendment introduced the Anti-Defection Law?",hi:"दल-बदल विरोधी कानून किस संशोधन से आया?",o:["42nd","44th","52nd","61st"],oh:["42वाँ","44वाँ","52वाँ","61वाँ"],a:2,e:"The 52nd Amendment introduced the Tenth Schedule.",eh:"52वें संशोधन से दसवीं अनुसूची जोड़ी गई।"},
+
+{en:"Which Article provides for the Finance Commission?",hi:"वित्त आयोग का प्रावधान किस अनुच्छेद में है?",o:["263","280","324","148"],oh:["263","280","324","148"],a:1,e:"Article 280 provides for the Finance Commission.",eh:"अनुच्छेद 280 वित्त आयोग का प्रावधान करता है।"},
+
+{en:"Who appoints the CAG of India?",hi:"भारत के CAG की नियुक्ति कौन करता है?",o:["Prime Minister","Chief Justice","President","Parliament"],oh:["प्रधानमंत्री","मुख्य न्यायाधीश","राष्ट्रपति","संसद"],a:2,e:"The President appoints the CAG under Article 148.",eh:"अनुच्छेद 148 के तहत राष्ट्रपति CAG की नियुक्ति करते हैं।"},
+
+{en:"Fundamental Duties were added by which amendment?",hi:"मौलिक कर्तव्य किस संविधान संशोधन से जोड़े गए?",o:["42nd","44th","52nd","73rd"],oh:["42वाँ","44वाँ","52वाँ","73वाँ"],a:0,e:"The 42nd Amendment added Fundamental Duties.",eh:"42वें संशोधन से मौलिक कर्तव्य जोड़े गए।"},
+
+{en:"Which Article deals with the Election Commission?",hi:"निर्वाचन आयोग किस अनुच्छेद से संबंधित है?",o:["280","324","356","368"],oh:["280","324","356","368"],a:1,e:"Article 324 deals with the Election Commission.",eh:"अनुच्छेद 324 निर्वाचन आयोग से संबंधित है।"},
+
+{en:"Directive Principles were borrowed from which country?",hi:"राज्य के नीति निदेशक तत्व किस देश से लिए गए हैं?",o:["USA","Ireland","Canada","Australia"],oh:["अमेरिका","आयरलैंड","कनाडा","ऑस्ट्रेलिया"],a:1,e:"They were borrowed from Ireland.",eh:"इन्हें आयरलैंड से लिया गया है।"},
+
+{en:"Who presides over a joint sitting of Parliament?",hi:"संसद की संयुक्त बैठक की अध्यक्षता कौन करता है?",o:["President","Vice-President","Lok Sabha Speaker","Prime Minister"],oh:["राष्ट्रपति","उपराष्ट्रपति","लोकसभा अध्यक्ष","प्रधानमंत्री"],a:2,e:"The Lok Sabha Speaker presides over a joint sitting.",eh:"लोकसभा अध्यक्ष संयुक्त बैठक की अध्यक्षता करते हैं।"},
+
+{en:"Which river is known as Tsangpo in Tibet?",hi:"तिब्बत में किस नदी को सांगपो कहा जाता है?",o:["Indus","Brahmaputra","Sutlej","Ganga"],oh:["सिंधु","ब्रह्मपुत्र","सतलुज","गंगा"],a:1,e:"Brahmaputra is called Tsangpo in Tibet.",eh:"ब्रह्मपुत्र को तिब्बत में सांगपो कहा जाता है।"},
+
+{en:"Which soil is most suitable for cotton cultivation?",hi:"कपास की खेती के लिए कौन-सी मिट्टी उपयुक्त है?",o:["Alluvial","Black","Laterite","Desert"],oh:["जलोढ़","काली","लैटेराइट","मरुस्थलीय"],a:1,e:"Black soil is suitable for cotton cultivation.",eh:"काली मिट्टी कपास की खेती के लिए उपयुक्त है।"},
+
+{en:"Which is India's largest freshwater lake by area?",hi:"क्षेत्रफल की दृष्टि से भारत की सबसे बड़ी मीठे पानी की झील कौन-सी है?",o:["Dal","Wular","Loktak","Sambhar"],oh:["डल","वुलर","लोकटक","सांभर"],a:1,e:"Wular Lake is the largest freshwater lake by area.",eh:"वुलर झील क्षेत्रफल की दृष्टि से भारत की सबसे बड़ी मीठे पानी की झील है।"},
+
+{en:"Coriolis force is caused by which phenomenon?",hi:"कोरिओलिस बल किस कारण उत्पन्न होता है?",o:["Revolution","Rotation","Moon gravity","Solar radiation"],oh:["परिक्रमण","घूर्णन","चंद्रमा का गुरुत्व","सौर विकिरण"],a:1,e:"Earth's rotation causes the Coriolis effect.",eh:"पृथ्वी का घूर्णन कोरिओलिस प्रभाव उत्पन्न करता है।"},
+
+{en:"Which pass connects Srinagar with Leh?",hi:"श्रीनगर को लेह से कौन-सा दर्रा जोड़ता है?",o:["Nathu La","Zoji La","Shipki La","Bomdi La"],oh:["नाथू ला","जोजी ला","शिपकी ला","बोमडिला"],a:1,e:"Zoji La connects Kashmir with Ladakh.",eh:"जोजी ला कश्मीर को लद्दाख से जोड़ता है।"},
+
+{en:"Which state has the longest coastline in India?",hi:"भारत में सबसे लंबी तटरेखा किस राज्य की है?",o:["Tamil Nadu","Andhra Pradesh","Gujarat","Maharashtra"],oh:["तमिलनाडु","आंध्र प्रदेश","गुजरात","महाराष्ट्र"],a:2,e:"Gujarat has the longest coastline among Indian states.",eh:"भारतीय राज्यों में गुजरात की तटरेखा सबसे लंबी है।"},
+
+{en:"Which atmospheric layer contains the ozone layer?",hi:"ओजोन परत वायुमंडल की किस परत में स्थित है?",o:["Troposphere","Stratosphere","Mesosphere","Thermosphere"],oh:["क्षोभमंडल","समतापमंडल","मध्यमंडल","तापमंडल"],a:1,e:"The ozone layer is mainly in the stratosphere.",eh:"ओजोन परत मुख्यतः समतापमंडल में स्थित है।"},
+
+{en:"Which river forms an estuary?",hi:"कौन-सी नदी ज्वारनदमुख बनाती है?",o:["Godavari","Krishna","Narmada","Mahanadi"],oh:["गोदावरी","कृष्णा","नर्मदा","महानदी"],a:2,e:"Narmada forms an estuary.",eh:"नर्मदा नदी ज्वारनदमुख बनाती है।"},
+
+{en:"Which rainfall occurs due to mountain barriers?",hi:"पर्वतीय अवरोध के कारण कौन-सी वर्षा होती है?",o:["Convectional","Cyclonic","Orographic","Frontal"],oh:["संवहनीय","चक्रवाती","पर्वतीय","वाताग्री"],a:2,e:"Orographic rainfall occurs when moist air rises over mountains.",eh:"आर्द्र वायु के पर्वतों पर ऊपर उठने से पर्वतीय वर्षा होती है।"},
+
+{en:"Which state is the leading tea producer in India?",hi:"भारत का प्रमुख चाय उत्पादक राज्य कौन-सा है?",o:["Kerala","Assam","Karnataka","Punjab"],oh:["केरल","असम","कर्नाटक","पंजाब"],a:1,e:"Assam is the leading tea-producing state.",eh:"असम भारत का प्रमुख चाय उत्पादक राज्य है।"},
+
+{en:"Which institution controls monetary policy in India?",hi:"भारत में मौद्रिक नीति का संचालन कौन करता है?",o:["SEBI","RBI","NITI Aayog","Finance Commission"],oh:["सेबी","RBI","नीति आयोग","वित्त आयोग"],a:1,e:"RBI controls monetary policy in India.",eh:"भारत में मौद्रिक नीति का संचालन RBI करता है।"},
+
+{en:"What does GDP measure?",hi:"GDP क्या मापता है?",o:["Global citizen income","Value of final goods and services produced domestically","Only tax revenue","Only exports"],oh:["वैश्विक नागरिक आय","देश की घरेलू सीमा में उत्पादित अंतिम वस्तुओं और सेवाओं का मूल्य","केवल कर राजस्व","केवल निर्यात"],a:1,e:"GDP measures domestic production of final goods and services.",eh:"GDP घरेलू सीमा में उत्पादित अंतिम वस्तुओं और सेवाओं का मूल्य मापता है।"},
+
+{en:"Which is an indirect tax in India?",hi:"भारत में अप्रत्यक्ष कर कौन-सा है?",o:["Income Tax","Corporate Tax","GST","Wealth Tax"],oh:["आयकर","कॉर्पोरेट कर","GST","संपत्ति कर"],a:2,e:"GST is an indirect tax.",eh:"GST एक अप्रत्यक्ष कर है।"},
+
+{en:"Who is called the father of modern economics?",hi:"आधुनिक अर्थशास्त्र का जनक किसे कहा जाता है?",o:["Karl Marx","Adam Smith","Keynes","Ricardo"],oh:["कार्ल मार्क्स","एडम स्मिथ","कीन्स","रिकार्डो"],a:1,e:"Adam Smith is called the father of modern economics.",eh:"एडम स्मिथ को आधुनिक अर्थशास्त्र का जनक कहा जाता है।"},
+
+{en:"What is the full form of CRR?",hi:"CRR का पूरा नाम क्या है?",o:["Cash Reserve Ratio","Credit Return Rate","Capital Revenue Ratio","Current Reserve Rate"],oh:["नकद आरक्षित अनुपात","क्रेडिट रिटर्न दर","पूंजी राजस्व अनुपात","वर्तमान आरक्षित दर"],a:0,e:"CRR stands for Cash Reserve Ratio.",eh:"CRR का पूरा नाम नकद आरक्षित अनुपात है।"},
+
+{en:"Which index measures retail inflation in India?",hi:"भारत में खुदरा मुद्रास्फीति किस सूचकांक से मापी जाती है?",o:["WPI","CPI","IIP","HDI"],oh:["थोक मूल्य सूचकांक","उपभोक्ता मूल्य सूचकांक","औद्योगिक उत्पादन सूचकांक","मानव विकास सूचकांक"],a:1,e:"CPI measures retail inflation.",eh:"CPI खुदरा मुद्रास्फीति को मापता है।"},
+
+{en:"What is fiscal deficit?",hi:"राजकोषीय घाटा क्या है?",o:["Exports minus imports","Expenditure minus receipts excluding borrowings","Tax revenue minus subsidies","Revenue expenditure minus capital expenditure"],oh:["निर्यात घटा आयात","उधार को छोड़कर कुल प्राप्तियों की तुलना में कुल व्यय का अंतर","कर राजस्व घटा सब्सिडी","राजस्व व्यय घटा पूंजीगत व्यय"],a:1,e:"Fiscal deficit is total expenditure minus total receipts excluding borrowings.",eh:"राजकोषीय घाटा कुल व्यय और उधार को छोड़कर कुल प्राप्तियों का अंतर है।"},
+
+{en:"Which institution replaced the Planning Commission?",hi:"योजना आयोग का स्थान किस संस्था ने लिया?",o:["Finance Commission","NITI Aayog","GST Council","RBI"],oh:["वित्त आयोग","नीति आयोग","GST परिषद","RBI"],a:1,e:"NITI Aayog replaced the Planning Commission in 2015.",eh:"2015 में नीति आयोग ने योजना आयोग का स्थान लिया।"},
+
+{en:"Banking, transport and insurance belong to which sector?",hi:"बैंकिंग, परिवहन और बीमा किस क्षेत्र में आते हैं?",o:["Primary","Secondary","Tertiary","Agricultural"],oh:["प्राथमिक","द्वितीयक","तृतीयक","कृषि"],a:2,e:"These services belong to the tertiary sector.",eh:"ये सेवाएँ तृतीयक क्षेत्र में आती हैं।"},
+
+{en:"What is the repo rate?",hi:"रेपो दर क्या है?",o:["Rate at which RBI lends to banks","Savings interest rate","Income tax rate","Government borrowing rate from citizens"],oh:["वह दर जिस पर RBI बैंकों को ऋण देता है","बचत खाते की ब्याज दर","आयकर दर","सरकार की नागरिकों से उधार दर"],a:0,e:"Repo rate is the rate at which RBI lends funds to banks against eligible securities.",eh:"रेपो दर वह दर है जिस पर RBI पात्र प्रतिभूतियों के बदले बैंकों को धन उधार देता है।"}
+];
+
+// LANGUAGE
+let lang="en";
+
+const translations={
+ en:{
+ heading:"ULTIMATE GK CHALLENGE",
+ subtitle:"History • Polity • Geography • Economics",
+ st1:"Questions",st2:"Duration",st3:"Maximum Marks",st4:"Negative Marking",
+ instTitle:"TEST INSTRUCTIONS",
+ instText:"1. Total 40 multiple-choice questions.<br>2. Each question carries 1 mark.<br>3. No negative marking.<br>4. Total duration is 20 minutes.<br>5. Use Next and Previous buttons to navigate.<br>6. You can change your answers anytime.<br>7. Submit your test to see your result.",
+ start:"START TEST NOW →",test:"GK GS MASTER MOCK TEST",
+ palette:"Question Palette",submit:"SUBMIT TEST",
+ prev:"← Previous",next:"Next →",result:"TEST RESULT",
+ correct:"Correct",wrong:"Wrong",skip:"Skipped",
+ answer:"ANSWER KEY & EXPLANATIONS",restart:"RESTART TEST ↻",
+ attempted:"Attempted",question:"Question",excellent:"Excellent Performance!",
+ good:"Good Attempt! Keep Practicing",poor:"Keep Practicing and Improve Your Score",
+ confirm:"Are you sure you want to submit the test?",
+ timeover:"Time Over! Auto Submitted"
+ },
+ hi:{
+ heading:"संपूर्ण सामान्य ज्ञान चुनौती",
+ subtitle:"इतिहास • राजव्यवस्था • भूगोल • अर्थव्यवस्था",
+ st1:"प्रश्न",st2:"समय",st3:"अधिकतम अंक",st4:"नकारात्मक अंक",
+ instTitle:"परीक्षा निर्देश",
+ instText:"1. कुल 40 बहुविकल्पीय प्रश्न हैं।<br>2. प्रत्येक प्रश्न 1 अंक का है।<br>3. नकारात्मक अंक नहीं हैं।<br>4. कुल समय 20 मिनट है।<br>5. अगले और पिछले बटन से प्रश्न बदलें।<br>6. आप उत्तर बदल सकते हैं।<br>7. परिणाम देखने के लिए टेस्ट जमा करें।",
+ start:"परीक्षा शुरू करें →",test:"GK GS MASTER मॉक टेस्ट",
+ palette:"प्रश्न सूची",submit:"टेस्ट जमा करें",
+ prev:"← पिछला",next:"अगला →",result:"परीक्षा परिणाम",
+ correct:"सही",wrong:"गलत",skip:"छोड़े गए",
+ answer:"उत्तर कुंजी एवं व्याख्या",restart:"दोबारा टेस्ट दें ↻",
+ attempted:"हल किए",question:"प्रश्न",excellent:"शानदार प्रदर्शन!",
+ good:"अच्छा प्रयास! अभ्यास जारी रखें",poor:"अभ्यास जारी रखें और स्कोर बढ़ाएँ",
+ confirm:"क्या आप टेस्ट जमा करना चाहते हैं?",
+ timeover:"समय समाप्त! टेस्ट अपने आप जमा हो गया।"
+ }
+};
+
+function setLanguage(l){
+ lang=l;
+ document.documentElement.lang=l;
+ const t=translations[l];
+ const ids={
+ heading:"heading",subtitle:"subtitle",st1:"st1",st2:"st2",
+ st3:"st3",st4:"st4",instTitle:"instTitle",instText:"instText",
+ start:"startBtn",test:"testHeading",palette:"paletteTitle",
+ submit:"submitBtn",prev:"prevBtn",next:"nextBtn",
+ result:"resultTitle",correct:"correctLabel",wrong:"wrongLabel",
+ skip:"skipLabel",answer:"answerTitle",restart:"restartBtn"
+ };
+ Object.keys(ids).forEach(k=>{
+ document.getElementById(ids[k]).innerHTML=t[k];
+ });
+ document.getElementById("enBtn").classList.toggle("active",l==="en");
+ document.getElementById("hiBtn").classList.toggle("active",l==="hi");
+ if(document.getElementById("testArea").style.display==="block"){
+ renderQuestion();
+ }
+}
+
+// TEST ENGINE
+let current=0;
+let answers=Array(40).fill(null);
+let timeLeft=1200;
+let timerInterval=null;
+let finished=false;
+
+function startTest(){
+ current=0;
+ answers=Array(40).fill(null);
+ timeLeft=1200;
+ finished=false;
+ clearInterval(timerInterval);
+
+ document.getElementById("home").style.display="none";
+ document.getElementById("resultArea").style.display="none";
+ document.getElementById("testArea").style.display="block";
+ document.getElementById("timer").classList.remove("alert");
+
+ renderQuestion();
+ updateTimerDisplay();
+ timerInterval=setInterval(updateTimer,1000);
+ window.scrollTo(0,0);
+}
+
+function updateTimerDisplay(){
+ let m=Math.floor(timeLeft/60);
+ let s=timeLeft%60;
+ document.getElementById("timer").textContent=
+ String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+}
+
+function updateTimer(){
+ if(finished)return;
+ timeLeft--;
+ updateTimerDisplay();
+
+ if(timeLeft<=120){
+ document.getElementById("timer").classList.add("alert");
+ }
+ if(timeLeft<=0){
+ submitTest(true);
+ }
+}
+
+function renderQuestion(){
+ const q=questions[current];
+ const t=translations[lang];
+
+ document.getElementById("qno").textContent=
+ (lang==="hi"?"प्रश्न ":"QUESTION ")+String(current+1).padStart(2,"0");
+
+ document.getElementById("question").textContent=q[lang];
+
+ document.getElementById("progressText").textContent=
+ t.question+" "+(current+1)+" / 40";
+
+ let attempted=answers.filter(x=>x!==null).length;
+ document.getElementById("attemptText").textContent=
+ t.attempted+": "+attempted+"/40";
+
+ document.getElementById("progressBar").style.width=
+ (attempted/40*100)+"%";
+
+ const opts=lang==="hi"?q.oh:q.o;
+
+ document.getElementById("options").innerHTML=
+ opts.map((v,i)=>`
+ <div class="option ${answers[current]===i?'selected':''}"
+ onclick="selectAnswer(${i})">
+ <b>${String.fromCharCode(65+i)}.</b> ${v}
+ </div>`).join("");
+
+ renderPalette();
+}
+
+function renderPalette(){
+ document.getElementById("palette").innerHTML=
+ questions.map((q,i)=>`
+ <button class="pbtn ${answers[i]!==null?'answered':''} ${i===current?'current':''}"
+ onclick="goTo(${i})">${i+1}</button>
+ `).join("");
+}
+
+function selectAnswer(i){
+ if(finished)return;
+ answers[current]=i;
+ renderQuestion();
+}
+
+function goTo(i){
+ if(finished)return;
+ current=i;
+ renderQuestion();
+}
+
+function nextQ(){
+ if(current<39){
+ current++;
+ renderQuestion();
+ }
+}
+
+function previousQ(){
+ if(current>0){
+ current--;
+ renderQuestion();
+ }
+}
+
+function submitTest(auto=false){
+ if(finished)return;
+
+ if(!auto && !confirm(translations[lang].confirm))return;
+
+ finished=true;
+ clearInterval(timerInterval);
+
+ let correct=0,wrong=0,skip=0;
+
+ questions.forEach((q,i)=>{
+ if(answers[i]===null)skip++;
+ else if(answers[i]===q.a)correct++;
+ else wrong++;
+ });
+
+ document.getElementById("testArea").style.display="none";
+ document.getElementById("resultArea").style.display="block";
+
+ document.getElementById("score").textContent=correct+"/40";
+ document.getElementById("correct").textContent=correct;
+ document.getElementById("wrong").textContent=wrong;
+ document.getElementById("skip").textContent=skip;
+
+ document.getElementById("percentage").textContent=
+ (lang==="hi"?"प्रतिशत: ":"Percentage: ")+
+ (correct/40*100).toFixed(2)+"%";
+
+ const t=translations[lang];
+
+ document.getElementById("message").textContent=
+ auto?t.timeover:
+ correct>=32?t.excellent:
+ correct>=24?t.good:t.poor;
+
+ document.getElementById("answerReview").innerHTML=
+ questions.map((q,i)=>{
+ let u=answers[i];
+ let options=lang==="hi"?q.oh:q.o;
+ let explanation=lang==="hi"?q.eh:q.e;
+ let status=u===null?
+ (lang==="hi"?"नहीं किया":"Not Attempted"):
+ u===q.a?(lang==="hi"?"सही":"Correct"):
+ (lang==="hi"?"गलत":"Incorrect");
+
+ return `<div class="review">
+ <b>Q${i+1}. ${q[lang]}</b>
+ <p><b>${lang==="hi"?"आपका उत्तर":"Your Answer"}:</b>
+ ${u===null?status:String.fromCharCode(65+u)+". "+options[u]}</p>
+ <p><b>${lang==="hi"?"सही उत्तर":"Correct Answer"}:</b>
+ ${String.fromCharCode(65+q.a)}. ${options[q.a]}</p>
+ <p><b>${lang==="hi"?"स्थिति":"Status"}:</b> ${status}</p>
+ <div class="explain"><b>${lang==="hi"?"व्याख्या":"Explanation"}:</b> ${explanation}</div>
+ </div>`;
+ }).join("");
+
+ window.scrollTo(0,0);
+}
+
+function restartTest(){
+ clearInterval(timerInterval);
+ finished=false;
+ document.getElementById("resultArea").style.display="none";
+ document.getElementById("home").style.display="block";
+ window.scrollTo(0,0);
+}
+
+</script>
+</body>
+</html>
