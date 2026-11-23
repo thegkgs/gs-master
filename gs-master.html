@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STATIC GK GS MASTER</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Arial,sans-serif;
+ background:#f1f3f8;color:#17233c;
+}
+header{
+ background:linear-gradient(120deg,#091b3b,#153b70,#075c7d);
+ color:white;padding:22px 5%;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{
+ width:40px;height:40px;border-radius:50%;
+ background:#f28a16;display:grid;place-items:center;
+ font-weight:bold;
+}
+.brand-name{font-size:14px;font-weight:bold}
+.brand-tag{font-size:10px;color:#cbd9eb;margin-top:4px}
+.test-no{margin-left:auto;font-size:42px;font-weight:900;color:#ff8715}
+.heading{font-size:24px;font-weight:800;margin:20px 0 5px}
+.subtitle{font-size:12px;color:#d2dfef}
+.tagline{
+ color:#ffb65d;font-size:11px;font-weight:bold;
+ letter-spacing:1px;margin-top:9px;
+}
+.language{
+ display:flex;gap:8px;margin-top:15px;
+}
+.lang-btn{
+ padding:9px 18px;border:1px solid #ffffff55;
+ border-radius:7px;background:#254575;color:white;
+ font-weight:bold;cursor:pointer;
+}
+.lang-btn.active{background:#f28a16;border-color:#f28a16}
+.stats{
+ display:grid;grid-template-columns:repeat(4,1fr);
+ gap:7px;margin-top:18px;
+}
+.stat{background:#254575;padding:10px;border-radius:7px}
+.stat strong{display:block;font-size:15px}
+.stat small{font-size:10px;color:#d2dfef}
+.container{max-width:900px;margin:auto;padding:14px}
+.card{
+ background:white;border-radius:12px;padding:17px;
+ margin-bottom:12px;box-shadow:0 2px 10px #17233c0c;
+}
+.start-card{text-align:center;padding:35px 18px}
+.start-card h2{color:#163b70}
+.start-btn,.submit-btn{
+ border:0;background:#ed8014;color:white;
+ padding:13px 24px;border-radius:8px;
+ font-weight:bold;cursor:pointer;
+}
+.start-btn{font-size:16px;margin-top:15px}
+.quiz-layout{
+ display:grid;grid-template-columns:1fr 180px;
+ gap:12px;align-items:start;
+}
+.question-top{
+ display:flex;justify-content:space-between;
+ align-items:center;margin-bottom:15px;
+}
+.q-label{color:#d47715;font-weight:bold;font-size:13px}
+.tag{
+ background:#fff5e8;color:#b76a10;
+ border-radius:15px;padding:5px 9px;font-size:10px;
+}
+.timer-area{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.timer-circle{
+ width:50px;height:50px;border:4px solid #e98014;
+ border-radius:50%;display:grid;place-items:center;
+ color:#d77812;font-size:18px;font-weight:bold;
+ flex-shrink:0;
+}
+.timer-info{font-size:12px;color:#68758a}
+.timer-info strong{display:block;color:#25364d;font-size:14px}
+.timer-track{height:5px;background:#e4e8ef;border-radius:5px;margin-top:6px;overflow:hidden}
+.timer-fill{height:100%;width:100%;background:#e98014}
+.question{font-size:16px;font-weight:bold;line-height:1.65;margin-bottom:18px}
+.option{
+ width:100%;text-align:left;background:white;
+ border:1px solid #dfe3ea;padding:13px 12px;
+ border-radius:9px;margin-bottom:8px;
+ display:flex;gap:12px;align-items:flex-start;
+ cursor:pointer;font-size:14px;color:#26364c;
+}
+.option:hover{border-color:#e68a23;background:#fffaf3}
+.option .letter{font-weight:bold;min-width:18px}
+.option.selected{background:#e8f2ff;border:2px solid #2675bd}
+.option.correct{background:#e6f7ed;border:2px solid #219653}
+.option.wrong{background:#fff0ed;border:2px solid #dc5145}
+.palette-title{font-weight:bold;margin-bottom:12px}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.pal-btn{
+ border:1px solid #d9dfe8;background:white;
+ border-radius:6px;min-height:34px;cursor:pointer;
+ font-weight:bold;color:#43516a;
+}
+.pal-btn.current{background:#e98014;color:white}
+.pal-btn.answered{background:#218b55;color:white}
+.pal-btn.visited:not(.current):not(.answered){border-color:#e98014}
+.legend{font-size:10px;color:#68758a;line-height:2;margin-top:12px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px}
+.feedback{
+ display:none;margin-top:12px;padding:12px;
+ border-radius:8px;font-size:13px;line-height:1.7;
+}
+.feedback.good{background:#e7f6ed;color:#17663b}
+.feedback.bad{background:#fff0ec;color:#a9362b}
+.status{font-size:12px;color:#68758a;margin-top:12px}
+.nav{display:flex;justify-content:space-between;gap:8px;margin-top:18px}
+.nav button{
+ padding:11px 18px;border-radius:7px;
+ border:1px solid #d9dfe8;background:white;
+ color:#233b5d;font-weight:bold;cursor:pointer;
+}
+.nav .next{background:#153d72;color:white;border:0}
+.bottom-bar{
+ display:none;position:fixed;bottom:0;left:0;width:100%;
+ background:white;padding:10px 5%;
+ box-shadow:0 -3px 12px #00000015;
+ justify-content:space-between;align-items:center;z-index:10;
+}
+.bottom-timer{font-size:18px;font-weight:bold}
+.bottom-progress{font-size:10px;color:#68758a}
+.footer{
+ text-align:center;color:#68758a;
+ padding:25px 10px 95px;font-size:11px;line-height:1.9;
+}
+.footer a{color:#df7711;font-weight:bold;text-decoration:none}
+#result{display:none}
+.result-score{font-size:42px;font-weight:900;color:#e98014;text-align:center}
+.result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0}
+.result-box{background:#f2f5fa;padding:15px;border-radius:8px;text-align:center}
+.result-box strong{font-size:22px;display:block}
+.review-item{border-bottom:1px solid #e5e8ee;padding:15px 0;font-size:13px;line-height:1.8}
+.review-item strong{color:#d47715}
+@media(max-width:650px){
+ .heading{font-size:21px}
+ .quiz-layout{grid-template-columns:1fr}
+ .palette-card{order:-1}
+ .palette{grid-template-columns:repeat(10,1fr)}
+ .pal-btn{min-height:30px;font-size:11px}
+ .container{padding:10px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="brand">
+  <div class="logo">SG</div>
+  <div>
+   <div class="brand-name">STATIC GK GS MASTER</div>
+   <div class="brand-tag">KNOWLEDGE | PRACTICE | SUCCESS</div>
+  </div>
+  <div class="test-no">01</div>
+ </div>
+
+ <div class="heading" id="mainHeading">GENERAL STUDIES MASTER TEST</div>
+ <div class="subtitle" id="mainSubtitle">GS Challenge | Moderate to Advanced Level</div>
+
+ <div class="tagline">KNOWLEDGE | PRACTICE | SUCCESS</div>
+
+ <div class="language">
+  <button class="lang-btn active" id="enBtn" onclick="setLanguage('en')">ENGLISH</button>
+  <button class="lang-btn" id="hiBtn" onclick="setLanguage('hi')">हिंदी</button>
+ </div>
+
+ <div class="stats">
+  <div class="stat"><strong>40</strong><small id="s1">Questions</small></div>
+  <div class="stat"><strong>20 Sec</strong><small id="s2">Per Question</small></div>
+  <div class="stat"><strong>+1</strong><small id="s3">Correct</small></div>
+  <div class="stat"><strong>-0.25</strong><small id="s4">Wrong</small></div>
+ </div>
+</header>
+
+<main class="container">
+
+<div class="card start-card" id="startScreen">
+ <h2 id="startTitle">GS CHALLENGE 2026</h2>
+ <p id="startDesc"><b>40 Questions | Moderate to Advanced</b></p>
+ <p id="startInfo">Each question has a 20-second timer.</p>
+ <p id="startAuto">Time out automatically moves to next question.</p>
+ <hr>
+ <p id="marking">Correct: +1 | Wrong: -0.25 | Unattempted: 0</p>
+ <button class="start-btn" id="startBtn" onclick="startTest()">START TEST</button>
+</div>
+
+<div id="quiz" style="display:none">
+ <div class="quiz-layout">
+
+  <div class="card">
+   <div class="question-top">
+    <span class="q-label" id="qNumber">QUESTION 01</span>
+    <span class="tag" id="qCategory">General Studies</span>
+   </div>
+
+   <div class="timer-area">
+    <div class="timer-circle" id="timerCircle">20</div>
+    <div style="flex:1">
+     <div class="timer-info">
+      <strong id="timeTitle">Time Remaining</strong>
+      <span id="autoText">Auto Next Enabled</span>
+     </div>
+     <div class="timer-track">
+      <div class="timer-fill" id="timerFill"></div>
+     </div>
+    </div>
+   </div>
+
+   <div class="question" id="questionText"></div>
+   <div id="options"></div>
+   <div class="feedback" id="feedback"></div>
+   <div class="status" id="answerStatus">Not Answered</div>
+
+   <div class="nav">
+    <button onclick="previousQuestion()" id="prevBtn">← Previous</button>
+    <button class="next" onclick="nextQuestion()" id="nextBtn">Next →</button>
+   </div>
+  </div>
+
+  <div class="card palette-card">
+   <div class="palette-title" id="paletteTitle">Question Palette</div>
+   <div class="palette" id="palette"></div>
+   <div class="legend" id="legend">
+    <div><span class="dot" style="background:#218b55"></span>Answered</div>
+    <div><span class="dot" style="background:#e98014"></span>Current</div>
+    <div><span class="dot" style="background:#d9dfe8"></span>Not Visited</div>
+   </div>
+   <hr>
+   <p style="font-size:12px"><span id="attemptLabel">Attempted</span>: <b id="attempted">0</b>/40</p>
+   <p style="font-size:12px"><span id="remainLabel">Remaining</span>: <b id="remaining">40</b></p>
+   <button class="submit-btn" style="width:100%" onclick="confirmSubmit()" id="submitBtn">Submit Test</button>
+  </div>
+
+ </div>
+</div>
+
+<div id="result">
+ <div class="card">
+  <h2 style="text-align:center" id="resultTitle">TEST COMPLETED</h2>
+  <div class="result-score" id="score">0</div>
+  <p style="text-align:center" id="scoreLabel">Your Final Score</p>
+
+  <div class="result-grid">
+   <div class="result-box"><strong id="correct">0</strong><span id="correctLabel">Correct</span></div>
+   <div class="result-box"><strong id="wrong">0</strong><span id="wrongLabel">Wrong</span></div>
+   <div class="result-box"><strong id="skipped">0</strong><span id="skipLabel">Unattempted</span></div>
+   <div class="result-box"><strong id="percentage">0%</strong><span id="percentLabel">Percentage</span></div>
+  </div>
+
+  <p style="text-align:center" id="performance"></p>
+  <button class="start-btn" style="width:100%" onclick="restartTest()" id="restartBtn">RESTART TEST</button>
+ </div>
+
+ <div class="card">
+  <h3 id="reviewTitle">ANSWER KEY & EXPLANATIONS</h3>
+  <div id="review"></div>
+ </div>
+</div>
+
+</main>
+
+<div class="bottom-bar" id="bottomBar">
+ <div>
+  <div class="bottom-timer" id="bottomTimer">20 Sec</div>
+  <div class="bottom-progress" id="bottomProgress">0/40 Answered</div>
+ </div>
+ <button class="submit-btn" onclick="confirmSubmit()" id="bottomSubmit">Submit Test</button>
+</div>
+
+<footer class="footer">
+ <b>STATIC GK GS MASTER</b>
+ <br>
+ <span id="footerText">KNOWLEDGE | PRACTICE | SUCCESS</span>
+ <br>
+ GK | GS | Current Affairs | Mock Tests
+ <br>
+ Telegram:
+ <a href="https://t.me/staticgkgsmaster" target="_blank">@staticgkgsmaster</a>
+ <br>
+ © 2026 STATIC GK GS MASTER. All Rights Reserved.
+</footer>
+
+<script>
+
+// BILINGUAL QUESTION BANK: 40 QUESTIONS
+
+const questions = [
+
+{
+c:"Modern History",ch:"आधुनिक इतिहास",
+q:"Who composed the Allahabad Pillar Prashasti of Samudragupta?",
+h:"समुद्रगुप्त की प्रयाग प्रशस्ति की रचना किसने की थी?",
+o:["Banabhatta","Harisena","Kalidasa","Ravikirti"],
+oh:["बाणभट्ट","हरिषेण","कालिदास","रविकीर्ति"],
+a:1,
+e:"Harisena was the court poet of Samudragupta.",
+eh:"हरिषेण समुद्रगुप्त के दरबारी कवि थे।"
+},
+
+{
+c:"Modern History",ch:"आधुनिक इतिहास",
+q:"The Permanent Settlement of Bengal was introduced in which year?",
+h:"बंगाल में स्थायी बंदोबस्त किस वर्ष लागू किया गया?",
+o:["1773","1784","1793","1802"],
+oh:["1773","1784","1793","1802"],
+a:2,
+e:"Lord Cornwallis introduced the Permanent Settlement in 1793.",
+eh:"लॉर्ड कॉर्नवालिस ने 1793 में स्थायी बंदोबस्त लागू किया।"
+},
+
+{
+c:"Modern History",ch:"आधुनिक इतिहास",
+q:"The Cabinet Mission arrived in India in:",
+h:"कैबिनेट मिशन भारत कब आया था?",
+o:["1942","1945","1946","1947"],
+oh:["1942","1945","1946","1947"],
+a:2,
+e:"The Cabinet Mission arrived in India in March 1946.",
+eh:"कैबिनेट मिशन मार्च 1946 में भारत आया था।"
+},
+
+{
+c:"Modern History",ch:"आधुनिक इतिहास",
+q:"Who was primarily associated with the Ryotwari system?",
+h:"रैयतवाड़ी व्यवस्था मुख्य रूप से किससे संबंधित थी?",
+o:["Lord Cornwallis","Thomas Munro","Warren Hastings","Lord Wellesley"],
+oh:["लॉर्ड कॉर्नवालिस","थॉमस मुनरो","वॉरेन हेस्टिंग्स","लॉर्ड वेलेजली"],
+a:1,
+e:"Thomas Munro was a major administrator associated with the Ryotwari system.",
+eh:"थॉमस मुनरो रैयतवाड़ी व्यवस्था से जुड़े प्रमुख प्रशासक थे।"
+},
+
+{
+c:"Modern History",ch:"आधुनिक इतिहास",
+q:"The Partition of Bengal in 1905 was carried out during the tenure of:",
+h:"1905 में बंगाल विभाजन किसके कार्यकाल में हुआ?",
+o:["Lord Curzon","Lord Ripon","Lord Minto","Lord Hardinge"],
+oh:["लॉर्ड कर्जन","लॉर्ड रिपन","लॉर्ड मिंटो","लॉर्ड हार्डिंग"],
+a:0,
+e:"Lord Curzon partitioned Bengal in 1905.",
+eh:"लॉर्ड कर्जन ने 1905 में बंगाल का विभाजन किया था।"
+},
+
+{
+c:"Modern History",ch:"आधुनिक इतिहास",
+q:"The Chauri Chaura incident took place in:",
+h:"चौरी-चौरा की घटना किस वर्ष हुई थी?",
+o:["1919","1920","1922","1925"],
+oh:["1919","1920","1922","1925"],
+a:2,
+e:"The Chauri Chaura incident occurred on 4 February 1922.",
+eh:"चौरी-चौरा की घटना 4 फरवरी 1922 को हुई थी।"
+},
+
+{
+c:"Modern History",ch:"आधुनिक इतिहास",
+q:"The Gandhi-Irwin Pact was signed in:",
+h:"गांधी-इरविन समझौते पर हस्ताक्षर कब हुए?",
+o:["1929","1930","1931","1932"],
+oh:["1929","1930","1931","1932"],
+a:2,
+e:"The Gandhi-Irwin Pact was signed on 5 March 1931.",
+eh:"गांधी-इरविन समझौते पर 5 मार्च 1931 को हस्ताक्षर हुए।"
+},
+
+{
+c:"Modern History",ch:"आधुनिक इतिहास",
+q:"The First Round Table Conference was held in:",
+h:"प्रथम गोलमेज सम्मेलन कहाँ आयोजित हुआ था?",
+o:["Delhi","London","Bombay","Paris"],
+oh:["दिल्ली","लंदन","बंबई","पेरिस"],
+a:1,
+e:"The First Round Table Conference was held in London in 1930.",
+eh:"प्रथम गोलमेज सम्मेलन 1930 में लंदन में हुआ था।"
+},
+
+{
+c:"Indian Polity",ch:"भारतीय राजव्यवस्था",
+q:"Which Article defines a Money Bill in the Indian Constitution?",
+h:"भारतीय संविधान का कौन-सा अनुच्छेद धन विधेयक को परिभाषित करता है?",
+o:["Article 108","Article 110","Article 112","Article 123"],
+oh:["अनुच्छेद 108","अनुच्छेद 110","अनुच्छेद 112","अनुच्छेद 123"],
+a:1,
+e:"Article 110 defines a Money Bill.",
+eh:"अनुच्छेद 110 धन विधेयक को परिभाषित करता है।"
+},
+
+{
+c:"Indian Polity",ch:"भारतीय राजव्यवस्था",
+q:"A joint sitting of Parliament cannot be called for:",
+h:"संसद की संयुक्त बैठक किसके लिए नहीं बुलाई जा सकती?",
+o:["Ordinary Bill","Financial Bill","Money Bill","Non-Money Ordinary Bill"],
+oh:["साधारण विधेयक","वित्त विधेयक","धन विधेयक","गैर-धन साधारण विधेयक"],
+a:2,
+e:"A Money Bill does not require a joint sitting.",
+eh:"धन विधेयक के लिए संसद की संयुक्त बैठक नहीं बुलाई जाती।"
+},
+
+{
+c:"Indian Polity",ch:"भारतीय राजव्यवस्था",
+q:"The Finance Commission is constituted under which Article?",
+h:"वित्त आयोग का गठन किस अनुच्छेद के तहत होता है?",
+o:["Article 263","Article 280","Article 324","Article 356"],
+oh:["अनुच्छेद 263","अनुच्छेद 280","अनुच्छेद 324","अनुच्छेद 356"],
+a:1,
+e:"Article 280 provides for the Finance Commission.",
+eh:"अनुच्छेद 280 वित्त आयोग के गठन का प्रावधान करता है।"
+},
+
+{
+c:"Indian Polity",ch:"भारतीय राजव्यवस्था",
+q:"The Comptroller and Auditor General of India is mentioned under:",
+h:"भारत के नियंत्रक एवं महालेखा परीक्षक का उल्लेख किस अनुच्छेद में है?",
+o:["Article 148","Article 149","Article 150","Article 151"],
+oh:["अनुच्छेद 148","अनुच्छेद 149","अनुच्छेद 150","अनुच्छेद 151"],
+a:0,
+e:"Article 148 provides for the office of the CAG.",
+eh:"अनुच्छेद 148 नियंत्रक एवं महालेखा परीक्षक के पद का प्रावधान करता है।"
+},
+
+{
+c:"Indian Polity",ch:"भारतीय राजव्यवस्था",
+q:"The Anti-Defection Law is contained in which Schedule?",
+h:"दल-बदल विरोधी कानून किस अनुसूची में है?",
+o:["Eighth","Ninth","Tenth","Eleventh"],
+oh:["आठवीं","नौवीं","दसवीं","ग्यारहवीं"],
+a:2,
+e:"The Tenth Schedule was added by the 52nd Amendment.",
+eh:"52वें संविधान संशोधन द्वारा दसवीं अनुसूची जोड़ी गई थी।"
+},
+
+{
+c:"Indian Polity",ch:"भारतीय राजव्यवस्था",
+q:"The President's power to promulgate Ordinances is provided under:",
+h:"राष्ट्रपति की अध्यादेश जारी करने की शक्ति किस अनुच्छेद में है?",
+o:["Article 72","Article 123","Article 143","Article 213"],
+oh:["अनुच्छेद 72","अनुच्छेद 123","अनुच्छेद 143","अनुच्छेद 213"],
+a:1,
+e:"Article 123 deals with the President's Ordinance-making power.",
+eh:"अनुच्छेद 123 राष्ट्रपति की अध्यादेश जारी करने की शक्ति से संबंधित है।"
+},
+
+{
+c:"Indian Polity",ch:"भारतीय राजव्यवस्था",
+q:"What is the maximum constitutional strength of the Rajya Sabha?",
+h:"राज्यसभा की अधिकतम संवैधानिक सदस्य संख्या कितनी है?",
+o:["238","245","250","252"],
+oh:["238","245","250","252"],
+a:2,
+e:"The maximum constitutional strength of Rajya Sabha is 250.",
+eh:"राज्यसभा की अधिकतम संवैधानिक सदस्य संख्या 250 है।"
+},
+
+{
+c:"Indian Polity",ch:"भारतीय राजव्यवस्था",
+q:"Fundamental Duties were added by which Amendment?",
+h:"मौलिक कर्तव्य किस संविधान संशोधन द्वारा जोड़े गए?",
+o:["24th","42nd","44th","52nd"],
+oh:["24वाँ","42वाँ","44वाँ","52वाँ"],
+a:1,
+e:"The 42nd Constitutional Amendment Act, 1976 added Fundamental Duties.",
+eh:"42वें संविधान संशोधन अधिनियम, 1976 द्वारा मौलिक कर्तव्य जोड़े गए।"
+},
+
+{
+c:"Indian Geography",ch:"भारतीय भूगोल",
+q:"The Coriolis force is zero at the:",
+h:"कोरिऑलिस बल कहाँ शून्य होता है?",
+o:["North Pole","South Pole","Equator","Tropic of Cancer"],
+oh:["उत्तरी ध्रुव","दक्षिणी ध्रुव","भूमध्य रेखा","कर्क रेखा"],
+a:2,
+e:"The Coriolis force is zero at the Equator.",
+eh:"भूमध्य रेखा पर कोरिऑलिस बल शून्य होता है।"
+},
+
+{
+c:"Indian Geography",ch:"भारतीय भूगोल",
+q:"The high moisture-retaining capacity of black soil is mainly due to:",
+h:"काली मिट्टी की अधिक नमी धारण क्षमता का प्रमुख कारण क्या है?",
+o:["Quartz","Montmorillonite clay","Sand","Calcium carbonate"],
+oh:["क्वार्ट्ज","मोंटमोरिलोनाइट चिकनी मिट्टी","रेत","कैल्शियम कार्बोनेट"],
+a:1,
+e:"Montmorillonite clay minerals contribute to water retention in black soil.",
+eh:"मोंटमोरिलोनाइट चिकनी मिट्टी के खनिज काली मिट्टी की जल धारण क्षमता बढ़ाते हैं।"
+},
+
+{
+c:"Indian Geography",ch:"भारतीय भूगोल",
+q:"Western Disturbances generally originate in the:",
+h:"पश्चिमी विक्षोभ सामान्यतः कहाँ उत्पन्न होते हैं?",
+o:["Arabian Sea","Mediterranean region","Bay of Bengal","South China Sea"],
+oh:["अरब सागर","भूमध्यसागरीय क्षेत्र","बंगाल की खाड़ी","दक्षिण चीन सागर"],
+a:1,
+e:"Western Disturbances originate around the Mediterranean region and adjoining West Asia.",
+eh:"पश्चिमी विक्षोभ भूमध्यसागरीय क्षेत्र और आसपास के पश्चिम एशिया में उत्पन्न होते हैं।"
+},
+
+{
+c:"Indian Geography",ch:"भारतीय भूगोल",
+q:"The Narmada River flows through a:",
+h:"नर्मदा नदी किस प्रकार की घाटी से होकर बहती है?",
+o:["Glacial valley","Rift valley","Deltaic valley","U-shaped valley"],
+oh:["हिमानी घाटी","भ्रंश घाटी","डेल्टा घाटी","U-आकार की घाटी"],
+a:1,
+e:"The Narmada flows through a rift valley between the Vindhya and Satpura ranges.",
+eh:"नर्मदा विंध्य और सतपुड़ा पर्वत श्रेणियों के बीच भ्रंश घाटी से बहती है।"
+},
+
+{
+c:"Indian Geography",ch:"भारतीय भूगोल",
+q:"Which is the longest river of Peninsular India?",
+h:"प्रायद्वीपीय भारत की सबसे लंबी नदी कौन-सी है?",
+o:["Krishna","Kaveri","Godavari","Mahanadi"],
+oh:["कृष्णा","कावेरी","गोदावरी","महानदी"],
+a:2,
+e:"The Godavari is the longest river of Peninsular India.",
+eh:"गोदावरी प्रायद्वीपीय भारत की सबसे लंबी नदी है।"
+},
+
+{
+c:"Indian Geography",ch:"भारतीय भूगोल",
+q:"El Niño is associated with abnormal warming of:",
+h:"अल नीनो किस क्षेत्र के असामान्य गर्म होने से संबंधित है?",
+o:["North Atlantic Ocean","Central and Eastern Equatorial Pacific","Indian Ocean only","Southern Ocean"],
+oh:["उत्तरी अटलांटिक महासागर","मध्य एवं पूर्वी भूमध्यरेखीय प्रशांत महासागर","केवल हिंद महासागर","दक्षिणी महासागर"],
+a:1,
+e:"El Niño involves abnormal warming of the central and eastern equatorial Pacific Ocean.",
+eh:"अल नीनो में मध्य एवं पूर्वी भूमध्यरेखीय प्रशांत महासागर का असामान्य गर्म होना शामिल है।"
+},
+
+{
+c:"Indian Geography",ch:"भारतीय भूगोल",
+q:"Laterite soils are generally formed under conditions of:",
+h:"लैटेराइट मिट्टी सामान्यतः किन परिस्थितियों में बनती है?",
+o:["Low rainfall and low temperature","High rainfall and intense leaching","Desert climate","Glacial climate"],
+oh:["कम वर्षा और कम तापमान","अधिक वर्षा और तीव्र निक्षालन","मरुस्थलीय जलवायु","हिमानी जलवायु"],
+a:1,
+e:"High temperature and heavy rainfall cause intense leaching and laterite soil formation.",
+eh:"उच्च तापमान और अधिक वर्षा के कारण तीव्र निक्षालन होता है, जिससे लैटेराइट मिट्टी बनती है।"
+},
+
+{
+c:"General Science",ch:"सामान्य विज्ञान",
+q:"What is the SI unit of catalytic activity?",
+h:"उत्प्रेरक सक्रियता की SI इकाई क्या है?",
+o:["Katal","Pascal","Joule","Tesla"],
+oh:["कैटल","पास्कल","जूल","टेस्ला"],
+a:0,
+e:"Katal is the SI unit of catalytic activity.",
+eh:"कैटल उत्प्रेरक सक्रियता की SI इकाई है।"
+},
+
+{
+c:"General Science",ch:"सामान्य विज्ञान",
+q:"Which vitamin plays an essential role in normal blood clotting?",
+h:"सामान्य रक्त का थक्का जमने में कौन-सा विटामिन आवश्यक है?",
+o:["Vitamin A","Vitamin C","Vitamin D","Vitamin K"],
+oh:["विटामिन A","विटामिन C","विटामिन D","विटामिन K"],
+a:3,
+e:"Vitamin K is necessary for the synthesis of several blood-clotting factors.",
+eh:"विटामिन K रक्त का थक्का जमाने वाले कई कारकों के निर्माण में आवश्यक है।"
+},
+
+{
+c:"General Science",ch:"सामान्य विज्ञान",
+q:"The pH of pure water at 25°C is:",
+h:"25°C पर शुद्ध जल का pH मान कितना होता है?",
+o:["5","6","7","8"],
+oh:["5","6","7","8"],
+a:2,
+e:"At 25°C, pure water is neutral and has a pH of 7.",
+eh:"25°C पर शुद्ध जल उदासीन होता है और इसका pH मान 7 होता है।"
+},
+
+{
+c:"General Science",ch:"सामान्य विज्ञान",
+q:"Myopia is corrected using which type of lens?",
+h:"निकट दृष्टि दोष को किस लेंस से ठीक किया जाता है?",
+o:["Convex lens","Concave lens","Cylindrical lens only","Bifocal lens only"],
+oh:["उत्तल लेंस","अवतल लेंस","केवल बेलनाकार लेंस","केवल द्विफोकसी लेंस"],
+a:1,
+e:"A concave lens corrects myopia.",
+eh:"अवतल लेंस निकट दृष्टि दोष को ठीक करता है।"
+},
+
+{
+c:"General Science",ch:"सामान्य विज्ञान",
+q:"DNA replication is described as:",
+h:"DNA प्रतिकृति की प्रक्रिया किस प्रकार की होती है?",
+o:["Conservative","Semi-conservative","Dispersive only","Random"],
+oh:["संरक्षी","अर्ध-संरक्षी","केवल विसरित","अनियमित"],
+a:1,
+e:"DNA replication is semi-conservative.",
+eh:"DNA प्रतिकृति अर्ध-संरक्षी प्रक्रिया है।"
+},
+
+{
+c:"General Science",ch:"सामान्य विज्ञान",
+q:"Which element in CFC molecules is primarily responsible for ozone depletion?",
+h:"CFC के अणुओं में ओजोन क्षय के लिए मुख्य रूप से कौन-सा तत्व जिम्मेदार है?",
+o:["Hydrogen","Chlorine","Nitrogen","Carbon"],
+oh:["हाइड्रोजन","क्लोरीन","नाइट्रोजन","कार्बन"],
+a:1,
+e:"Chlorine radicals released from CFCs catalytically destroy ozone molecules.",
+eh:"CFC से मुक्त क्लोरीन रेडिकल उत्प्रेरक रूप से ओजोन अणुओं को नष्ट करते हैं।"
+},
+
+{
+c:"General Science",ch:"सामान्य विज्ञान",
+q:"Doping silicon with a pentavalent impurity produces:",
+h:"सिलिकॉन में पंचसंयोजी अशुद्धि मिलाने पर कौन-सा अर्धचालक बनता है?",
+o:["P-type semiconductor","N-type semiconductor","Insulator","Superconductor"],
+oh:["P-टाइप अर्धचालक","N-टाइप अर्धचालक","कुचालक","अतिचालक"],
+a:1,
+e:"Pentavalent doping provides extra electrons and produces an N-type semiconductor.",
+eh:"पंचसंयोजी अशुद्धि अतिरिक्त इलेक्ट्रॉन प्रदान करती है और N-टाइप अर्धचालक बनाती है।"
+},
+
+{
+c:"General Science",ch:"सामान्य विज्ञान",
+q:"A transformer works on the principle of:",
+h:"ट्रांसफॉर्मर किस सिद्धांत पर कार्य करता है?",
+o:["Electrolysis","Mutual induction","Photoelectric effect","Thermionic emission"],
+oh:["विद्युत अपघटन","अन्योन्य प्रेरण","प्रकाश विद्युत प्रभाव","तापायनिक उत्सर्जन"],
+a:1,
+e:"A transformer operates through mutual electromagnetic induction.",
+eh:"ट्रांसफॉर्मर अन्योन्य विद्युत चुंबकीय प्रेरण के सिद्धांत पर कार्य करता है।"
+},
+
+{
+c:"General Science",ch:"सामान्य विज्ञान",
+q:"The SI unit of electrical resistance is:",
+h:"विद्युत प्रतिरोध की SI इकाई क्या है?",
+o:["Volt","Ampere","Ohm","Watt"],
+oh:["वोल्ट","एम्पियर","ओम","वाट"],
+a:2,
+e:"Ohm is the SI unit of electrical resistance.",
+eh:"ओम विद्युत प्रतिरोध की SI इकाई है।"
+},
+
+{
+c:"Indian Economy",ch:"भारतीय अर्थव्यवस्था",
+q:"The Repo Rate is the rate at which:",
+h:"रेपो दर वह दर है जिस पर:",
+o:["Banks lend to customers","RBI lends to banks against eligible securities","Government lends to RBI","Banks lend to RBI"],
+oh:["बैंक ग्राहकों को ऋण देते हैं","RBI पात्र प्रतिभूतियों के बदले बैंकों को ऋण देता है","सरकार RBI को ऋण देती है","बैंक RBI को ऋण देते हैं"],
+a:1,
+e:"Repo rate is the rate at which RBI provides funds to banks against eligible securities.",
+eh:"रेपो दर वह दर है जिस पर RBI पात्र प्रतिभूतियों के बदले बैंकों को धन उपलब्ध कराता है।"
+},
+
+{
+c:"Indian Economy",ch:"भारतीय अर्थव्यवस्था",
+q:"GST was introduced through which Constitutional Amendment?",
+h:"GST किस संविधान संशोधन द्वारा लागू किया गया?",
+o:["99th","100th","101st","102nd"],
+oh:["99वाँ","100वाँ","101वाँ","102वाँ"],
+a:2,
+e:"The 101st Constitutional Amendment Act, 2016 enabled the introduction of GST.",
+eh:"101वें संविधान संशोधन अधिनियम, 2016 ने GST लागू करने का मार्ग प्रशस्त किया।"
+},
+
+{
+c:"Indian Economy",ch:"भारतीय अर्थव्यवस्था",
+q:"The Human Development Index is published by:",
+h:"मानव विकास सूचकांक किस संस्था द्वारा प्रकाशित किया जाता है?",
+o:["World Bank","IMF","UNDP","WTO"],
+oh:["विश्व बैंक","अंतरराष्ट्रीय मुद्रा कोष","UNDP","विश्व व्यापार संगठन"],
+a:2,
+e:"UNDP publishes the Human Development Report and HDI.",
+eh:"UNDP मानव विकास रिपोर्ट और मानव विकास सूचकांक प्रकाशित करता है।"
+},
+
+{
+c:"Indian Economy",ch:"भारतीय अर्थव्यवस्था",
+q:"Disguised unemployment is commonly associated with:",
+h:"प्रच्छन्न बेरोजगारी सामान्यतः किस क्षेत्र से जुड़ी है?",
+o:["Agriculture","Banking","IT sector","Heavy industry"],
+oh:["कृषि","बैंकिंग","IT क्षेत्र","भारी उद्योग"],
+a:0,
+e:"Disguised unemployment is commonly found in agriculture.",
+eh:"प्रच्छन्न बेरोजगारी सामान्यतः कृषि क्षेत्र में पाई जाती है।"
+},
+
+{
+c:"Environment",ch:"पर्यावरण",
+q:"The Ramsar Convention is related to the conservation of:",
+h:"रामसर सम्मेलन किसके संरक्षण से संबंधित है?",
+o:["Deserts","Wetlands","Mountains","Tropical forests only"],
+oh:["मरुस्थल","आर्द्रभूमि","पर्वत","केवल उष्णकटिबंधीय वन"],
+a:1,
+e:"The Ramsar Convention deals with conservation and wise use of wetlands.",
+eh:"रामसर सम्मेलन आर्द्रभूमियों के संरक्षण और उनके विवेकपूर्ण उपयोग से संबंधित है।"
+},
+
+{
+c:"Environment",ch:"पर्यावरण",
+q:"Which organism commonly acts as a pioneer species on bare rocks during primary succession?",
+h:"प्राथमिक अनुक्रमण में नग्न चट्टानों पर अग्रणी प्रजाति सामान्यतः कौन होती है?",
+o:["Large trees","Lichens","Mammals","Grasses only"],
+oh:["बड़े वृक्ष","लाइकेन","स्तनधारी","केवल घास"],
+a:1,
+e:"Lichens are common pioneer organisms on bare rocks.",
+eh:"लाइकेन नग्न चट्टानों पर पाए जाने वाले सामान्य अग्रणी जीव हैं।"
+},
+
+{
+c:"Environment",ch:"पर्यावरण",
+q:"Biomagnification refers to:",
+h:"जैव आवर्धन का अर्थ क्या है?",
+o:["Decrease in pollutants at higher trophic levels","Increase in pollutant concentration at higher trophic levels","Increase in population size","Increase in soil fertility"],
+oh:["उच्च पोषण स्तर पर प्रदूषकों में कमी","उच्च पोषण स्तर पर प्रदूषकों की सांद्रता में वृद्धि","जनसंख्या में वृद्धि","मिट्टी की उर्वरता में वृद्धि"],
+a:1,
+e:"Biomagnification is the increase in concentration of certain persistent pollutants along food chains.",
+eh:"खाद्य श्रृंखला के उच्च पोषण स्तरों पर कुछ स्थायी प्रदूषकों की सांद्रता बढ़ना जैव आवर्धन कहलाता है।"
+},
+
+{
+c:"Environment",ch:"पर्यावरण",
+q:"Project Tiger was launched in India in:",
+h:"भारत में प्रोजेक्ट टाइगर किस वर्ष शुरू किया गया?",
+o:["1969","1973","1980","1985"],
+oh:["1969","1973","1980","1985"],
+a:1,
+e:"Project Tiger was launched in 1973 for tiger conservation.",
+eh:"बाघ संरक्षण के लिए प्रोजेक्ट टाइगर 1973 में शुरू किया गया था।"
+}
+
+];
+
+// LANGUAGE DATA
+
+let lang="en";
+let current=0;
+let timeLeft=[];
+let answers=[];
+let visited=[];
+let timerInterval=null;
+let autoTimeout=null;
+let finished=false;
+let started=false;
+
+const text={
+en:{
+heading:"GENERAL STUDIES MASTER TEST",
+subtitle:"GS Challenge | Moderate to Advanced Level",
+s1:"Questions",s2:"Per Question",s3:"Correct",s4:"Wrong",
+start:"START TEST",startTitle:"GS CHALLENGE 2026",
+startDesc:"40 Questions | Moderate to Advanced",
+startInfo:"Each question has a 20-second timer.",
+startAuto:"Time out automatically moves to next question.",
+marking:"Correct: +1 | Wrong: -0.25 | Unattempted: 0",
+time:"Time Remaining",auto:"Auto Next Enabled",
+prev:"← Previous",next:"Next →",palette:"Question Palette",
+attempt:"Attempted",remain:"Remaining",submit:"Submit Test",
+not:"Not Answered",answered:"Answer Submitted",
+up:"Time Up - Skipped",correct:"Correct Answer",
+wrong:"Wrong Answer",result:"TEST COMPLETED",
+score:"Your Final Score",correctLabel:"Correct",
+wrongLabel:"Wrong",skip:"Unattempted",percent:"Percentage",
+restart:"RESTART TEST",review:"ANSWER KEY & EXPLANATIONS",
+footer:"KNOWLEDGE | PRACTICE | SUCCESS",
+confirm:"Are you sure you want to submit the test?",
+excellent:"Excellent Performance!",
+good:"Good Performance! Keep Practicing.",
+average:"Average Performance. Revise the topics.",
+poor:"Keep Practicing. Improve your preparation.",
+your:"Your Answer",right:"Correct Answer",explain:"Explanation",
+unattempted:"Not Attempted",status:"Status"
+},
+hi:{
+heading:"सामान्य अध्ययन मास्टर टेस्ट",
+subtitle:"GS चुनौती | मध्यम से उच्च स्तर",
+s1:"प्रश्न",s2:"प्रति प्रश्न",s3:"सही",s4:"गलत",
+start:"टेस्ट शुरू करें",startTitle:"GS चुनौती 2026",
+startDesc:"40 प्रश्न | मध्यम से उच्च स्तर",
+startInfo:"प्रत्येक प्रश्न के लिए 20 सेकंड हैं।",
+startAuto:"समय समाप्त होने पर अगला प्रश्न अपने आप खुलेगा।",
+marking:"सही: +1 | गलत: -0.25 | अनुत्तरित: 0",
+time:"शेष समय",auto:"ऑटो नेक्स्ट चालू",
+prev:"← पिछला",next:"अगला →",palette:"प्रश्न सूची",
+attempt:"हल किए",remain:"शेष",submit:"टेस्ट जमा करें",
+not:"उत्तर नहीं दिया",answered:"उत्तर दर्ज हो गया",
+up:"समय समाप्त - छोड़ा गया",correct:"सही उत्तर",
+wrong:"गलत उत्तर",result:"टेस्ट पूरा हुआ",
+score:"आपका अंतिम स्कोर",correctLabel:"सही",
+wrongLabel:"गलत",skip:"अनुत्तरित",percent:"प्रतिशत",
+restart:"दोबारा टेस्ट दें",review:"उत्तर कुंजी और व्याख्या",
+footer:"ज्ञान | अभ्यास | सफलता",
+confirm:"क्या आप टेस्ट जमा करना चाहते हैं?",
+excellent:"बहुत शानदार प्रदर्शन!",
+good:"अच्छा प्रदर्शन! अभ्यास जारी रखें।",
+average:"औसत प्रदर्शन। विषयों का पुनरावलोकन करें।",
+poor:"अभ्यास जारी रखें और तैयारी बेहतर करें।",
+your:"आपका उत्तर",right:"सही उत्तर",explain:"व्याख्या",
+unattempted:"उत्तर नहीं दिया",status:"स्थिति"
+}
+};
+
+function T(key){return text[lang][key]}
+
+function setLanguage(l){
+ lang=l;
+ document.documentElement.lang=l==="hi"?"hi":"en";
+
+ document.getElementById("enBtn").classList.toggle("active",l==="en");
+ document.getElementById("hiBtn").classList.toggle("active",l==="hi");
+
+ const ids={
+ mainHeading:"heading",mainSubtitle:"subtitle",
+ s1:"s1",s2:"s2",s3:"s3",s4:"s4",
+ startTitle:"startTitle",startDesc:"startDesc",
+ startInfo:"startInfo",startAuto:"startAuto",
+ marking:"marking",startBtn:"start",
+ timeTitle:"time",autoText:"auto",
+ prevBtn:"prev",nextBtn:"next",
+ paletteTitle:"palette",attemptLabel:"attempt",
+ remainLabel:"remain",submitBtn:"submit",
+ bottomSubmit:"submit",resultTitle:"result",
+ scoreLabel:"score",correctLabel:"correctLabel",
+ wrongLabel:"wrongLabel",skipLabel:"skip",
+ percentLabel:"percent",restartBtn:"restart",
+ reviewTitle:"review",footerText:"footer"
+ };
+
+ Object.keys(ids).forEach(id=>{
+  document.getElementById(id).textContent=T(ids[id]);
+ });
+
+ document.getElementById("legend").innerHTML=l==="hi"?
+ '<div><span class="dot" style="background:#218b55"></span>हल किया गया</div><div><span class="dot" style="background:#e98014"></span>वर्तमान प्रश्न</div><div><span class="dot" style="background:#d9dfe8"></span>नहीं देखा</div>':
+ '<div><span class="dot" style="background:#218b55"></span>Answered</div><div><span class="dot" style="background:#e98014"></span>Current</div><div><span class="dot" style="background:#d9dfe8"></span>Not Visited</div>';
+
+ document.getElementById("bottomProgress").textContent=
+ answers.filter(a=>a!==null).length+"/40 "+(l==="hi"?"हल किए":"Answered");
+
+ if(started && !finished){
+  showQuestion(current);
+ }
+
+ if(finished){
+  showReview();
+ }
+}
+
+// TEST ENGINE
+
+function initialize(){
+ current=0;
+ timeLeft=questions.map(()=>20);
+ answers=questions.map(()=>null);
+ visited=questions.map(()=>false);
+ finished=false;
+ started=false;
+}
+
+function startTest(){
+ initialize();
+ started=true;
+ document.getElementById("startScreen").style.display="none";
+ document.getElementById("quiz").style.display="block";
+ document.getElementById("bottomBar").style.display="flex";
+ renderPalette();
+ showQuestion(0);
+ window.scrollTo(0,0);
+}
+
+function renderPalette(){
+ const p=document.getElementById("palette");
+ p.innerHTML="";
+ questions.forEach((q,i)=>{
+  const b=document.createElement("button");
+  b.className="pal-btn";
+  b.textContent=i+1;
+
+  if(i===current)b.classList.add("current");
+  else if(answers[i]!==null)b.classList.add("answered");
+  else if(visited[i])b.classList.add("visited");
+
+  b.onclick=()=>showQuestion(i);
+  p.appendChild(b);
+ });
+ updateProgress();
+}
+
+function updateProgress(){
+ const done=answers.filter(a=>a!==null).length;
+ document.getElementById("attempted").textContent=done;
+ document.getElementById("remaining").textContent=40-done;
+ document.getElementById("bottomProgress").textContent=
+ done+"/40 "+(lang==="hi"?"हल किए":"Answered");
+}
+
+function showQuestion(index){
+ if(finished)return;
+
+ clearInterval(timerInterval);
+ clearTimeout(autoTimeout);
+
+ current=index;
+ visited[current]=true;
+ const q=questions[current];
+
+ document.getElementById("qNumber").textContent=
+ (lang==="hi"?"प्रश्न ":"QUESTION ")+String(current+1).padStart(2,"0");
+
+ document.getElementById("qCategory").textContent=
+ lang==="hi"?q.ch:q.c;
+
+ document.getElementById("questionText").textContent=
+ lang==="hi"?q.h:q.q;
+
+ const opt=document.getElementById("options");
+ opt.innerHTML="";
+
+ q.o.forEach((value,i)=>{
+  const btn=document.createElement("button");
+  btn.className="option";
+
+  const shown=lang==="hi"?q.oh[i]:q.o[i];
+
+  const letter=document.createElement("span");
+  letter.className="letter";
+  letter.textContent=String.fromCharCode(65+i);
+
+  const content=document.createElement("span");
+  content.textContent=shown;
+
+  btn.append(letter,content);
+
+  if(answers[current]===i){
+   btn.classList.add("selected");
+   btn.classList.add(i===q.a?"correct":"wrong");
+  }
+
+  if(answers[current]!==null)btn.disabled=true;
+  btn.onclick=()=>selectAnswer(i);
+  opt.appendChild(btn);
+ });
+
+ const fb=document.getElementById("feedback");
+
+ if(answers[current]!==null){
+  showFeedback();
+ }else{
+  fb.style.display="none";
+  document.getElementById("answerStatus").textContent=T("not");
+ }
+
+ renderPalette();
+ updateTimerDisplay();
+
+ if(answers[current]===null)startTimer();
+}
+
+function updateTimerDisplay(){
+ const t=timeLeft[current];
+ document.getElementById("timerCircle").textContent=t;
+ document.getElementById("bottomTimer").textContent=
+ t+(lang==="hi"?" सेकंड":" Sec");
+
+ document.getElementById("timerFill").style.width=(t/20*100)+"%";
+
+ const color=t<=5?"#df4137":"#e98014";
+ document.getElementById("timerCircle").style.borderColor=color;
+ document.getElementById("timerCircle").style.color=color;
+ document.getElementById("timerFill").style.background=color;
+}
+
+function startTimer(){
+ clearInterval(timerInterval);
+
+ timerInterval=setInterval(()=>{
+  if(finished||answers[current]!==null){
+   clearInterval(timerInterval);
+   return;
+  }
+
+  timeLeft[current]--;
+  updateTimerDisplay();
+
+  if(timeLeft[current]<=0){
+   clearInterval(timerInterval);
+   document.getElementById("answerStatus").textContent=T("up");
+
+   autoTimeout=setTimeout(()=>{
+    if(current===39)finishTest();
+    else showQuestion(current+1);
+   },500);
+  }
+ },1000);
+}
+
+function selectAnswer(index){
+ if(answers[current]!==null||finished)return;
+
+ answers[current]=index;
+ clearInterval(timerInterval);
+ showQuestion(current);
+
+ document.getElementById("answerStatus").textContent=T("answered");
+
+ autoTimeout=setTimeout(()=>{
+  if(current===39)finishTest();
+  else showQuestion(current+1);
+ },700);
+}
+
+function showFeedback(){
+ const q=questions[current];
+ const fb=document.getElementById("feedback");
+ const selected=answers[current];
+ const correct=selected===q.a;
+
+ fb.style.display="block";
+ fb.className="feedback "+(correct?"good":"bad");
+
+ const options=lang==="hi"?q.oh:q.o;
+ const explanation=lang==="hi"?q.eh:q.e;
+
+ fb.textContent="";
+ const status=document.createElement("b");
+ status.textContent=correct?"✓ "+T("correct"):"✗ "+T("wrong");
+ fb.appendChild(status);
+
+ const line1=document.createElement("div");
+ line1.textContent=T("right")+": "+String.fromCharCode(65+q.a)+". "+options[q.a];
+ fb.appendChild(line1);
+
+ const line2=document.createElement("div");
+ line2.textContent=T("explain")+": "+explanation;
+ fb.appendChild(line2);
+
+ document.getElementById("answerStatus").textContent=
+ correct?T("correct"):T("wrong");
+}
+
+function nextQuestion(){
+ if(finished)return;
+ if(current<39)showQuestion(current+1);
+ else confirmSubmit();
+}
+
+function previousQuestion(){
+ if(finished)return;
+ if(current>0)showQuestion(current-1);
+}
+
+function confirmSubmit(){
+ if(finished)return;
+ if(confirm(T("confirm")))finishTest();
+}
+
+function finishTest(){
+ if(finished)return;
+
+ finished=true;
+ clearInterval(timerInterval);
+ clearTimeout(autoTimeout);
+
+ let correct=0,wrong=0,skipped=0;
+
+ questions.forEach((q,i)=>{
+  if(answers[i]===null)skipped++;
+  else if(answers[i]===q.a)correct++;
+  else wrong++;
+ });
+
+ const score=correct-(wrong*0.25);
+ const percentage=(score/40*100).toFixed(2);
+
+ document.getElementById("quiz").style.display="none";
+ document.getElementById("bottomBar").style.display="none";
+ document.getElementById("result").style.display="block";
+
+ document.getElementById("score").textContent=score.toFixed(2)+"/40";
+ document.getElementById("correct").textContent=correct;
+ document.getElementById("wrong").textContent=wrong;
+ document.getElementById("skipped").textContent=skipped;
+ document.getElementById("percentage").textContent=percentage+"%";
+
+ document.getElementById("performance").textContent=
+ percentage>=80?T("excellent"):
+ percentage>=60?T("good"):
+ percentage>=40?T("average"):T("poor");
+
+ showReview();
+ window.scrollTo(0,0);
+}
+
+function showReview(){
+ const review=document.getElementById("review");
+ review.innerHTML="";
+
+ questions.forEach((q,i)=>{
+  const selected=answers[i];
+  const options=lang==="hi"?q.oh:q.o;
+  const question=lang==="hi"?q.h:q.q;
+  const explanation=lang==="hi"?q.eh:q.e;
+
+  const status=selected===null?T("unattempted"):
+   selected===q.a?T("correct"):T("wrong");
+
+  const div=document.createElement("div");
+  div.className="review-item";
+
+  const heading=document.createElement("strong");
+  heading.textContent="Q"+(i+1)+". "+(lang==="hi"?q.ch:q.c);
+  div.appendChild(heading);
+
+  const content=document.createElement("div");
+  content.textContent=question;
+  div.appendChild(content);
+
+  const your=document.createElement("div");
+  your.textContent=T("your")+": "+
+   (selected===null?T("unattempted"):options[selected]);
+  div.appendChild(your);
+
+  const right=document.createElement("div");
+  right.textContent=T("right")+": "+
+   String.fromCharCode(65+q.a)+". "+options[q.a];
+  div.appendChild(right);
+
+  const st=document.createElement("div");
+  st.textContent=T("status")+": "+status;
+  div.appendChild(st);
+
+  const ex=document.createElement("div");
+  ex.textContent=T("explain")+": "+explanation;
+  div.appendChild(ex);
+
+  review.appendChild(div);
+ });
+}
+
+function restartTest(){
+ clearInterval(timerInterval);
+ clearTimeout(autoTimeout);
+ initialize();
+
+ document.getElementById("result").style.display="none";
+ document.getElementById("startScreen").style.display="block";
+ document.getElementById("quiz").style.display="none";
+ document.getElementById("bottomBar").style.display="none";
+
+ window.scrollTo(0,0);
+}
+
+initialize();
+
+</script>
+</body>
+</html>
