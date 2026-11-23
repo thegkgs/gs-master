@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK GS MASTER | Advanced Mock Test</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Arial,sans-serif;
+ background:#edf2f8;color:#17233c;
+}
+header{
+ background:linear-gradient(120deg,#09152e,#163b72,#087f9b);
+ color:white;text-align:center;padding:25px 12px;
+}
+header h1{margin:0;font-size:27px}
+header p{margin:8px 0 0;color:#dcecff}
+.container{max-width:950px;margin:20px auto;padding:12px}
+.card{
+ background:white;border-radius:15px;padding:20px;
+ box-shadow:0 5px 20px #17233c16;margin-bottom:17px;
+}
+h2{margin-top:0;color:#153c72}
+.info{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:10px;margin:20px 0;
+}
+.info div{
+ background:#edf4ff;padding:13px;border-radius:10px;
+ text-align:center;font-weight:bold;
+}
+.info span{display:block;font-size:21px;color:#075b9b;margin-top:5px}
+button{
+ border:0;border-radius:8px;padding:12px 17px;
+ font-weight:bold;cursor:pointer;font-size:14px;
+}
+.primary{background:#1265b3;color:white}
+.secondary{background:#e8eef7;color:#17375e}
+.danger{background:#d93636;color:white}
+button:disabled{opacity:.4;cursor:not-allowed}
+button:hover{filter:brightness(.94)}
+.start{width:100%;font-size:18px;padding:16px}
+.telegram{
+ display:block;text-align:center;background:#0088cc;
+ color:white;text-decoration:none;padding:13px;
+ border-radius:9px;font-weight:bold;margin-top:15px;
+}
+.topbar{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;flex-wrap:wrap;
+}
+.timer{
+ background:#fff0e9;color:#c0392b;
+ padding:11px 17px;border-radius:9px;font-weight:bold;
+ font-size:20px;
+}
+.progress{
+ background:#e1e7ef;height:9px;border-radius:10px;
+ overflow:hidden;margin:15px 0;
+}
+#progressBar{height:100%;width:0;background:#087f9b}
+.question{font-size:19px;font-weight:bold;line-height:1.6}
+.option{
+ display:flex;gap:10px;align-items:flex-start;
+ padding:13px;margin:10px 0;border:1px solid #dce3ed;
+ border-radius:9px;cursor:pointer;
+}
+.option:hover{background:#f0f6ff}
+.option.selected{border:2px solid #1475bd;background:#eaf4ff}
+.option input{margin-top:4px}
+.navigation{
+ display:flex;justify-content:space-between;
+ gap:10px;margin-top:20px;flex-wrap:wrap;
+}
+.palette{
+ display:grid;grid-template-columns:repeat(8,1fr);gap:8px;
+ margin-top:15px;
+}
+.palette button{
+ padding:10px 3px;background:#e7edf5;color:#26384d;
+}
+.palette button.answered{background:#159765;color:white}
+.palette button.current{outline:3px solid #1686d2}
+.palette button.visited:not(.answered){background:#f4d68a}
+.hidden{display:none!important}
+.result{text-align:center}
+.score{font-size:42px;font-weight:bold;color:#087f9b}
+.review-item{
+ border-bottom:1px solid #ddd;padding:13px 0;line-height:1.7;
+}
+.correct{color:#13834e;font-weight:bold}
+.wrong{color:#d32f2f;font-weight:bold}
+footer{text-align:center;color:#64748b;padding:20px;font-size:13px}
+@media(max-width:500px){
+ .info{grid-template-columns:1fr 1fr}
+ .palette{grid-template-columns:repeat(5,1fr)}
+ .question{font-size:17px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>GK GS MASTER</h1>
+<p>SSC | UPSSSC | UP POLICE | STATE EXAMS</p>
+</header>
+
+<div class="container">
+
+<!-- INSTRUCTIONS -->
+<section class="card" id="instructions">
+<h2>📋 परीक्षा निर्देश / Test Instructions</h2>
+
+<ul id="instructionList">
+<li>Total Questions: 40</li>
+<li>Total Time: 20 Minutes</li>
+<li>Correct Answer: +1 Mark</li>
+<li>Wrong Answer: -0.25 Mark</li>
+<li>Unattempted Question: 0 Mark</li>
+<li>All questions are compulsory to review.</li>
+<li>You can use Next and Previous buttons.</li>
+<li>Test will automatically submit after 20 minutes.</li>
+<li>Click Submit Test to finish the examination.</li>
+</ul>
+
+<div class="info">
+<div>Total Questions<span>40</span></div>
+<div>Time<span>20 Min</span></div>
+<div>Negative<span>-0.25</span></div>
+</div>
+
+<a class="telegram" href="https://t.me/staticgkgsmaster" target="_blank">
+✈️ JOIN TELEGRAM CHANNEL
+</a>
+
+<br>
+<button class="primary start" onclick="startTest()">START TEST</button>
+</section>
+
+<!-- TEST -->
+<section class="card hidden" id="testSection">
+
+<div class="topbar">
+<h2 id="testTitle">GK GS MOCK TEST</h2>
+<div class="timer" id="timer">20:00</div>
+</div>
+
+<div class="topbar">
+<span id="questionCount">Question 1 / 40</span>
+<button class="secondary" onclick="toggleLanguage()" id="langBtn">हिंदी</button>
+</div>
+
+<div class="progress"><div id="progressBar"></div></div>
+
+<div class="question" id="questionText"></div>
+<div id="options"></div>
+
+<div class="navigation">
+<button class="secondary" onclick="previousQuestion()">← Previous</button>
+<button class="primary" onclick="nextQuestion()">Next →</button>
+</div>
+
+<h3>Question Palette</h3>
+<div class="palette" id="palette"></div>
+
+<p>
+<small>
+🟩 Answered &nbsp; 🟨 Visited &nbsp; ⬜ Not Visited
+</small>
+</p>
+
+<div class="navigation">
+<button class="danger" onclick="submitTest()">SUBMIT TEST</button>
+</div>
+</section>
+
+<!-- RESULT -->
+<section class="card hidden result" id="resultSection">
+<h2>🏆 TEST RESULT</h2>
+<p>Your examination has been completed.</p>
+<div class="score" id="score">0</div>
+<p id="percentage"></p>
+
+<div class="info">
+<div>Correct<span id="correct">0</span></div>
+<div>Wrong<span id="wrong">0</span></div>
+<div>Unattempted<span id="unattempted">0</span></div>
+<div>Negative Marks<span id="negative">0</span></div>
+<div>Final Score<span id="finalScore">0</span></div>
+<div>Accuracy<span id="accuracy">0%</span></div>
+</div>
+
+<button class="primary" onclick="showReview()">VIEW ANSWERS</button>
+<button class="secondary" onclick="location.reload()">RESTART TEST</button>
+
+<a class="telegram" href="https://t.me/staticgkgsmaster" target="_blank">
+JOIN TELEGRAM CHANNEL
+</a>
+</section>
+
+<section class="card hidden" id="reviewSection">
+<h2>ANSWER KEY & EXPLANATION</h2>
+<div id="review"></div>
+<button class="primary" onclick="location.reload()">RESTART TEST</button>
+</section>
+
+</div>
+
+<footer>
+© 2026 GK GS MASTER | All Rights Reserved<br>
+Educational Mock Test Platform<br>
+Telegram: @staticgkgsmaster
+</footer>
+
+<script>
+
+// QUESTION DATABASE
+// h = Hindi, e = English, o = options, a = correct answer
+
+const questions = [
+
+{
+h:"भारतीय संविधान में मौलिक कर्तव्यों को किस संविधान संशोधन द्वारा जोड़ा गया?",
+e:"By which Constitutional Amendment were Fundamental Duties added to the Indian Constitution?",
+o:[
+["42वें संशोधन","42nd Amendment"],
+["44वें संशोधन","44th Amendment"],
+["52वें संशोधन","52nd Amendment"],
+["61वें संशोधन","61st Amendment"]
+],a:0,ex:"मौलिक कर्तव्य 42वें संविधान संशोधन, 1976 द्वारा जोड़े गए।"
+},
+
+{
+h:"भारत में वित्त आयोग का गठन किस अनुच्छेद के अंतर्गत होता है?",
+e:"Under which Article is the Finance Commission constituted in India?",
+o:[
+["अनुच्छेद 280","Article 280"],
+["अनुच्छेद 324","Article 324"],
+["अनुच्छेद 148","Article 148"],
+["अनुच्छेद 356","Article 356"]
+],a:0,ex:"अनुच्छेद 280 वित्त आयोग से संबंधित है।"
+},
+
+{
+h:"इलाहाबाद स्तंभ लेख मुख्यतः किस शासक की उपलब्धियों का वर्णन करता है?",
+e:"The Allahabad Pillar inscription mainly describes the achievements of which ruler?",
+o:[
+["चंद्रगुप्त मौर्य","Chandragupta Maurya"],
+["समुद्रगुप्त","Samudragupta"],
+["स्कंदगुप्त","Skandagupta"],
+["हर्षवर्धन","Harshavardhana"]
+],a:1,ex:"प्रयाग प्रशस्ति की रचना हरिषेण ने समुद्रगुप्त की उपलब्धियों के वर्णन में की थी।"
+},
+
+{
+h:"स्थायी बंदोबस्त व्यवस्था किस गवर्नर जनरल ने लागू की?",
+e:"Which Governor-General introduced the Permanent Settlement?",
+o:[
+["लॉर्ड वेलेजली","Lord Wellesley"],
+["लॉर्ड कॉर्नवालिस","Lord Cornwallis"],
+["लॉर्ड डलहौजी","Lord Dalhousie"],
+["लॉर्ड कर्जन","Lord Curzon"]
+],a:1,ex:"1793 में लॉर्ड कॉर्नवालिस ने स्थायी बंदोबस्त लागू किया।"
+},
+
+{
+h:"सांची स्तूप का मूल निर्माण किस शासक से संबंधित है?",
+e:"The original construction of the Sanchi Stupa is associated with which ruler?",
+o:[
+["अशोक","Ashoka"],
+["कनिष्क","Kanishka"],
+["हर्ष","Harsha"],
+["बिंबिसार","Bimbisara"]
+],a:0,ex:"सांची के मूल स्तूप का निर्माण सम्राट अशोक के समय हुआ।"
+},
+
+{
+h:"भारत में पहली पंचवर्षीय योजना का मुख्य उद्देश्य क्या था?",
+e:"What was the primary objective of India's First Five-Year Plan?",
+o:[
+["औद्योगीकरण","Industrialisation"],
+["कृषि विकास","Agricultural Development"],
+["निर्यात वृद्धि","Export Growth"],
+["निजीकरण","Privatisation"]
+],a:1,ex:"प्रथम पंचवर्षीय योजना में कृषि और सिंचाई को प्राथमिकता दी गई।"
+},
+
+{
+h:"भारतीय रिजर्व बैंक का राष्ट्रीयकरण कब हुआ?",
+e:"When was the Reserve Bank of India nationalised?",
+o:[
+["1947","1947"],
+["1948","1948"],
+["1949","1949"],
+["1950","1950"]
+],a:2,ex:"RBI का राष्ट्रीयकरण 1 जनवरी 1949 को हुआ।"
+},
+
+{
+h:"शून्यकाल का उल्लेख भारतीय संविधान के किस अनुच्छेद में है?",
+e:"Zero Hour is mentioned under which Article of the Indian Constitution?",
+o:[
+["अनुच्छेद 110","Article 110"],
+["अनुच्छेद 112","Article 112"],
+["किसी भी अनुच्छेद में नहीं","Not mentioned in any Article"],
+["अनुच्छेद 123","Article 123"]
+],a:2,ex:"शून्यकाल संसदीय परंपरा है, संविधान में इसका स्पष्ट उल्लेख नहीं है।"
+},
+
+{
+h:"भारत का पहला राष्ट्रीय उद्यान कौन-सा है?",
+e:"Which is India's first National Park?",
+o:[
+["काजीरंगा","Kaziranga"],
+["जिम कॉर्बेट","Jim Corbett"],
+["गिर","Gir"],
+["कान्हा","Kanha"]
+],a:1,ex:"जिम कॉर्बेट राष्ट्रीय उद्यान की स्थापना 1936 में हुई थी।"
+},
+
+{
+h:"कर्क रेखा भारत के कितने राज्यों से होकर गुजरती है?",
+e:"Through how many Indian states does the Tropic of Cancer pass?",
+o:[
+["6","6"],
+["7","7"],
+["8","8"],
+["9","9"]
+],a:2,ex:"कर्क रेखा भारत के 8 राज्यों से गुजरती है।"
+},
+
+{
+h:"भारत में काली मिट्टी मुख्यतः किस चट्टान के अपक्षय से बनी है?",
+e:"Black soil in India is primarily formed by the weathering of which rock?",
+o:[
+["ग्रेनाइट","Granite"],
+["बेसाल्ट","Basalt"],
+["बलुआ पत्थर","Sandstone"],
+["चूना पत्थर","Limestone"]
+],a:1,ex:"दक्कन ट्रैप की बेसाल्ट चट्टानों से काली मिट्टी का विकास हुआ।"
+},
+
+{
+h:"भारत की सबसे बड़ी मीठे पानी की प्राकृतिक झील कौन-सी है?",
+e:"Which is India's largest natural freshwater lake?",
+o:[
+["डल झील","Dal Lake"],
+["वुलर झील","Wular Lake"],
+["लोकटक झील","Loktak Lake"],
+["नैनी झील","Naini Lake"]
+],a:1,ex:"जम्मू-कश्मीर की वुलर झील भारत की सबसे बड़ी प्राकृतिक मीठे पानी की झील मानी जाती है।"
+},
+
+{
+h:"ओजोन परत वायुमंडल की किस परत में पाई जाती है?",
+e:"The ozone layer is found in which atmospheric layer?",
+o:[
+["क्षोभमंडल","Troposphere"],
+["समतापमंडल","Stratosphere"],
+["मध्यमंडल","Mesosphere"],
+["तापमंडल","Thermosphere"]
+],a:1,ex:"ओजोन परत मुख्यतः समतापमंडल में स्थित होती है।"
+},
+
+{
+h:"मानव शरीर में इंसुलिन का स्राव किस कोशिका द्वारा होता है?",
+e:"Insulin is secreted by which cells in the human body?",
+o:[
+["अल्फा कोशिकाएं","Alpha cells"],
+["बीटा कोशिकाएं","Beta cells"],
+["डेल्टा कोशिकाएं","Delta cells"],
+["गामा कोशिकाएं","Gamma cells"]
+],a:1,ex:"अग्न्याशय की लैंगरहैंस द्वीपिकाओं की बीटा कोशिकाएं इंसुलिन बनाती हैं।"
+},
+
+{
+h:"विटामिन B12 में कौन-सी धातु उपस्थित होती है?",
+e:"Which metal is present in Vitamin B12?",
+o:[
+["लोहा","Iron"],
+["मैग्नीशियम","Magnesium"],
+["कोबाल्ट","Cobalt"],
+["जिंक","Zinc"]
+],a:2,ex:"विटामिन B12 में कोबाल्ट धातु उपस्थित होती है।"
+},
+
+{
+h:"ध्वनि की तीव्रता का स्तर किस इकाई में मापा जाता है?",
+e:"The level of sound intensity is measured in which unit?",
+o:[
+["हर्ट्ज","Hertz"],
+["डेसीबल","Decibel"],
+["न्यूटन","Newton"],
+["जूल","Joule"]
+],a:1,ex:"ध्वनि स्तर को डेसीबल में मापा जाता है।"
+},
+
+{
+h:"किस गैस को हंसाने वाली गैस कहा जाता है?",
+e:"Which gas is commonly called laughing gas?",
+o:[
+["नाइट्रिक ऑक्साइड","Nitric oxide"],
+["नाइट्रस ऑक्साइड","Nitrous oxide"],
+["सल्फर डाइऑक्साइड","Sulphur dioxide"],
+["कार्बन मोनोऑक्साइड","Carbon monoxide"]
+],a:1,ex:"नाइट्रस ऑक्साइड (N₂O) को लाफिंग गैस कहते हैं।"
+},
+
+{
+h:"किसी तत्व का परमाणु क्रमांक किसके बराबर होता है?",
+e:"The atomic number of an element is equal to the number of:",
+o:[
+["न्यूट्रॉन","Neutrons"],
+["प्रोटॉन","Protons"],
+["प्रोटॉन और न्यूट्रॉन","Protons and neutrons"],
+["नाभिकीय कण","Nuclear particles"]
+],a:1,ex:"परमाणु क्रमांक नाभिक में उपस्थित प्रोटॉनों की संख्या है।"
+},
+
+{
+h:"प्रकाश वर्ष किसकी इकाई है?",
+e:"A light-year is a unit of:",
+o:[
+["समय","Time"],
+["दूरी","Distance"],
+["प्रकाश की तीव्रता","Light intensity"],
+["वेग","Velocity"]
+],a:1,ex:"प्रकाश वर्ष खगोलीय दूरी की इकाई है।"
+},
+
+{
+h:"न्यूटन का तीसरा नियम किस सिद्धांत पर आधारित है?",
+e:"Newton's Third Law is based on which principle?",
+o:[
+["जड़त्व","Inertia"],
+["क्रिया-प्रतिक्रिया","Action and Reaction"],
+["गुरुत्वाकर्षण","Gravitation"],
+["संवेग संरक्षण","Conservation of Momentum"]
+],a:1,ex:"प्रत्येक क्रिया के बराबर एवं विपरीत प्रतिक्रिया होती है।"
+},
+
+{
+h:"भारतीय संविधान की आठवीं अनुसूची में वर्तमान में कितनी भाषाएं हैं?",
+e:"How many languages are currently included in the Eighth Schedule of the Indian Constitution?",
+o:[
+["18","18"],
+["20","20"],
+["22","22"],
+["24","24"]
+],a:2,ex:"आठवीं अनुसूची में 22 भाषाएं शामिल हैं।"
+},
+
+{
+h:"भारत के नियंत्रक एवं महालेखा परीक्षक की नियुक्ति कौन करता है?",
+e:"Who appoints the Comptroller and Auditor General of India?",
+o:[
+["प्रधानमंत्री","Prime Minister"],
+["राष्ट्रपति","President"],
+["लोकसभा अध्यक्ष","Speaker of Lok Sabha"],
+["वित्त मंत्री","Finance Minister"]
+],a:1,ex:"CAG की नियुक्ति राष्ट्रपति द्वारा की जाती है।"
+},
+
+{
+h:"दल-बदल विरोधी कानून किस अनुसूची में है?",
+e:"The Anti-Defection Law is contained in which Schedule?",
+o:[
+["8वीं","Eighth"],
+["9वीं","Ninth"],
+["10वीं","Tenth"],
+["11वीं","Eleventh"]
+],a:2,ex:"52वें संशोधन द्वारा दसवीं अनुसूची जोड़ी गई।"
+},
+
+{
+h:"राज्यसभा के सदस्यों का कार्यकाल कितने वर्ष का होता है?",
+e:"What is the term of a Rajya Sabha member?",
+o:[
+["4 वर्ष","4 years"],
+["5 वर्ष","5 years"],
+["6 वर्ष","6 years"],
+["7 वर्ष","7 years"]
+],a:2,ex:"राज्यसभा सदस्य का कार्यकाल 6 वर्ष है।"
+},
+
+{
+h:"भारत के राष्ट्रपति के महाभियोग की प्रक्रिया किस अनुच्छेद में है?",
+e:"Which Article deals with the impeachment of the President of India?",
+o:[
+["अनुच्छेद 52","Article 52"],
+["अनुच्छेद 61","Article 61"],
+["अनुच्छेद 72","Article 72"],
+["अनुच्छेद 74","Article 74"]
+],a:1,ex:"अनुच्छेद 61 राष्ट्रपति के महाभियोग से संबंधित है।"
+},
+
+{
+h:"सिंधु घाटी सभ्यता का प्रमुख बंदरगाह कौन-सा था?",
+e:"Which was a major port of the Indus Valley Civilization?",
+o:[
+["कालीबंगा","Kalibangan"],
+["लोथल","Lothal"],
+["हड़प्पा","Harappa"],
+["बनावली","Banawali"]
+],a:1,ex:"गुजरात स्थित लोथल अपने प्राचीन गोदीवाड़े के लिए प्रसिद्ध है।"
+},
+
+{
+h:"बौद्ध धर्म की चौथी संगीति किस शासक के समय हुई?",
+e:"The Fourth Buddhist Council was held during the reign of which ruler?",
+o:[
+["अशोक","Ashoka"],
+["कनिष्क","Kanishka"],
+["अजातशत्रु","Ajatashatru"],
+["बिंबिसार","Bimbisara"]
+],a:1,ex:"परंपरागत रूप से चौथी बौद्ध संगीति कनिष्क के समय कश्मीर में मानी जाती है।"
+},
+
+{
+h:"अकबर ने दीन-ए-इलाही की शुरुआत कब की?",
+e:"When did Akbar introduce Din-i-Ilahi?",
+o:[
+["1575","1575"],
+["1582","1582"],
+["1605","1605"],
+["1562","1562"]
+],a:1,ex:"अकबर ने 1582 में दीन-ए-इलाही की शुरुआत की।"
+},
+
+{
+h:"पानीपत का तीसरा युद्ध किस वर्ष हुआ था?",
+e:"In which year was the Third Battle of Panipat fought?",
+o:[
+["1526","1526"],
+["1556","1556"],
+["1761","1761"],
+["1764","1764"]
+],a:2,ex:"1761 में अहमद शाह अब्दाली और मराठों के बीच युद्ध हुआ।"
+},
+
+{
+h:"स्वदेशी आंदोलन किस घटना के विरोध में शुरू हुआ?",
+e:"The Swadeshi Movement was launched in opposition to which event?",
+o:[
+["रॉलेट एक्ट","Rowlatt Act"],
+["बंगाल विभाजन","Partition of Bengal"],
+["साइमन कमीशन","Simon Commission"],
+["जलियांवाला बाग","Jallianwala Bagh"]
+],a:1,ex:"1905 के बंगाल विभाजन के विरोध में स्वदेशी आंदोलन शुरू हुआ।"
+},
+
+{
+h:"भारत छोड़ो आंदोलन किस वर्ष शुरू हुआ?",
+e:"In which year was the Quit India Movement launched?",
+o:[
+["1930","1930"],
+["1935","1935"],
+["1942","1942"],
+["1946","1946"]
+],a:2,ex:"भारत छोड़ो आंदोलन 8 अगस्त 1942 को शुरू हुआ।"
+},
+
+{
+h:"किस नदी को दक्षिण भारत की गंगा कहा जाता है?",
+e:"Which river is known as the Ganga of South India?",
+o:[
+["कृष्णा","Krishna"],
+["गोदावरी","Godavari"],
+["कावेरी","Kaveri"],
+["तुंगभद्रा","Tungabhadra"]
+],a:1,ex:"गोदावरी को दक्षिण गंगा कहा जाता है।"
+},
+
+{
+h:"भारत की सबसे लंबी प्रायद्वीपीय नदी कौन-सी है?",
+e:"Which is the longest peninsular river of India?",
+o:[
+["कृष्णा","Krishna"],
+["कावेरी","Kaveri"],
+["गोदावरी","Godavari"],
+["नर्मदा","Narmada"]
+],a:2,ex:"गोदावरी भारत की सबसे लंबी प्रायद्वीपीय नदी है।"
+},
+
+{
+h:"चिल्का झील किस राज्य में स्थित है?",
+e:"Chilika Lake is located in which state?",
+o:[
+["पश्चिम बंगाल","West Bengal"],
+["ओडिशा","Odisha"],
+["आंध्र प्रदेश","Andhra Pradesh"],
+["केरल","Kerala"]
+],a:1,ex:"चिल्का झील ओडिशा में स्थित खारे पानी की लैगून झील है।"
+},
+
+{
+h:"भारत में हरित क्रांति का जनक किसे कहा जाता है?",
+e:"Who is known as the Father of the Green Revolution in India?",
+o:[
+["एम. एस. स्वामीनाथन","M. S. Swaminathan"],
+["वर्गीज कुरियन","Verghese Kurien"],
+["नॉर्मन बोरलॉग","Norman Borlaug"],
+["होमी भाभा","Homi Bhabha"]
+],a:0,ex:"भारत में हरित क्रांति का जनक एम. एस. स्वामीनाथन को कहा जाता है।"
+},
+
+{
+h:"भारत में GST किस संविधान संशोधन से लागू करने का मार्ग प्रशस्त हुआ?",
+e:"Which Constitutional Amendment paved the way for GST in India?",
+o:[
+["99वां","99th"],
+["100वां","100th"],
+["101वां","101st"],
+["102वां","102nd"]
+],a:2,ex:"101वें संविधान संशोधन अधिनियम, 2016 ने GST का मार्ग प्रशस्त किया।"
+},
+
+{
+h:"मानव शरीर की सबसे बड़ी ग्रंथि कौन-सी है?",
+e:"Which is the largest gland in the human body?",
+o:[
+["अग्न्याशय","Pancreas"],
+["यकृत","Liver"],
+["थायरॉइड","Thyroid"],
+["पीयूष ग्रंथि","Pituitary"]
+],a:1,ex:"यकृत मानव शरीर की सबसे बड़ी ग्रंथि है।"
+},
+
+{
+h:"रक्त का थक्का जमाने में कौन-सा विटामिन सहायक है?",
+e:"Which vitamin helps in blood clotting?",
+o:[
+["विटामिन A","Vitamin A"],
+["विटामिन C","Vitamin C"],
+["विटामिन D","Vitamin D"],
+["विटामिन K","Vitamin K"]
+],a:3,ex:"विटामिन K रक्त के सामान्य थक्के जमने के लिए आवश्यक है।"
+},
+
+{
+h:"मानव शरीर में यूरिया का निर्माण मुख्यतः कहां होता है?",
+e:"Where is urea primarily produced in the human body?",
+o:[
+["गुर्दा","Kidney"],
+["यकृत","Liver"],
+["हृदय","Heart"],
+["फेफड़ा","Lung"]
+],a:1,ex:"यूरिया का निर्माण यकृत में यूरिया चक्र द्वारा होता है।"
+}
+
+];
+
+// TEST VARIABLES
+let current=0;
+let answers=Array(questions.length).fill(null);
+let visited=Array(questions.length).fill(false);
+let hindi=false;
+let remaining=1200;
+let interval=null;
+let finished=false;
+
+function startTest(){
+ document.getElementById("instructions").classList.add("hidden");
+ document.getElementById("testSection").classList.remove("hidden");
+ current=0;
+ visited[0]=true;
+ render();
+ createPalette();
+ updatePalette();
+ interval=setInterval(()=>{
+  remaining--;
+  updateTimer();
+  if(remaining<=0){
+   clearInterval(interval);
+   submitTest();
+  }
+ },1000);
+}
+
+function updateTimer(){
+ let min=Math.floor(remaining/60);
+ let sec=remaining%60;
+ document.getElementById("timer").textContent=
+ String(min).padStart(2,"0")+":"+
+ String(sec).padStart(2,"0");
+ if(remaining<=60){
+  document.getElementById("timer").style.background="#ffcccc";
+ }
+}
+
+function render(){
+ let q=questions[current];
+ document.getElementById("questionCount").textContent=
+ (hindi?"प्रश्न ":"Question ")+(current+1)+" / 40";
+
+ document.getElementById("questionText").textContent=
+ (current+1)+". "+(hindi?q.h:q.e);
+
+ document.getElementById("progressBar").style.width=
+ ((current+1)/40*100)+"%";
+
+ document.getElementById("options").innerHTML="";
+
+ q.o.forEach((op,i)=>{
+  let label=document.createElement("label");
+  label.className="option"+
+  (answers[current]===i?" selected":"");
+
+  let radio=document.createElement("input");
+  radio.type="radio";
+  radio.name="answer";
+  radio.checked=answers[current]===i;
+
+  radio.onchange=()=>{
+   answers[current]=i;
+   render();
+   updatePalette();
+  };
+
+  let span=document.createElement("span");
+  span.textContent=String.fromCharCode(65+i)+". "+op[hindi?0:1];
+
+  label.append(radio,span);
+  document.getElementById("options").appendChild(label);
+ });
+
+ updatePalette();
+}
+
+function createPalette(){
+ let p=document.getElementById("palette");
+ p.innerHTML="";
+ questions.forEach((q,i)=>{
+  let b=document.createElement("button");
+  b.textContent=i+1;
+  b.onclick=()=>{
+   current=i;
+   visited[i]=true;
+   render();
+  };
+  p.appendChild(b);
+ });
+}
+
+function updatePalette(){
+ let buttons=document.querySelectorAll("#palette button");
+ buttons.forEach((b,i)=>{
+  b.classN
