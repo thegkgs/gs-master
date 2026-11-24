@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Science Mock Test | STATIC GK GS MASTER</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#f1f3f8;color:#18243a;
+ font-family:Arial,sans-serif
+}
+header{
+ background:linear-gradient(120deg,#172d55,#075a79);
+ color:white;padding:24px 5%;
+}
+.brand{display:flex;justify-content:space-between;align-items:center}
+.logo{
+ background:#f28a16;border-radius:50%;padding:17px;
+ font-weight:bold;color:white
+}
+.orange{color:#ff941c}
+h1{font-size:27px;margin:30px 0 8px}
+.subtitle{color:#dce8f8}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:22px}
+.stat{background:#ffffff18;padding:14px;border-radius:12px}
+.stat b{font-size:23px;display:block}
+.stat small{color:#d8e2f2}
+.container{max-width:850px;margin:22px auto;padding:12px}
+.card{
+ background:white;padding:23px;border-radius:18px;
+ box-shadow:0 5px 20px #0000000c;margin-bottom:18px
+}
+button{
+ border:0;border-radius:9px;padding:13px 19px;
+ font-size:15px;font-weight:bold;cursor:pointer
+}
+.primary{background:#f28a16;color:white}
+.secondary{background:#e8edf5;color:#183253}
+.lang{background:#284b75;color:white;margin-top:12px}
+.lang.active{background:#f28a16}
+.center{text-align:center}
+.hidden{display:none!important}
+#question{font-size:20px;line-height:1.5;font-weight:bold;margin:20px 0}
+.option{
+ display:block;width:100%;text-align:left;margin:12px 0;
+ background:#f2f5fa;border:2px solid #e2e7ef;
+ padding:15px;border-radius:11px;color:#17243b;
+ font-weight:normal
+}
+.option.selected{border-color:#126b99;background:#e5f4ff}
+.option.correct{background:#d9f7e4;border-color:#1b9c54}
+.option.wrong{background:#ffe1e1;border-color:#e34c4c}
+.topline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.timer{font-weight:bold;color:#e87912;font-size:19px}
+.progress{height:9px;background:#e5e8ee;border-radius:20px;overflow:hidden;margin:15px 0}
+.bar{height:100%;background:#f28a16;width:0%;transition:.2s}
+.palette{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:15px}
+.palette button{padding:10px 2px;background:#e8edf5}
+.palette button.done{background:#b9e8c9}
+.palette button.current{background:#f28a16;color:white}
+.navigation{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+#explanation{background:#eef6ff;padding:14px;border-radius:10px;margin-top:15px;line-height:1.6}
+.result-number{font-size:38px;color:#f28a16;font-weight:bold}
+footer{text-align:center;color:#737d8e;padding:25px 10px;line-height:1.9}
+.review{border-bottom:1px solid #ddd;padding:15px 0;line-height:1.6}
+@media(max-width:500px){
+ h1{font-size:23px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .card{padding:17px}
+ #question{font-size:18px}
+ .palette{grid-template-columns:repeat(5,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="brand">
+  <div style="display:flex;align-items:center;gap:12px">
+   <div class="logo">SG</div>
+   <div>
+    <b>STATIC GK GS MASTER</b><br>
+    <small>KNOWLEDGE | PRACTICE | SUCCESS</small>
+   </div>
+  </div>
+  <div class="orange" style="font-size:48px;font-weight:bold">02</div>
+ </div>
+
+ <h1>COMPUTER SCIENCE MASTER TEST</h1>
+ <div class="subtitle">UPSSSC | UPPCO | Computer Operator</div>
+ <b class="orange">KNOWLEDGE | PRACTICE | SUCCESS</b><br>
+
+ <button class="lang active" id="eng" onclick="setLanguage('en')">ENGLISH</button>
+ <button class="lang" id="hin" onclick="setLanguage('hi')">हिंदी</button>
+
+ <div class="stats">
+  <div class="stat"><b>40</b><small>Questions</small></div>
+  <div class="stat"><b>20 Sec</b><small>Per Question</small></div>
+  <div class="stat"><b>+1</b><small>Correct</small></div>
+  <div class="stat"><b>-0.25</b><small>Wrong</small></div>
+ </div>
+</header>
+
+<div class="container">
+
+<div class="card center" id="startPage">
+ <h1 style="color:#21466f">COMPUTER SCIENCE CHALLENGE 2026</h1>
+ <h2>40 Questions | Moderate to Advanced</h2>
+ <p>Each question has a 20-second timer.</p>
+ <p>Time out automatically moves to the next question.</p>
+ <hr>
+ <p>Correct: +1 | Wrong: -0.25 | Unattempted: 0</p>
+ <button class="primary" onclick="startTest()" style="font-size:19px;margin-top:20px">START TEST</button>
+</div>
+
+<div class="card hidden" id="testPage">
+ <div class="topline">
+  <b id="qcount">Question 1/40</b>
+  <div class="timer">⏱️ <span id="time">20</span> Sec</div>
+ </div>
+ <div class="progress"><div class="bar" id="bar"></div></div>
+
+ <div id="question"></div>
+ <div id="options"></div>
+ <div id="explanation" class="hidden"></div>
+
+ <div class="navigation">
+  <button class="secondary" onclick="previousQuestion()" id="prev">← Previous</button>
+  <button class="primary" onclick="nextQuestion()" id="next">Next →</button>
+ </div>
+
+ <h3>Question Palette</h3>
+ <div class="palette" id="palette"></div>
+</div>
+
+<div class="card hidden center" id="resultPage">
+ <h1 style="color:#21466f">TEST COMPLETED!</h1>
+ <p>Your Computer Science Result</p>
+ <div class="result-number" id="score">0</div>
+ <h2 id="percentage">0%</h2>
+ <div class="stats" style="color:#17243b">
+  <div class="stat"><b id="right">0</b><small>Correct</small></div>
+  <div class="stat"><b id="wrong">0</b><small>Wrong</small></div>
+  <div class="stat"><b id="skip">0</b><small>Skipped</small></div>
+  <div class="stat"><b>40</b><small>Total</small></div>
+ </div>
+ <h3 id="message"></h3>
+ <button class="primary" onclick="showReview()">VIEW ANSWERS & EXPLANATIONS</button>
+ <button class="secondary" onclick="location.reload()">RESTART TEST</button>
+ <div id="review" style="text-align:left"></div>
+</div>
+
+</div>
+
+<footer>
+ <b>STATIC GK GS MASTER</b><br>
+ KNOWLEDGE | PRACTICE | SUCCESS<br>
+ GK | GS | COMPUTER SCIENCE | MOCK TESTS<br>
+ Telegram: <b style="color:#ed8415">@staticgkgsmaster</b><br>
+ © 2026 STATIC GK GS MASTER. All Rights Reserved.
+</footer>
+
+<script>
+const questions = [
+
+{
+q:"Which memory is volatile in nature?",
+h:"कौन-सी मेमोरी अस्थायी (Volatile) प्रकृति की होती है?",
+o:["ROM","RAM","SSD","DVD"],oh:["ROM","RAM","SSD","DVD"],a:1,
+e:"RAM loses its stored data when power is switched off.",
+eh:"बिजली बंद होने पर RAM में संग्रहित डेटा समाप्त हो जाता है।"
+},
+
+{
+q:"Which protocol is used to send e-mails?",
+h:"ई-मेल भेजने के लिए किस प्रोटोकॉल का प्रयोग होता है?",
+o:["POP3","IMAP","SMTP","FTP"],oh:["POP3","IMAP","SMTP","FTP"],a:2,
+e:"SMTP stands for Simple Mail Transfer Protocol.",
+eh:"SMTP का पूरा नाम Simple Mail Transfer Protocol है।"
+},
+
+{
+q:"What is the decimal equivalent of binary 101101?",
+h:"बाइनरी संख्या 101101 का दशमलव मान क्या है?",
+o:["43","44","45","46"],oh:["43","44","45","46"],a:2,
+e:"32 + 8 + 4 + 1 = 45.",
+eh:"32 + 8 + 4 + 1 = 45."
+},
+
+{
+q:"Which data structure follows LIFO?",
+h:"कौन-सा डेटा स्ट्रक्चर LIFO सिद्धांत का पालन करता है?",
+o:["Queue","Stack","Tree","Graph"],oh:["Queue","Stack","Tree","Graph"],a:1,
+e:"Stack follows Last In First Out.",
+eh:"Stack में Last In First Out सिद्धांत लागू होता है।"
+},
+
+{
+q:"Which key combination opens Task Manager directly in Windows?",
+h:"Windows में Task Manager सीधे खोलने के लिए कौन-सी कुंजी प्रयोग होती है?",
+o:["Ctrl + Alt + Del","Ctrl + Shift + Esc","Alt + F4","Win + R"],oh:["Ctrl + Alt + Del","Ctrl + Shift + Esc","Alt + F4","Win + R"],a:1,
+e:"Ctrl + Shift + Esc directly opens Task Manager.",
+eh:"Ctrl + Shift + Esc से Task Manager सीधे खुलता है।"
+},
+
+{
+q:"Which normal form removes partial dependency?",
+h:"कौन-सा Normal Form Partial Dependency को हटाता है?",
+o:["1NF","2NF","3NF","BCNF"],oh:["1NF","2NF","3NF","BCNF"],a:1,
+e:"Second Normal Form removes partial functional dependency.",
+eh:"2NF Partial Functional Dependency को समाप्त करता है।"
+},
+
+{
+q:"Which device operates at the Network Layer of OSI?",
+h:"OSI मॉडल की Network Layer पर कौन-सा डिवाइस कार्य करता है?",
+o:["Hub","Repeater","Router","Bridge"],oh:["Hub","Repeater","Router","Bridge"],a:2,
+e:"Router operates at the Network Layer.",
+eh:"Router OSI की Network Layer पर कार्य करता है।"
+},
+
+{
+q:"What is the default port number of HTTPS?",
+h:"HTTPS का डिफॉल्ट पोर्ट नंबर क्या है?",
+o:["21","80","443","25"],oh:["21","80","443","25"],a:2,
+e:"HTTPS commonly uses TCP port 443.",
+eh:"HTTPS सामान्यतः TCP Port 443 का उपयोग करता है।"
+},
+
+{
+q:"Which SQL command removes all rows while retaining table structure?",
+h:"कौन-सी SQL कमांड टेबल की संरचना बनाए रखते हुए सभी Rows हटाती है?",
+o:["DROP","DELETE","TRUNCATE","ALTER"],oh:["DROP","DELETE","TRUNCATE","ALTER"],a:2,
+e:"TRUNCATE removes all rows but retains the table structure.",
+eh:"TRUNCATE सभी Rows हटाता है लेकिन Table Structure बनाए रखता है।"
+},
+
+{
+q:"Which of the following is a non-volatile memory?",
+h:"निम्न में से कौन-सी Non-Volatile Memory है?",
+o:["Cache","Register","RAM","ROM"],oh:["Cache","Register","RAM","ROM"],a:3,
+e:"ROM retains information without continuous power.",
+eh:"ROM बिना बिजली के भी डेटा सुरक्षित रखती है।"
+},
+
+{
+q:"Which translator converts the entire source program into machine code?",
+h:"कौन-सा Translator पूरे Source Program को Machine Code में बदलता है?",
+o:["Interpreter","Compiler","Assembler only","Debugger"],oh:["Interpreter","Compiler","Assembler only","Debugger"],a:1,
+e:"A compiler translates the source program into machine code or equivalent object code.",
+eh:"Compiler पूरे Source Program का अनुवाद करता है।"
+},
+
+{
+q:"What is the output of 15 MOD 4?",
+h:"15 MOD 4 का परिणाम क्या होगा?",
+o:["2","3","4","1"],oh:["2","3","4","1"],a:1,
+e:"15 divided by 4 leaves remainder 3.",
+eh:"15 को 4 से भाग देने पर शेषफल 3 आता है।"
+},
+
+{
+q:"Which topology uses a central connecting device?",
+h:"किस Topology में एक Central Connecting Device होता है?",
+o:["Bus","Ring","Star","Mesh"],oh:["Bus","Ring","Star","Mesh"],a:2,
+e:"Star topology connects devices through a central hub or switch.",
+eh:"Star Topology में सभी डिवाइस एक Central Hub या Switch से जुड़ते हैं।"
+},
+
+{
+q:"Which SQL clause is used to filter grouped records?",
+h:"Grouped Records को Filter करने के लिए कौन-सी SQL Clause प्रयोग होती है?",
+o:["WHERE","ORDER BY","HAVING","DISTINCT"],oh:["WHERE","ORDER BY","HAVING","DISTINCT"],a:2,
+e:"HAVING filters groups after GROUP BY.",
+eh:"GROUP BY के बाद Groups को Filter करने के लिए HAVING प्रयोग होता है।"
+},
+
+{
+q:"What is the full form of DNS?",
+h:"DNS का पूरा नाम क्या है?",
+o:["Domain Name System","Data Network Service","Digital Name Server","Domain Network Security"],oh:["Domain Name System","Data Network Service","Digital Name Server","Domain Network Security"],a:0,
+e:"DNS translates domain names into IP addresses.",
+eh:"DNS Domain Names को IP Addresses में बदलने में मदद करता है।"
+},
+
+{
+q:"Which algorithm is based on Divide and Conquer?",
+h:"कौन-सा Algorithm Divide and Conquer पर आधारित है?",
+o:["Bubble Sort","Merge Sort","Linear Search","Selection Sort"],oh:["Bubble Sort","Merge Sort","Linear Search","Selection Sort"],a:1,
+e:"Merge Sort divides data into smaller parts and merges sorted parts.",
+eh:"Merge Sort डेटा को छोटे भागों में बाँटकर Sort करता है।"
+},
+
+{
+q:"Which SQL key uniquely identifies each record?",
+h:"कौन-सी SQL Key प्रत्येक Record की विशिष्ट पहचान करती है?",
+o:["Foreign Key","Primary Key","Alternate Key","Composite attribute"],oh:["Foreign Key","Primary Key","Alternate Key","Composite Attribute"],a:1,
+e:"A Primary Key uniquely identifies each row in a table.",
+eh:"Primary Key प्रत्येक Row की Unique पहचान करती है।"
+},
+
+{
+q:"Which number system uses base 8?",
+h:"कौन-सी Number System का Base 8 होता है?",
+o:["Binary","Octal","Decimal","Hexadecimal"],oh:["Binary","Octal","Decimal","Hexadecimal"],a:1,
+e:"Octal number system uses digits 0 to 7.",
+eh:"Octal Number System में 0 से 7 तक अंक होते हैं।"
+},
+
+{
+q:"Which register stores the address of the next instruction?",
+h:"अगले Instruction का Address किस Register में रहता है?",
+o:["Accumulator","Program Counter","Instruction Register","MAR only"],oh:["Accumulator","Program Counter","Instruction Register","MAR"],a:1,
+e:"Program Counter holds the address of the next instruction to execute.",
+eh:"Program Counter अगले Execute होने वाले Instruction का Address रखता है।"
+},
+
+{
+q:"Which scheduling algorithm may cause starvation?",
+h:"किस Scheduling Algorithm में Starvation की समस्या हो सकती है?",
+o:["FCFS","Round Robin","Priority Scheduling","FIFO"],oh:["FCFS","Round Robin","Priority Scheduling","FIFO"],a:2,
+e:"Low-priority processes may wait indefinitely in Priority Scheduling.",
+eh:"Priority Scheduling में Low Priority Process लंबे समय तक प्रतीक्षा कर सकती है।"
+},
+
+{
+q:"Which protocol is used for automatic IP address assignment?",
+h:"Automatic IP Address देने के लिए कौन-सा Protocol प्रयोग होता है?",
+o:["DNS","DHCP","HTTP","SNMP"],oh:["DNS","DHCP","HTTP","SNMP"],a:1,
+e:"DHCP dynamically assigns IP configuration to devices.",
+eh:"DHCP डिवाइस को Dynamic रूप से IP Configuration देता है।"
+},
+
+{
+q:"What is the time complexity of Binary Search in a sorted array?",
+h:"Sorted Array में Binary Search की Time Complexity क्या है?",
+o:["O(n)","O(n²)","O(log n)","O(1)"],oh:["O(n)","O(n²)","O(log n)","O(1)"],a:2,
+e:"Binary Search repeatedly halves the search space.",
+eh:"Binary Search प्रत्येक चरण में Search Space को आधा करता है।"
+},
+
+{
+q:"Which logic gate produces output 1 only when inputs are different?",
+h:"कौन-सा Logic Gate तभी Output 1 देता है जब Inputs अलग-अलग हों?",
+o:["AND","OR","XNOR","XOR"],oh:["AND","OR","XNOR","XOR"],a:3,
+e:"XOR produces 1 when its two inputs are different.",
+eh:"XOR Gate में दोनों Inputs अलग होने पर Output 1 होता है।"
+},
+
+{
+q:"Which file extension is commonly used for a compiled Java class?",
+h:"Compiled Java Class के लिए सामान्यतः कौन-सा File Extension होता है?",
+o:[".java",".class",".js",".exe"],oh:[".java",".class",".js",".exe"],a:1,
+e:"The Java compiler generates .class bytecode files.",
+eh:"Java Compiler .class Bytecode File बनाता है।"
+},
+
+{
+q:"Which command is used to test network connectivity?",
+h:"Network Connectivity जाँचने के लिए कौन-सी Command प्रयोग होती है?",
+o:["format","ping","mkdir","copy"],oh:["format","ping","mkdir","copy"],a:1,
+e:"Ping uses ICMP Echo messages to test reachability.",
+eh:"Ping ICMP Echo Messages से Network Reachability जाँचता है।"
+},
+
+{
+q:"Which SQL join returns matching rows from both tables?",
+h:"कौन-सा SQL Join दोनों Tables से Matching Rows देता है?",
+o:["LEFT JOIN","RIGHT JOIN","INNER JOIN","CROSS JOIN"],oh:["LEFT JOIN","RIGHT JOIN","INNER JOIN","CROSS JOIN"],a:2,
+e:"INNER JOIN returns rows that satisfy the join condition in both tables.",
+eh:"INNER JOIN दोनों Tables में Matching Records देता है।"
+},
+
+{
+q:"What is the size of an IPv6 address?",
+h:"IPv6 Address का Size कितना होता है?",
+o:["32 bits","64 bits","128 bits","256 bits"],oh:["32 bits","64 bits","128 bits","256 bits"],a:2,
+e:"IPv6 addresses are 128 bits long.",
+eh:"IPv6 Address 128 Bits का होता है।"
+},
+
+{
+q:"Which database model represents data using tables?",
+h:"कौन-सा Database Model डेटा को Tables के रूप में दर्शाता है?",
+o:["Hierarchical","Network","Relational","Object only"],oh:["Hierarchical","Network","Relational","Object"],a:2,
+e:"The relational model organizes data into relations or tables.",
+eh:"Relational Model में डेटा Tables के रूप में व्यवस्थित होता है।"
+},
+
+{
+q:"Which OSI layer is responsible for end-to-end delivery?",
+h:"End-to-End Delivery की जिम्मेदारी OSI की किस Layer की होती है?",
+o:["Physical","Data Link","Transport","Presentation"],oh:["Physical","Data Link","Transport","Presentation"],a:2,
+e:"The Transport Layer provides end-to-end transport services.",
+eh:"Transport Layer End-to-End Data Delivery की सुविधा देती है।"
+},
+
+{
+q:"Which technique allows multiple processes to share CPU time?",
+h:"कौन-सी तकनीक कई Processes को CPU Time साझा करने देती है?",
+o:["Multiprogramming","Time Sharing","Spooling only","Batch Processing only"],oh:["Multiprogramming","Time Sharing","Spooling only","Batch Processing only"],a:1,
+e:"Time-sharing allocates CPU time among multiple users or processes.",
+eh:"Time Sharing में CPU Time कई Processes को दिया जाता है।"
+},
+
+{
+q:"Which of the following is an example of asymmetric encryption?",
+h:"निम्न में से कौन Asymmetric Encryption का उदाहरण है?",
+o:["AES","DES","RSA","3DES"],oh:["AES","DES","RSA","3DES"],a:2,
+e:"RSA uses a public key and a private key.",
+eh:"RSA में Public Key और Private Key का उपयोग होता है।"
+},
+
+{
+q:"Which normal form removes transitive dependency?",
+h:"कौन-सा Normal Form Transitive Dependency को हटाता है?",
+o:["1NF","2NF","3NF","4NF"],oh:["1NF","2NF","3NF","4NF"],a:2,
+e:"Third Normal Form addresses transitive functional dependencies.",
+eh:"3NF Transitive Functional Dependency को हटाता है।"
+},
+
+{
+q:"Which component converts source code into object code?",
+h:"Source Code को Object Code में बदलने वाला Component कौन-सा है?",
+o:["Linker","Compiler","Loader","Scheduler"],oh:["Linker","Compiler","Loader","Scheduler"],a:1,
+e:"A compiler translates source code into object code.",
+eh:"Compiler Source Code को Object Code में बदलता है।"
+},
+
+{
+q:"What is the purpose of a foreign key?",
+h:"Foreign Key का मुख्य उद्देश्य क्या है?",
+o:["Encrypt data","Establish relationship between tables","Sort records","Delete database"],oh:["डेटा Encrypt करना","Tables के बीच संबंध बनाना","Records Sort करना","Database हटाना"],a:1,
+e:"A foreign key references a key in another or the same table.",
+eh:"Foreign Key Tables के बीच Referential Relationship बनाती है।"
+},
+
+{
+q:"Which memory is generally fastest among the following?",
+h:"निम्न में से सामान्यतः सबसे तेज Memory कौन-सी है?",
+o:["Hard Disk","RAM","Cache Memory","DVD"],oh:["Hard Disk","RAM","Cache Memory","DVD"],a:2,
+e:"Cache memory is faster than main memory and storage devices.",
+eh:"Cache Memory, Main Memory और Storage Devices से तेज होती है।"
+},
+
+{
+q:"What does the ACID property 'D' stand for in DBMS?",
+h:"DBMS में ACID Property का 'D' क्या दर्शाता है?",
+o:["Dependency","Durability","Division","Distribution"],oh:["Dependency","Durability","Division","Distribution"],a:1,
+e:"Durability means committed transactions persist even after failures.",
+eh:"Durability का अर्थ है Commit हुआ Data Failure के बाद भी सुरक्षित रहना।"
+},
+
+{
+q:"Which function in C returns the length of a string?",
+h:"C भाषा में String की Length ज्ञात करने के लिए कौन-सा Function है?",
+o:["strcpy()","strlen()","strcmp()","strcat()"],oh:["strcpy()","strlen()","strcmp()","strcat()"],a:1,
+e:"strlen() returns the number of characters before the terminating null character.",
+eh:"strlen() String में Null Character से पहले के Characters की संख्या देता है।"
+},
+
+{
+q:"Which scheduling algorithm uses a time quantum?",
+h:"कौन-सा Scheduling Algorithm Time Quantum का प्रयोग करता है?",
+o:["FCFS","SJF","Round Robin","Priority"],oh:["FCFS","SJF","Round Robin","Priority"],a:2,
+e:"Round Robin allocates a fixed time quantum to each process.",
+eh:"Round Robin प्रत्येक Process को निश्चित Time Quantum देता है।"
+},
+
+{
+q:"What is the main purpose of an operating system?",
+h:"Operating System का मुख्य उद्देश्य क्या है?",
+o:["Only typing","Manage hardware and software resources","Only browsing","Only printing"],oh:["केवल Typing","Hardware और Software Resources का प्रबंधन","केवल Browsing","केवल Printing"],a:1,
+e:"An operating system manages system resources and provides services to programs.",
+eh:"Operating System System Resources का प्रबंधन करता है और Programs को Services देता है।"
+},
+
+{
+q:"Which protocol is used to retrieve e-mail while keeping messages on the server and synchronizing folders?",
+h:"Server पर ई-मेल रखते हुए Folders Synchronize करने के लिए कौन-सा Protocol उपयोग होता है?",
+o:["SMTP","IMAP","FTP","ARP"],oh:["SMTP","IMAP","FTP","ARP"],a:1,
+e:"IMAP synchronizes mail and folders across devices.",
+eh:"IMAP अलग-अलग Devices पर Mail और Folders Synchronize करता है।"
+}
+
+];
+
+let current=0,answers=Array(40).fill(null);
+let timeLeft=20,timer=null,language='en',finished=false;
+
+function setLanguage(l){
+ language=l;
+ document.getElementById('eng').classList.toggle('active',l==='en');
+ document.getElementById('hin').classList.toggle('active',l==='hi');
+ if(!document.getElementById('testPage').classList.contains('hidden'))
+ renderQuestion();
+}
+
+function startTest(){
+ document.getElementById('startPage').classList.add('hidden');
+ document.getElementById('testPage').classList.remove('hidden');
+ renderQuestion();
+}
+
+function renderQuestion(){
+ if(finished)return;
+ clearInterval(timer);
+ timeLeft=20;
+
+ let q=questions[current];
+ document.getElementById('qcount').innerText=
+ language==='en'?'Question '+(current+1)+'/40':'प्रश्न '+(current+1)+'/40';
+
+ document.getElementById('time').innerText=timeLeft;
+ document.getElementById('bar').style.width=((current+1)/40*100)+'%';
+
+ document.getElementById('question').innerText=
+ (current+1)+'. '+(language==='en'?q.q:q.h);
+
+ let html='';
+ q.o.forEach((op,i)=>{
+  let text=language==='en'?op:q.oh[i];
+  let selected=answers[current]===i?'selected':'';
+  html+=`<button class="option ${selected}" onclick="selectAnswer(${i})">
+  ${String.fromCharCode(65+i)}. ${text}</button>`;
+ });
+ document.getElementById('options').innerHTML=html;
+
+ document.getElementById('explanation').classList.add('hidden');
+ document.getElementById('prev').disabled=current===0;
+ document.getElementById('prev').style.opacity=current===0?'.4':'1';
+ document.getElementById('next').innerText=
+ current===39?'Submit Test':'Next →';
+
+ makePalette();
+ timer=setInterval(()=>{
+  timeLeft--;
+  document.getElementById('time').innerText=timeLeft;
+  if(timeLeft<=0){
+   clearInterval(timer);
+   if(current<39){current++;renderQuestion();}
+   else finishTest();
+  }
+ },1000);
+}
+
+function selectAnswer(i){
+ answers[current]=i;
+ document.querySelectorAll('.option').forEach((b,index)=>{
+  b.classList.toggle('selected',index===i);
+ });
+ makePalette();
+}
+
+function makePalette(){
+ let html='';
+ questions.forEach((q,i)=>{
+  let cls=i===current?'current':answers[i]!==null?'done':'';
+  html+=<button class="${cls}" onclick="goTo(${i})">${i+1}</button>;
+ });
+ document.getElementById('palette').innerHTML=html;
+}
+
+function goTo(i){
+ current=i;
+ renderQuestion();
+}
+
+function previousQuestion(){
+ if(current>0){current--;renderQuestion();}
+}
+
+function nextQuestion(){
+ clearInterval(timer);
+ if(current<39){current++;renderQuestion();}
+ else finishTest();
+}
+
+function finishTest(){
+ if(finished)return;
+ finished=true;
+ clearInterval(timer);
+
+ let correct=0,wrong=0,skip=0;
+ answers.forEach((a,i)=>{
+  if(a===null)skip++;
+  else if(a===questions[i].a)correct++;
+  else wrong++;
+ });
+
+ let score=correct-wrong*.25;
+ let percent=(score/40*100).toFixed(2);
+
+ document.getElementById('testPage').classList.add('hidden');
+ document.getElementById('resultPage').classList.remove('hidden');
+ document.getElementById('score').innerText=score.toFixed(2)+' / 40';
+ document.getElementById('percentage').innerText=percent+'%';
+ document.getElementById('right').innerText=correct;
+ document.getElementById('wrong').innerText=wrong;
+ document.getElementById('skip').innerText=skip;
+ document.getElementById('message').innerText=
+ correct>=32?'Excellent Performance!':correct>=22?'Good Performance!':'Keep Practicing!';
+}
+
+function showReview(){
+ let html='';
+ questions.forEach((q,i)=>{
+  let a=answers[i];
+  let correct=q.a;
+  html+=`<div class="review">
+   <b>Q${i+1}. ${language==='en'?q.q:q.h}</b><br>
+   Your Answer: ${a===null?'Not Attempted':(language==='en'?q.o[a]:q.oh[a])}<br>
+   Correct Answer: <span style="color:green;font-weight:bold">
+   ${language==='en'?q.o[correct]:q.oh[correct]}</span><br>
+   <small>${language==='en'?q.e:q.eh}</small>
+  </div>`;
+ });
+ document.getElementById('review').innerHTML=html;
+ document.getElementById('review').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
