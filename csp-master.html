@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK GS MASTER - Computer Mock Test</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:Arial,sans-serif;
+background:#080f1e;
+color:white;
+padding:15px;
+}
+.container{
+max-width:850px;
+margin:auto;
+}
+header{
+text-align:center;
+padding:22px 10px;
+background:linear-gradient(135deg,#172554,#312e81);
+border-radius:15px;
+margin-bottom:18px;
+}
+header h1{color:#38bdf8;font-size:28px}
+header p{color:#cbd5e1;margin-top:8px}
+.card{
+background:#111c30;
+padding:20px;
+border-radius:14px;
+margin-bottom:16px;
+border:1px solid #263750;
+}
+h2{color:#38bdf8;margin-bottom:15px}
+.info{
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:15px;
+}
+.timer{
+background:#7f1d1d;
+padding:12px 18px;
+border-radius:9px;
+font-weight:bold;
+font-size:19px;
+}
+button{
+border:none;
+padding:12px 18px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+margin:5px 3px;
+}
+.primary{background:#2563eb;color:white}
+.secondary{background:#334155;color:white}
+.green{background:#059669;color:white}
+.red{background:#dc2626;color:white}
+button:hover{opacity:.85}
+#testArea,#resultArea{display:none}
+#question{
+font-size:19px;
+line-height:1.6;
+margin:15px 0;
+}
+.option{
+display:block;
+padding:13px;
+background:#1e293b;
+border:1px solid #334155;
+border-radius:9px;
+margin:10px 0;
+cursor:pointer;
+}
+.option:hover{border-color:#38bdf8}
+.option input{margin-right:10px}
+.option.selected{
+background:#123c57;
+border-color:#38bdf8;
+}
+.progress{
+height:8px;
+background:#334155;
+border-radius:10px;
+overflow:hidden;
+margin:12px 0;
+}
+#progressBar{
+height:100%;
+width:0%;
+background:#38bdf8;
+}
+.navgrid{
+display:grid;
+grid-template-columns:repeat(8,1fr);
+gap:7px;
+margin-top:15px;
+}
+.navgrid button{
+background:#334155;
+color:white;
+padding:10px 3px;
+margin:0;
+}
+.navgrid button.answered{background:#047857}
+.navgrid button.current{border:2px solid #38bdf8}
+.navgrid button:disabled{opacity:1}
+#resultArea{text-align:center}
+.score{
+font-size:38px;
+color:#4ade80;
+font-weight:bold;
+margin:15px;
+}
+.review{
+text-align:left;
+margin-top:15px;
+}
+.review-item{
+background:#1e293b;
+padding:13px;
+border-radius:9px;
+margin:10px 0;
+line-height:1.6;
+}
+.correct{color:#4ade80}
+.wrong{color:#f87171}
+footer{
+text-align:center;
+padding:20px 5px;
+color:#94a3b8;
+font-size:13px;
+}
+footer a{color:#38bdf8;text-decoration:none}
+@media(max-width:500px){
+header h1{font-size:23px}
+.navgrid{grid-template-columns:repeat(5,1fr)}
+#question{font-size:17px}
+.card{padding:14px}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+<h1>GK GS MASTER</h1>
+<p>Computer Science Online Mock Test</p>
+<p>Moderate + Advanced Level</p>
+</header>
+
+<div class="card" id="instructions">
+<h2 id="instructionTitle">Test Instructions</h2>
+<ul id="instructionList" style="line-height:2;padding-left:20px">
+<li>Total Questions: 40</li>
+<li>Total Time: 20 Minutes</li>
+<li>Each Question carries 1 Mark.</li>
+<li>No negative marking.</li>
+<li>Select one correct option.</li>
+<li>You can use Previous and Next buttons.</li>
+<li>Test will automatically submit when time ends.</li>
+</ul>
+
+<p style="margin-top:15px;color:#38bdf8">
+Choose Language / भाषा चुनें
+</p>
+<button class="secondary" onclick="setLanguage('en')">English</button>
+<button class="secondary" onclick="setLanguage('hi')">हिंदी</button>
+
+<br><br>
+<button class="primary" onclick="startTest()" id="startBtn">
+START TEST
+</button>
+</div>
+
+<div id="testArea">
+
+<div class="card">
+<div class="info">
+<div id="questionCount">Question 1 / 40</div>
+<div class="timer" id="timer">20:00</div>
+</div>
+<div class="progress">
+<div id="progressBar"></div>
+</div>
+<div id="question"></div>
+<div id="options"></div>
+
+<div style="display:flex;justify-content:space-between;flex-wrap:wrap;margin-top:20px">
+<button class="secondary" onclick="previousQuestion()" id="prevBtn">Previous</button>
+<button class="primary" onclick="nextQuestion()" id="nextBtn">Next</button>
+</div>
+</div>
+
+<div class="card">
+<h2 id="navTitle">Question Navigation</h2>
+<div class="navgrid" id="navGrid"></div>
+<br>
+<button class="red" onclick="submitTest()">SUBMIT TEST</button>
+</div>
+</div>
+
+<div id="resultArea" class="card">
+<h2 id="resultTitle">Test Result</h2>
+<div class="score" id="score"></div>
+<p id="resultMessage"></p>
+<div id="resultStats"></div>
+<div class="review" id="review"></div>
+<button class="primary" onclick="location.reload()">RESTART TEST</button>
+</div>
+
+<footer>
+<p>© 2026 GK GS MASTER. All Rights Reserved.</p>
+<p>Educational Purpose Only</p>
+<br>
+<a href="https://t.me/staticgkgsmaster" target="_blank">
+Join Our Telegram Channel
+</a>
+</footer>
+
+</div>
+
+<script>
+const questions = [
+
+{
+q:["Which page replacement algorithm suffers from Belady's anomaly?",
+"कौन-सा Page Replacement Algorithm Belady's Anomaly से प्रभावित होता है?"],
+o:[["FIFO","LRU","Optimal","LFU"],["FIFO","LRU","Optimal","LFU"]],
+a:0
+},
+{
+q:["Which normal form eliminates transitive dependency?",
+"कौन-सा Normal Form Transitive Dependency को समाप्त करता है?"],
+o:[["1NF","2NF","3NF","BCNF"],["1NF","2NF","3NF","BCNF"]],
+a:2
+},
+{
+q:["What is the time complexity of binary search in a sorted array?",
+"Sorted Array में Binary Search की Time Complexity क्या है?"],
+o:[["O(n)","O(log n)","O(n²)","O(1)"],["O(n)","O(log n)","O(n²)","O(1)"]],
+a:1
+},
+{
+q:["Which protocol is responsible for reliable data transmission?",
+"Reliable Data Transmission के लिए कौन-सा Protocol जिम्मेदार है?"],
+o:[["UDP","IP","TCP","ARP"],["UDP","IP","TCP","ARP"]],
+a:2
+},
+{
+q:["Which SQL command removes all rows but retains table structure?",
+"कौन-सा SQL Command सभी Rows हटाता है लेकिन Table Structure रखता है?"],
+o:[["DROP","DELETE","TRUNCATE","REMOVE"],["DROP","DELETE","TRUNCATE","REMOVE"]],
+a:2
+},
+{
+q:["Which data structure is used in recursion?",
+"Recursion में किस Data Structure का उपयोग होता है?"],
+o:[["Queue","Stack","Tree","Graph"],["Queue","Stack","Tree","Graph"]],
+a:1
+},
+{
+q:["Which OSI layer performs routing?",
+"OSI Model की कौन-सी Layer Routing करती है?"],
+o:[["Transport","Network","Session","Data Link"],["Transport","Network","Session","Data Link"]],
+a:1
+},
+{
+q:["What is the default port of HTTPS?",
+"HTTPS का Default Port कौन-सा है?"],
+o:[["21","80","443","25"],["21","80","443","25"]],
+a:2
+},
+{
+q:["Which key uniquely identifies a record in a table?",
+"Table में Record को Uniquely Identify कौन-सी Key करती है?"],
+o:[["Foreign Key","Primary Key","Candidate Key","Composite Key"],["Foreign Key","Primary Key","Candidate Key","Composite Key"]],
+a:1
+},
+{
+q:["Which scheduling algorithm may cause starvation?",
+"कौन-सा Scheduling Algorithm Starvation का कारण बन सकता है?"],
+o:[["FCFS","Round Robin","Priority Scheduling","FIFO"],["FCFS","Round Robin","Priority Scheduling","FIFO"]],
+a:2
+},
+{
+q:["What is the output of 15 & 7 in bitwise AND?",
+"Bitwise AND में 15 & 7 का परिणाम क्या होगा?"],
+o:[["7","8","15","0"],["7","8","15","0"]],
+a:0
+},
+{
+q:["Which of the following is a volatile memory?",
+"निम्न में से कौन-सी Volatile Memory है?"],
+o:[["ROM","SSD","RAM","Flash"],["ROM","SSD","RAM","Flash"]],
+a:2
+},
+{
+q:["Which algorithm is commonly used for shortest path in a weighted graph with non-negative edges?",
+"Non-negative Weighted Graph में Shortest Path के लिए कौन-सा Algorithm प्रयोग होता है?"],
+o:[["Prim","Dijkstra","Kruskal","DFS"],["Prim","Dijkstra","Kruskal","DFS"]],
+a:1
+},
+{
+q:["Which SQL clause is used to filter grouped records?",
+"Grouped Records को Filter करने के लिए कौन-सा SQL Clause प्रयोग होता है?"],
+o:[["WHERE","ORDER BY","HAVING","DISTINCT"],["WHERE","ORDER BY","HAVING","DISTINCT"]],
+a:2
+},
+{
+q:["Which device operates primarily at the Data Link Layer?",
+"Data Link Layer पर मुख्य रूप से कौन-सा Device कार्य करता है?"],
+o:[["Router","Switch","Repeater","Hub"],["Router","Switch","Repeater","Hub"]],
+a:1
+},
+{
+q:["Which technique allows multiple processes to share CPU time?",
+"कौन-सी Technique कई Processes को CPU Time Share करने देती है?"],
+o:[["Multiprogramming","Spooling","Fragmentation","Booting"],["Multiprogramming","Spooling","Fragmentation","Booting"]],
+a:0
+},
+{
+q:["What does ACID stand for in DBMS?",
+"DBMS में ACID का पूरा अर्थ क्या है?"],
+o:[["Atomicity, Consistency, Isolation, Durability","Access, Control, Integrity, Data","Atomicity, Control, Index, Durability","Accuracy, Consistency, Isolation, Database"],["Atomicity, Consistency, Isolation, Durability","Access, Control, Integrity, Data","Atomicity, Control, Index, Durability","Accuracy, Consistency, Isolation, Database"]],
+a:0
+},
+{
+q:["Which IPv4 address class supports multicast by default?",
+"Multicast के लिए कौन-सी IPv4 Address Class निर्धारित है?"],
+o:[["Class A","Class B","Class C","Class D"],["Class A","Class B","Class C","Class D"]],
+a:3
+},
+{
+q:["Which of the following is a collision resolution technique in hashing?",
+"Hashing में Collision Resolution की कौन-सी Technique है?"],
+o:[["Paging","Chaining","Pipelining","Spooling"],["Paging","Chaining","Pipelining","Spooling"]],
+a:1
+},
+{
+q:["Which compiler phase detects syntax errors?",
+"Compiler का कौन-सा Phase Syntax Errors पहचानता है?"],
+o:[["Lexical Analysis","Syntax Analysis","Code Generation","Linking"],["Lexical Analysis","Syntax Analysis","Code Generation","Linking"]],
+a:1
+},
+{
+q:["Which RAID level uses disk mirroring?",
+"कौन-सा RAID Level Disk Mirroring का उपयोग करता है?"],
+o:[["RAID 0","RAID 1","RAID 5","RAID 6"],["RAID 0","RAID 1","RAID 5","RAID 6"]],
+a:1
+},
+{
+q:["Which protocol translates domain names into IP addresses?",
+"Domain Name को IP Address में कौन-सा Protocol बदलता है?"],
+o:[["FTP","DNS","SMTP","SNMP"],["FTP","DNS","SMTP","SNMP"]],
+a:1
+},
+{
+q:["What is the worst-case time complexity of Quick Sort?",
+"Quick Sort की Worst Case Time Complexity क्या है?"],
+o:[["O(n)","O(n log n)","O(n²)","O(log n)"],["O(n)","O(n log n)","O(n²)","O(log n)"]],
+a:2
+},
+{
+q:["Which database key can contain duplicate values?",
+"कौन-सी Database Key Duplicate Values रख सकती है?"],
+o:[["Primary Key","Foreign Key","Candidate Key","Super Key"],["Primary Key","Foreign Key","Candidate Key","Super Key"]],
+a:1
+},
+{
+q:["Which of the following is not a deadlock condition?",
+"निम्न में से कौन-सी Deadlock की आवश्यक Condition नहीं है?"],
+o:[["Mutual Exclusion","Hold and Wait","Preemption","Circular Wait"],["Mutual Exclusion","Hold and Wait","Preemption","Circular Wait"]],
+a:2
+},
+{
+q:["What does the DNS record MX specify?",
+"DNS का MX Record क्या Specify करता है?"],
+o:[["Mail Server","IP Address","Name Server","Alias"],["Mail Server","IP Address","Name Server","Alias"]],
+a:0
+},
+{
+q:["Which gate produces output 1 only when all inputs are 1?",
+"कौन-सा Gate तभी Output 1 देता है जब सभी Inputs 1 हों?"],
+o:[["OR","XOR","AND","NOR"],["OR","XOR","AND","NOR"]],
+a:2
+},
+{
+q:["Which memory is used for cache memory in modern processors?",
+"Modern Processors में Cache Memory के लिए सामान्यतः कौन-सी Memory प्रयोग होती है?"],
+o:[["DRAM","SRAM","ROM","EEPROM"],["DRAM","SRAM","ROM","EEPROM"]],
+a:1
+},
+{
+q:["Which protocol is used for secure remote login?",
+"Secure Remote Login के लिए कौन-सा Protocol उपयोग होता है?"],
+o:[["Telnet","FTP","SSH","HTTP"],["Telnet","FTP","SSH","HTTP"]],
+a:2
+},
+{
+q:["Which traversal of BST gives sorted order?",
+"BST का कौन-सा Traversal Sorted Order देता है?"],
+o:[["Preorder","Postorder","Inorder","Level Order"],["Preorder","Postorder","Inorder","Level Order"]],
+a:2
+},
+{
+q:["Which of the following is a NoSQL database?",
+"निम्न में से कौन-सा NoSQL Database है?"],
+o:[["MySQL","Oracle","MongoDB","PostgreSQL"],["MySQL","Oracle","MongoDB","PostgreSQL"]],
+a:2
+},
+{
+q:["Which attack involves intercepting communication between two parties?",
+"दो पक्षों के बीच Communication को Intercept करने वाला Attack कौन-सा है?"],
+o:[["Phishing","Man-in-the-Middle","Brute Force","SQL Injection"],["Phishing","Man-in-the-Middle","Brute Force","SQL Injection"]],
+a:1
+},
+{
+q:["Which technique is used to prevent external fragmentation?",
+"External Fragmentation को रोकने के लिए कौन-सी Technique उपयोग होती है?"],
+o:[["Paging","Segmentation","Swapping","Compaction"],["Paging","Segmentation","Swapping","Compaction"]],
+a:0
+},
+{
+q:["What is the function of a linker?",
+"Linker का मुख्य कार्य क्या है?"],
+o:[["Execute program","Combine object files","Compile source code","Manage memory"],["Program चलाना","Object Files को जोड़ना","Source Code Compile करना","Memory Manage करना"]],
+a:1
+},
+{
+q:["Which HTTP status code indicates 'Not Found'?",
+"कौन-सा HTTP Status Code 'Not Found' बताता है?"],
+o:[["200","301","403","404"],["200","301","403","404"]],
+a:3
+},
+{
+q:["Which cryptographic method uses the same key for encryption and decryption?",
+"Encryption और Decryption दोनों में एक ही Key किस Cryptographic Method में प्रयोग होती है?"],
+o:[["Asymmetric","Symmetric","Hashing","Digital Signature"],["Asymmetric","Symmetric","Hashing","Digital Signature"]],
+a:1
+},
+{
+q:["Which normal form requires every determinant to be a candidate key?",
+"किस Normal Form में प्रत्येक Determinant का Candidate Key होना आवश्यक है?"],
+o:[["1NF","2NF","3NF","BCNF"],["1NF","2NF","3NF","BCNF"]],
+a:3
+},
+{
+q:["Which protocol is used to automatically assign IP addresses?",
+"IP Address Automatically Assign करने के लिए कौन-सा Protocol प्रयोग होता है?"],
+o:[["DNS","DHCP","ARP","ICMP"],["DNS","DHCP","ARP","ICMP"]],
+a:1
+},
+{
+q:["Which data structure is most suitable for implementing a priority queue efficiently?",
+"Priority Queue को Efficiently Implement करने के लिए कौन-सा Data Structure उपयुक्त है?"],
+o:[["Stack","Linked List","Heap","Graph"],["Stack","Linked List","Heap","Graph"]],
+a:2
+},
+{
+q:["In Boolean algebra, what is the complement of A + B?",
+"Boolean Algebra में A + B का Complement क्या होगा?"],
+o:[["A' + B'","A'B'","AB","A + B"],["A' + B'","A'B'","AB","A + B"]],
+a:1
+}
+
+];
+
+let current=0;
+let answers=Array(questions.length).fill(null);
+let time=1200;
+let timerInterval;
+let language="en";
+let submitted=false;
+
+function setLanguage(lang){
+language=lang;
+document.getElementById("instructionTitle").textContent=
+lang==="hi"?"परीक्षा के निर्देश":"Test Instructions";
+document.getElementById("startBtn").textContent=
+lang==="hi"?"परीक्षा शुरू करें":"START TEST";
+if(document.getElementById("testArea").style.display==="block"){
+showQuestion();
+}
+}
+
+function startTest(){
+document.getElementById("instructions").style.display="none";
+document.getElementById("testArea").style.display="block";
+showQuestion();
+startTimer();
+}
+
+function showQuestion(){
+const q=questions[current];
+document.getElementById("questionCount").textContent=
+(language==="hi"?"प्रश्न ":"Question ")+(current+1)+" / "+questions.length;
+
+document.getElementById("question").textContent=
+q.q[language==="hi"?1:0];
+
+let html="";
+q.o[language==="hi"?1:0].forEach((op,i)=>{
+html+=`
+<label class="option ${answers[current]===i?'selected':''}">
+<input type="radio" name="answer" value="${i}"
+${answers[current]===i?'checked':''}
+onchange="selectAnswer(${i})">
+${String.fromCharCode(65+i)}. ${op}
+</label>`;
+});
+document.getElementById("options").innerHTML=html;
+
+document.getElementById("prevBtn").disabled=current===0;
+document.getElementById("nextBtn").textContent=
+current===questions.length-1?
+(language==="hi"?"अंतिम प्रश्न":"Last Question"):
+(language==="hi"?"अगला प्रश्न":"Next");
+
+document.getElementById("progressBar").style.width=
+((current+1)/questions.length*100)+"%";
+
+document.querySelectorAll("#navGrid button").forEach((b,i)=>{
+b.className="";
+if(answers[i]!==null)b.classList.add("answered");
+if(i===current)b.classList.add("current");
+});
+}
+
+function selectAnswer(i){
+answers[current]=i;
+showQuestion();
+}
+
+function nextQuestion(){
+if(current<questions.length-1){
+current++;
+showQuestion();
+}
+}
+
+function previousQuestion(){
+if(current>0){
+current--;
+showQuestion();
+}
+}
+
+function createNavigation(){
+let html="";
+questions.forEach((q,i)=>{
+html+=<button onclick="goToQuestion(${i})">${i+1}</button>;
+});
+document.getElementById("navGrid").innerHTML=html;
+}
+
+function goToQuestion(i){
+current=i;
+showQuestion();
+}
+
+function startTimer(){
+updateTimer();
+timerInterval=setInterval(()=>{
+time--;
+updateTimer();
+if(time<=0){
+clearInterval(timerInterval);
+submitTest();
+}
+},1000);
+}
+
+function updateTimer(){
+let min=Math.floor(time/60);
+let sec=time%60;
+document.getElementById("timer").textContent=
+String(min).padStart(2,"0")+":"+
+String(sec).padStart(2,"0");
+
+if(time<=60){
+document.getElementById("timer").style.background="#b91c1c";
+}
+}
+
+function submitTest(){
+if(submitted)return;
+if(!confirm(language==="hi"?"क्या आप टेस्ट जमा करना चाहते हैं?":"Are you sure you want to submit the test?")){
+if(time>0)return;
+}
+submitted=true;
+clearInterval(timerInterval);
+
+let score=0,attempted=0;
+questions.forEach((q,i)=>{
+if(answers[i]!==null)attempted++;
+if(answers[i]===q.a)score++;
+});
+
+document.getElementById("testArea").style.display="none";
+document.getElementById("resultArea").style.display="block";
+
+document.getElementById("resultTitle").textContent=
+language==="hi"?"आपका परीक्षा परिणाम":"Your Test Result";
+
+document.getElementById("score").textContent=
+score+" / "+questions.length;
+
+document.getElementById("resultMessage").textContent=
+language==="hi"?"प्रतिशत: ":"Percentage: "+
+((score/questions.length)*100).toFixed(2)+"%";
+
+document.getElementById("resultStats").innerHTML=
+(language==="hi"?"प्रयास किए: ":"Attempted: ")+attempted+
+" | "+(language==="hi"?"सही: ":"Correct: ")+score+
+" | "+(language==="hi"?"गलत: ":"Wrong: ")+(attempted-score);
+
+let html="<h2>"+(language==="hi"?"उत्तर की समीक्षा":"Answer Review")+"</h2>";
+
+questions.forEach((q,i)=>{
+let correct=q.o[language==="hi"?1:0][q.a];
+let selected=answers[i]===null?
+(language==="hi"?"छोड़ा गया":"Not Attempted"):
+q.o[language==="hi"?1:0][answers[i]];
+
+html+=`
+<div class="review-item">
+<strong>Q${i+1}. ${q.q[language==="hi"?1:0]}</strong><br>
+${language==="hi"?"आपका उत्तर: ":"Your Answer: "}${selected}<br>
+<span class="correct">
+${language==="hi"?"सही उत्तर: ":"Correct Answer: "}${correct}
+</span><br>
+<span class="${answers[i]===q.a?'correct':'wrong'}">
+${answers[i]===q.a?
+(language==="hi"?"सही":"Correct"):
+(language==="hi"?"गलत / अनुत्तरित":"Wrong / Unattempted")}
+</span>
+</div>`;
+});
+
+document.getElementById("review").innerHTML=html;
+window.scrollTo(0,0);
+}
+
+createNavigation();
+</script>
+
+</body>
+</html>
