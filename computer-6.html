@@ -436,12 +436,14 @@ let timer=null;
 let language="en";
 let finished=false;
 
-function startTest(){
- document.getElementById("startScreen").classList.add("hidden");
- document.getElementById("testScreen").classList.remove("hidden");
- renderQuestion();
-}
+function startTest() {
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("testScreen").style.display = "block";
 
+    currentQuestion = 0;
+    loadQuestion();
+    startTimer();
+}
 function changeLanguage(){
  language=language==="en"?"hi":"en";
  document.getElementById("langBtn").innerText=
