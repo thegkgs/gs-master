@@ -490,10 +490,38 @@ showQuestion();
 }
 
 function startTest(){
-document.getElementById("instructions").style.display="none";
-document.getElementById("testArea").style.display="block";
+
+document.getElementById("start").style.display="none";
+
+document.getElementById("test").style.display="block";
+
+current=0;
+time=1200;
+
 showQuestion();
-startTimer();
+
+document.getElementById("timer").innerText="20:00";
+
+clearInterval(timer);
+
+timer=setInterval(function(){
+
+time--;
+
+let min=Math.floor(time/60);
+let sec=time%60;
+
+document.getElementById("timer").innerText=
+String(min).padStart(2,"0")+":"+
+String(sec).padStart(2,"0");
+
+if(time<=0){
+clearInterval(timer);
+submit();
+}
+
+},1000);
+
 }
 
 function showQuestion(){
