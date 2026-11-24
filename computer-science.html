@@ -500,9 +500,26 @@ function setLanguage(l){
 }
 
 function startTest(){
- document.getElementById('startPage').classList.add('hidden');
- document.getElementById('testPage').classList.remove('hidden');
- renderQuestion();
+ try {
+   const start = document.getElementById('startPage');
+   const test = document.getElementById('testPage');
+
+   if(!start || !test){
+     alert("Test page element not found!");
+     return;
+   }
+
+   start.classList.add('hidden');
+   test.classList.remove('hidden');
+
+   current = 0;
+   finished = false;
+   renderQuestion();
+
+ } catch(error) {
+   alert("JavaScript Error: " + error.message);
+   console.error(error);
+ }
 }
 
 function renderQuestion(){
