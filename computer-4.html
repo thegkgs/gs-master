@@ -401,7 +401,7 @@ function renderQuestion(){
  (current+1)+'. '+(language==='en'?q.q:q.h);
 
  let html='';
- q.o.forEach((op,i)=>{
+ question.option.forEach((op,i)=>{
   let text=language==='en'?op:q.oh[i];
   let selected=answers[current]===i?'selected':'';
   html+=`<button class="option ${selected}" onclick="selectAnswer(${i})">
