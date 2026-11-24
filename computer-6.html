@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK GS MASTER - Computer Science Test</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#eef2f8;
+ color:#172554;
+}
+header{
+ background:linear-gradient(135deg,#101044,#153e9b);
+ color:white;
+ padding:25px 16px;
+}
+.container{max-width:950px;margin:auto}
+h1{font-size:25px;margin:0 0 8px}
+.sub{color:#ffb35c}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:10px;margin-top:22px
+}
+.stat{
+ background:#ffffff18;
+ padding:13px;
+ border-radius:10px
+}
+.stat b{display:block;font-size:21px}
+.stat small{color:#dbeafe}
+main{max-width:950px;margin:25px auto;padding:0 14px}
+.card{
+ background:white;
+ padding:22px;
+ border-radius:15px;
+ box-shadow:0 4px 18px #00000012;
+}
+button{
+ border:0;padding:11px 17px;
+ border-radius:8px;
+ cursor:pointer;font-weight:bold;
+}
+.primary{background:#f59e0b;color:white}
+.secondary{background:#e5e7eb;color:#172554}
+.danger{background:#dc2626;color:white}
+button:disabled{opacity:.4;cursor:not-allowed}
+.hidden{display:none!important}
+.topline{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;flex-wrap:wrap;
+}
+.progress{
+ height:9px;background:#e5e7eb;
+ border-radius:20px;margin:15px 0;
+ overflow:hidden
+}
+#bar{height:100%;width:0;background:#f59e0b}
+#question{font-size:20px;line-height:1.5;margin:20px 0}
+.option{
+ display:block;width:100%;text-align:left;
+ background:#f1f5f9;margin:11px 0;
+ padding:15px;border:2px solid transparent;
+ color:#172554;font-size:15px
+}
+.option.selected{
+ background:#dbeafe;border-color:#2563eb
+}
+.option:disabled{opacity:1;cursor:pointer}
+.palette{
+ display:grid;
+ grid-template-columns:repeat(8,1fr);
+ gap:8px;margin:15px 0
+}
+.palette button{
+ padding:10px 4px;background:#e5e7eb;
+ color:#172554
+}
+.palette button.current{background:#2563eb;color:white}
+.palette button.answered{background:#16a34a;color:white}
+.palette button.skipped{background:#f59e0b;color:white}
+.controls{
+ display:flex;justify-content:space-between;
+ gap:10px;margin-top:22px;flex-wrap:wrap
+}
+#timer{font-weight:bold;color:#dc2626}
+.result{text-align:center}
+.result h2{font-size:28px}
+.score{font-size:42px;color:#2563eb;font-weight:bold}
+.explanation{
+ background:#eff6ff;padding:12px;
+ border-radius:8px;margin-top:12px
+}
+@media(max-width:550px){
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .palette{grid-template-columns:repeat(5,1fr)}
+ h1{font-size:20px}
+ #question{font-size:17px}
+ .card{padding:15px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container">
+<h1>COMPUTER SCIENCE MASTER TEST</h1>
+<div>UPSSSC | UPPCO | Computer Operator</div>
+<div class="sub">KNOWLEDGE | PRACTICE | SUCCESS</div>
+
+<div class="stats">
+<div class="stat"><b>40</b><small>Questions</small></div>
+<div class="stat"><b>20 Sec</b><small>Per Question</small></div>
+<div class="stat"><b>+1</b><small>Correct</small></div>
+<div class="stat"><b>-0.25</b><small>Wrong</small></div>
+</div>
+</div>
+</header>
+
+<main>
+
+<div class="card" id="startScreen">
+<h2>Computer Science Mock Test</h2>
+<p>40 Questions | 20 Seconds Each</p>
+<p>Correct: +1 | Wrong: -0.25</p>
+<p>Level: Moderate + Advanced</p>
+<button class="primary" onclick="startTest()">START TEST</button>
+</div>
+
+<div class="card hidden" id="testScreen">
+
+<div class="topline">
+<b id="qcount">Question 1/40</b>
+<div id="timer">20 Sec</div>
+</div>
+
+<div class="progress">
+<div id="bar"></div>
+</div>
+
+<div class="topline">
+<button class="secondary" onclick="changeLanguage()"
+id="langBtn">हिंदी</button>
+<b id="status">Not Answered</b>
+</div>
+
+<h3 id="question"></h3>
+
+<div id="options"></div>
+
+<h3>Question Palette</h3>
+<div class="palette" id="palette"></div>
+
+<div class="controls">
+<button class="secondary" onclick="previousQuestion()">← Previous</button>
+<button class="primary" onclick="nextQuestion()" id="nextBtn">Next →</button>
+<button class="danger" onclick="submitTest()">Submit Test</button>
+</div>
+
+</div>
+
+<div class="card hidden result" id="resultScreen">
+<h2>TEST RESULT</h2>
+<div class="score" id="score">0</div>
+<p id="percentage"></p>
+<p id="correct"></p>
+<p id="wrong"></p>
+<p id="unattempted"></p>
+<h3>Answer Analysis</h3>
+<div id="analysis" style="text-align:left"></div>
+<button class="primary" onclick="location.reload()">RESTART TEST</button>
+</div>
+
+</main>
+
+<script>
+
+// QUESTION DATA
+// a = correct answer index (0,1,2,3)
+
+const questions = [
+
+const questions = [
+{
+q:"Which normal form removes transitive dependency?",
+o:["1NF","2NF","3NF","BCNF"],
+a:2,
+e:"3NF removes transitive dependency of non-prime attributes on candidate keys."
+},
+{
+q:"Which algorithm is used for deadlock avoidance?",
+o:["FIFO","Banker's Algorithm","LRU","Round Robin"],
+a:1,
+e:"Banker's Algorithm checks whether a safe state can be maintained."
+},
+{
+q:"What is the worst-case time complexity of Binary Search?",
+o:["O(n)","O(log n)","O(n log n)","O(1)"],
+a:1,
+e:"Binary Search repeatedly divides the search space into half."
+},
+{
+q:"Which SQL command removes all rows but retains table structure?",
+o:["DROP","DELETE","TRUNCATE","ALTER"],
+a:2,
+e:"TRUNCATE removes all records while retaining the table structure."
+},
+{
+q:"Which key uniquely identifies a record in a relational table?",
+o:["Foreign Key","Primary Key","Secondary Key","Composite Attribute"],
+a:1,
+e:"A Primary Key uniquely identifies each record."
+},
+{
+q:"Which OSI layer is responsible for routing?",
+o:["Data Link","Network","Transport","Session"],
+a:1,
+e:"The Network layer handles logical addressing and routing."
+},
+{
+q:"Which scheduling algorithm may cause starvation?",
+o:["FCFS","Round Robin","Priority Scheduling","FIFO"],
+a:2,
+e:"Low-priority processes may wait indefinitely in priority scheduling."
+},
+{
+q:"What does ACID stand for in DBMS?",
+o:["Atomicity, Consistency, Isolation, Durability","Accuracy, Control, Integrity, Data","Atomicity, Control, Index, Durability","Access, Consistency, Isolation, Data"],
+a:0,
+e:"ACID represents the four major transaction properties."
+},
+{
+q:"Which data structure is used in recursion?",
+o:["Queue","Stack","Graph","Heap"],
+a:1,
+e:"Function calls and return addresses are managed through a call stack."
+},
+{
+q:"Which protocol translates domain names into IP addresses?",
+o:["FTP","DNS","SMTP","SNMP"],
+a:1,
+e:"DNS resolves domain names to IP addresses."
+},
+{
+q:"Which of the following is a lossless image compression format?",
+o:["JPEG","MP3","PNG","MPEG"],
+a:2,
+e:"PNG uses lossless image compression."
+},
+{
+q:"What is the output of 5 & 3 in C?",
+o:["1","2","7","8"],
+a:0,
+e:"5 = 0101 and 3 = 0011. Bitwise AND gives 0001 = 1."
+},
+{
+q:"Which memory is volatile?",
+o:["ROM","Hard Disk","RAM","Flash"],
+a:2,
+e:"RAM loses its stored data when power is removed."
+},
+{
+q:"Which translator converts assembly language into machine code?",
+o:["Compiler","Interpreter","Assembler","Linker"],
+a:2,
+e:"An assembler translates assembly instructions into machine code."
+},
+{
+q:"Which of these is NOT a valid IPv4 address?",
+o:["192.168.1.1","10.0.0.1","256.1.1.1","172.16.0.1"],
+a:2,
+e:"Each IPv4 octet must be between 0 and 255."
+},
+{
+q:"Which protocol provides reliable, connection-oriented communication?",
+o:["UDP","TCP","IP","ARP"],
+a:1,
+e:"TCP provides reliable and ordered data delivery."
+},
+{
+q:"B-Tree is mainly designed to optimize which operation?",
+o:["Disk access","Screen display","Audio processing","Encryption"],
+a:0,
+e:"B-Trees reduce disk I/O by keeping data balanced."
+},
+{
+q:"Which SQL clause is used to filter groups?",
+o:["WHERE","ORDER BY","HAVING","DISTINCT"],
+a:2,
+e:"HAVING filters grouped results."
+},
+{
+q:"Which normal form handles multivalued dependencies?",
+o:["2NF","3NF","4NF","5NF"],
+a:2,
+e:"Fourth Normal Form deals with multivalued dependencies."
+},
+{
+q:"Which page replacement algorithm may suffer from Belady's anomaly?",
+o:["LRU","Optimal","FIFO","MRU"],
+a:2,
+e:"FIFO can show Belady's anomaly."
+},
+{
+q:"Which is a non-preemptive CPU scheduling algorithm?",
+o:["Round Robin","SRTF","FCFS","Preemptive Priority"],
+a:2,
+e:"FCFS normally runs a process until it finishes or blocks."
+},
+{
+q:"What is the primary purpose of a semaphore?",
+o:["Memory allocation","Process synchronization","File compression","Address translation"],
+a:1,
+e:"Semaphores coordinate access to shared resources."
+},
+{
+q:"Which network topology uses a central connecting device?",
+o:["Bus","Ring","Star","Mesh"],
+a:2,
+e:"In Star topology, all nodes connect to a central device."
+},
+{
+q:"Which register stores the address of the next instruction?",
+o:["IR","PC","MAR","MDR"],
+a:1,
+e:"Program Counter stores the address of the next instruction."
+},
+{
+q:"Which type of key contains more than one attribute?",
+o:["Simple Key","Composite Key","Foreign Key","Alternate Key"],
+a:1,
+e:"A Composite Key consists of two or more attributes."
+},
+{
+q:"Which of these is a universal logic gate?",
+o:["XOR","AND","NAND","Buffer"],
+a:2,
+e:"NAND and NOR are universal gates."
+},
+{
+q:"What is the decimal equivalent of hexadecimal 2F?",
+o:["45","46","47","48"],
+a:2,
+e:"2F = 2 × 16 + 15 = 47."
+},
+{
+q:"Which technique allows multiple instructions to overlap in execution?",
+o:["Paging","Pipelining","Spooling","Fragmentation"],
+a:1,
+e:"Pipelining overlaps stages of multiple instructions."
+},
+{
+q:"Which protocol is used for secure web communication?",
+o:["HTTP","HTTPS","FTP","Telnet"],
+a:1,
+e:"HTTPS uses TLS to secure HTTP communication."
+},
+{
+q:"Which command displays the route taken by packets?",
+o:["ping","tracert","ipconfig","netstat"],
+a:1,
+e:"tracert on Windows displays the route to a destination."
+},
+{
+q:"Which data structure is typically used in BFS?",
+o:["Stack","Queue","Heap","Hash Table"],
+a:1,
+e:"Breadth First Search uses a Queue."
+},
+{
+q:"Which data structure is typically used in DFS?",
+o:["Queue","Stack","Circular Queue","Priority Queue"],
+a:1,
+e:"Depth First Search uses a Stack or recursion."
+},
+{
+q:"Which notation represents functional dependency?",
+o:["A+B","A → B","A = B","A × B"],
+a:1,
+e:"A → B means attribute A functionally determines B."
+},
+{
+q:"Which RAID level uses striping with distributed parity?",
+o:["RAID 0","RAID 1","RAID 5","RAID 10"],
+a:2,
+e:"RAID 5 distributes parity across multiple disks."
+},
+{
+q:"Which cryptographic algorithm is asymmetric?",
+o:["AES","DES","RSA","3DES"],
+a:2,
+e:"RSA uses a public key and a private key."
+},
+{
+q:"Which Java keyword prevents a method from being overridden?",
+o:["static","final","private","abstract"],
+a:1,
+e:"A final method cannot be overridden."
+},
+{
+q:"What is the output of 10 % 3 in C?",
+o:["0","1","2","3"],
+a:1,
+e:"Modulo operator returns the remainder. 10 % 3 = 1."
+},
+{
+q:"Which protocol maps an IPv4 address to a MAC address?",
+o:["DNS","ARP","DHCP","SMTP"],
+a:1,
+e:"ARP resolves an IPv4 address to a MAC address on a local network."
+},
+{
+q:"Which compiler phase checks syntax and builds a parse tree?",
+o:["Lexical Analysis","Syntax Analysis","Code Generation","Linking"],
+a:1,
+e:"Syntax Analysis checks grammatical structure and builds a parse tree."
+},
+{
+q:"In DBMS, which join returns only matching rows from both tables?",
+o:["LEFT JOIN","RIGHT JOIN","INNER JOIN","FULL OUTER JOIN"],
+a:2,
+e:"INNER JOIN returns rows that satisfy the join condition in both tables."
+}
+];
+
+// TEST STATE
+
+let current=0;
+let answers=new Array(questions.length).fill(null);
+let timeLeft=20;
+let timer=null;
+let language="en";
+let finished=false;
+
+function startTest(){
+ document.getElementById("startScreen").classList.add("hidden");
+ document.getElementById("testScreen").classList.remove("hidden");
+ renderQuestion();
+}
+
+function changeLanguage(){
+ language=language==="en"?"hi":"en";
+ document.getElementById("langBtn").innerText=
+ language==="en"?"हिंदी":"English";
+ renderQuestion();
+}
+
+function renderQuestion(){
+
+ if(finished)return;
+
+ clearInterval(timer);
+
+ const q=questions[current];
+
+ if(!q || !Array.isArray(q.o) || q.o.length!==4){
+   alert("Question Data Error at Question "+(current+1));
+   return;
+ }
+
+ timeLeft=20;
+
+ document.getElementById("qcount").innerText=
+ "Question "+(current+1)+"/"+questions.length;
+
+ document.getElementById("bar").style.width=
+ ((current+1)/questions.length*100)+"%";
+
+ document.getElementById("question").innerText=
+ (current+1)+". "+(language==="en"?q.q:q.h);
+
+ document.getElementById("timer").innerText=timeLeft+" Sec";
+
+ document.getElementById("options").innerHTML="";
+
+ q.o.forEach((op,i)=>{
+
+   const btn=document.createElement("button");
+   btn.className="option";
+
+   if(answers[current]===i)btn.classList.add("selected");
+
+   const text=language==="en"?op:q.oh[i];
+
+   btn.innerText=String.fromCharCode(65+i)+". "+text;
+
+   btn.onclick=()=>selectAnswer(i);
+
+   document.getElementById("options").appendChild(btn);
+
+ });
+
+ document.getElementById("status").innerText=
+ answers[current]===null?"Not Answered":"Answered";
+
+ document.getElementById("nextBtn").innerText=
+ current===questions.length-1?"Finish →":"Next →";
+
+ renderPalette();
+ startTimer();
+}
+
+function selectAnswer(i){
+ if(finished)return;
+
+ answers[current]=i;
+ renderQuestion();
+}
+
+function renderPalette(){
+
+ const box=document.getElementById("palette");
+ box.innerHTML="";
+
+ questions.forEach((q,i)=>{
+
+   const btn=document.createElement("button");
+   btn.innerText=i+1;
+
+   if(i===current)btn.classList.add("current");
+   else if(answers[i]!==null)btn.classList.add("answered");
+   else btn.classList.add("skipped");
+
+   btn.onclick=()=>{
+     if(!finished){
+       current=i;
+       renderQuestion();
+     }
+   };
+
+   box.appendChild(btn);
+
+ });
+
+}
+
+function startTimer(){
+
+ clearInterval(timer);
+
+ timer=setInterval(()=>{
+
+   timeLeft--;
+
+   document.getElementById("timer").innerText=
+   timeLeft+" Sec";
+
+   if(timeLeft<=0){
+     clearInterval(timer);
+     nextQuestion();
+   }
+
+ },1000);
+
+}
+
+function nextQuestion(){
+
+ if(finished)return;
+
+ clearInterval(timer);
+
+ if(current<questions.length-1){
+   current++;
+   renderQuestion();
+ }else{
+   submitTest();
+ }
+
+}
+
+function previousQuestion(){
+
+ if(finished)return;
+
+ if(current>0){
+   current--;
+   renderQuestion();
+ }
+
+}
+
+function submitTest(){
+
+ if(finished)return;
+
+ const unanswered=answers.filter(a=>a===null).length;
+
+ if(!confirm("Submit test? Unattempted: "+unanswered)){
+   return;
+ }
+
+ finished=true;
+ clearInterval(timer);
+
+ let correct=0,wrong=0;
+
+ questions.forEach((q,i)=>{
+   if(answers[i]===null)return;
+   if(answers[i]===q.a)correct++;
+   else wrong++;
+ });
+
+ const unattempted=questions.length-correct-wrong;
+ const score=correct-(wrong*0.25);
+ const percent=(correct/questions.length*100).toFixed(2);
+
+ document.getElementById("testScreen").classList.add("hidden");
+ document.getElementById("resultScreen").classList.remove("hidden");
+
+ document.getElementById("score").innerText=
+ score.toFixed(2)+" / 40";
+
+ document.getElementById("percentage").innerText=
+ "Accuracy: "+percent+"%";
+
+ document.getElementById("correct").innerText=
+ "Correct Answers: "+correct;
+
+ document.getElementById("wrong").innerText=
+ "Wrong Answers: "+wrong;
+
+ document.getElementById("unattempted").innerText=
+ "Unattempted: "+unattempted;
+
+ let html="";
+
+ questions.forEach((q,i)=>{
+
+   const ok=answers[i]===q.a;
+   const user=answers[i];
+
+   html+=`
+   <div class="explanation">
+   <b>Q${i+1}. ${q.q}</b><br>
+   Your Answer: ${user===null?"Not Attempted":q.o[user]}<br>
+   Correct Answer: ${q.o[q.a]}<br>
+   <span style="color:${ok?'green':'#dc2626'}">
+   ${user===null?"Skipped":ok?"Correct":"Wrong"}
+   </span><br>
+   Explanation: ${q.e}
+   </div>`;
+
+ });
+
+ document.getElementById("analysis").innerHTML=html;
+
+}
+
+</script>
+
+</body>
+</html>
