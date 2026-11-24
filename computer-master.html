@@ -174,15 +174,35 @@ function setLanguage(){
 }
 
 function startTest(){
- document.getElementById("instructions").classList.add("hidden");
- document.getElementById("quiz").classList.remove("hidden");
- render();
- interval=setInterval(()=>{
- time--;
- let m=Math.floor(time/60),s=time%60;
- document.getElementById("timer").innerText=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
- if(time<=0)submitTest(true);
- },1000);
+
+  document.getElementById("instructions").style.display="none";
+
+  document.getElementById("quiz").classList.remove("hidden");
+
+  index = 0;
+  time = 1200;
+  finished = false;
+
+  render();
+
+  clearInterval(interval);
+
+  interval = setInterval(function(){
+
+    time--;
+
+    let m = Math.floor(time/60);
+    let s = time%60;
+
+    document.getElementById("timer").innerText =
+    String(m).padStart(2,"0")+":"+
+    String(s).padStart(2,"0");
+
+    if(time <= 0){
+      submitTest(true);
+    }
+
+  },1000);
 }
 
 function render(){
