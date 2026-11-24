@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Science Mock Test | STATIC GK GS MASTER</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#f1f3f8;color:#18243a;
+ font-family:Arial,sans-serif
+}
+header{
+ background:linear-gradient(120deg,#172d55,#075a79);
+ color:white;padding:24px 5%;
+}
+.brand{display:flex;justify-content:space-between;align-items:center}
+.logo{
+ background:#f28a16;border-radius:50%;padding:17px;
+ font-weight:bold;color:white
+}
+.orange{color:#ff941c}
+h1{font-size:27px;margin:30px 0 8px}
+.subtitle{color:#dce8f8}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:22px}
+.stat{background:#ffffff18;padding:14px;border-radius:12px}
+.stat b{font-size:23px;display:block}
+.stat small{color:#d8e2f2}
+.container{max-width:850px;margin:22px auto;padding:12px}
+.card{
+ background:white;padding:23px;border-radius:18px;
+ box-shadow:0 5px 20px #0000000c;margin-bottom:18px
+}
+button{
+ border:0;border-radius:9px;padding:13px 19px;
+ font-size:15px;font-weight:bold;cursor:pointer
+}
+.primary{background:#f28a16;color:white}
+.secondary{background:#e8edf5;color:#183253}
+.lang{background:#284b75;color:white;margin-top:12px}
+.lang.active{background:#f28a16}
+.center{text-align:center}
+.hidden{display:none!important}
+#question{font-size:20px;line-height:1.5;font-weight:bold;margin:20px 0}
+.option{
+ display:block;width:100%;text-align:left;margin:12px 0;
+ background:#f2f5fa;border:2px solid #e2e7ef;
+ padding:15px;border-radius:11px;color:#17243b;
+ font-weight:normal
+}
+.option.selected{border-color:#126b99;background:#e5f4ff}
+.option.correct{background:#d9f7e4;border-color:#1b9c54}
+.option.wrong{background:#ffe1e1;border-color:#e34c4c}
+.topline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.timer{font-weight:bold;color:#e87912;font-size:19px}
+.progress{height:9px;background:#e5e8ee;border-radius:20px;overflow:hidden;margin:15px 0}
+.bar{height:100%;background:#f28a16;width:0%;transition:.2s}
+.palette{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:15px}
+.palette button{padding:10px 2px;background:#e8edf5}
+.palette button.done{background:#b9e8c9}
+.palette button.current{background:#f28a16;color:white}
+.navigation{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+#explanation{background:#eef6ff;padding:14px;border-radius:10px;margin-top:15px;line-height:1.6}
+.result-number{font-size:38px;color:#f28a16;font-weight:bold}
+footer{text-align:center;color:#737d8e;padding:25px 10px;line-height:1.9}
+.review{border-bottom:1px solid #ddd;padding:15px 0;line-height:1.6}
+@media(max-width:500px){
+ h1{font-size:23px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .card{padding:17px}
+ #question{font-size:18px}
+ .palette{grid-template-columns:repeat(5,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="brand">
+  <div style="display:flex;align-items:center;gap:12px">
+   <div class="logo">SG</div>
+   <div>
+    <b>STATIC GK GS MASTER</b><br>
+    <small>KNOWLEDGE | PRACTICE | SUCCESS</small>
+   </div>
+  </div>
+  <div class="orange" style="font-size:48px;font-weight:bold">02</div>
+ </div>
+
+ <h1>COMPUTER SCIENCE MASTER TEST</h1>
+ <div class="subtitle">UPSSSC | UPPCO | Computer Operator</div>
+ <b class="orange">KNOWLEDGE | PRACTICE | SUCCESS</b><br>
+
+ <button class="lang active" id="eng" onclick="setLanguage('en')">ENGLISH</button>
+ <button class="lang" id="hin" onclick="setLanguage('hi')">हिंदी</button>
+
+ <div class="stats">
+  <div class="stat"><b>40</b><small>Questions</small></div>
+  <div class="stat"><b>20 Sec</b><small>Per Question</small></div>
+  <div class="stat"><b>+1</b><small>Correct</small></div>
+  <div class="stat"><b>-0.25</b><small>Wrong</small></div>
+ </div>
+</header>
+
+<div class="container">
+
+<div class="card center" id="startPage">
+ <h1 style="color:#21466f">COMPUTER SCIENCE CHALLENGE 2026</h1>
+ <h2>40 Questions | Moderate to Advanced</h2>
+ <p>Each question has a 20-second timer.</p>
+ <p>Time out automatically moves to the next question.</p>
+ <hr>
+ <p>Correct: +1 | Wrong: -0.25 | Unattempted: 0</p>
+ <button class="primary" onclick="startTest()" style="font-size:19px;margin-top:20px">START TEST</button>
+</div>
+
+<div class="card hidden" id="testPage">
+ <div class="topline">
+  <b id="qcount">Question 1/40</b>
+  <div class="timer">⏱️ <span id="time">20</span> Sec</div>
+ </div>
+ <div class="progress"><div class="bar" id="bar"></div></div>
+
+ <div id="question"></div>
+ <div id="options"></div>
+ <div id="explanation" class="hidden"></div>
+
+ <div class="navigation">
+  <button class="secondary" onclick="previousQuestion()" id="prev">← Previous</button>
+  <button class="primary" onclick="nextQuestion()" id="next">Next →</button>
+ </div>
+
+ <h3>Question Palette</h3>
+ <div class="palette" id="palette"></div>
+</div>
+
+<div class="card hidden center" id="resultPage">
+ <h1 style="color:#21466f">TEST COMPLETED!</h1>
+ <p>Your Computer Science Result</p>
+ <div class="result-number" id="score">0</div>
+ <h2 id="percentage">0%</h2>
+ <div class="stats" style="color:#17243b">
+  <div class="stat"><b id="right">0</b><small>Correct</small></div>
+  <div class="stat"><b id="wrong">0</b><small>Wrong</small></div>
+  <div class="stat"><b id="skip">0</b><small>Skipped</small></div>
+  <div class="stat"><b>40</b><small>Total</small></div>
+ </div>
+ <h3 id="message"></h3>
+ <button class="primary" onclick="showReview()">VIEW ANSWERS & EXPLANATIONS</button>
+ <button class="secondary" onclick="location.reload()">RESTART TEST</button>
+ <div id="review" style="text-align:left"></div>
+</div>
+
+</div>
+
+<footer>
+ <b>STATIC GK GS MASTER</b><br>
+ KNOWLEDGE | PRACTICE | SUCCESS<br>
+ GK | GS | COMPUTER SCIENCE | MOCK TESTS<br>
+ Telegram: <b style="color:#ed8415">@staticgkgsmaster</b><br>
+ © 2026 STATIC GK GS MASTER. All Rights Reserved.
+</footer>
+
+<script>
+const questions = [
+
+{
+question: "In a fully associative cache mapping, a memory block can be placed in:",
+options: ["Only one cache line", "Any cache line", "A fixed set only", "The last cache line only"],
+answer: 1
+},
+{
+question: "Which page replacement algorithm may suffer from Belady's anomaly?",
+options: ["LRU", "Optimal", "FIFO", "LFU"],
+answer: 2
+},
+{
+question: "What is the maximum number of edges in a simple undirected graph with n vertices?",
+options: ["n(n+1)/2", "n(n-1)/2", "n²", "2n"],
+answer: 1
+},
+{
+question: "Which normal form eliminates transitive dependency?",
+options: ["1NF", "2NF", "3NF", "4NF"],
+answer: 2
+},
+{
+question: "Which SQL command belongs to DCL?",
+options: ["COMMIT", "GRANT", "CREATE", "UPDATE"],
+answer: 1
+},
+{
+question: "What is the worst-case time complexity of Quick Sort?",
+options: ["O(n log n)", "O(n²)", "O(log n)", "O(n)"],
+answer: 1
+},
+{
+question: "Which of the following is a necessary condition for deadlock?",
+options: ["Preemption", "Circular Wait", "Time Sharing", "Paging"],
+answer: 1
+},
+{
+question: "In TCP, which mechanism controls the amount of unacknowledged data?",
+options: ["Flow control window", "DNS", "ARP", "Subnet mask"],
+answer: 0
+},
+{
+question: "What is the number of host bits in an IPv4 /27 network?",
+options: ["3", "5", "8", "27"],
+answer: 1
+},
+{
+question: "Which gate produces output 1 only when both inputs are different?",
+options: ["XNOR", "AND", "XOR", "NOR"],
+answer: 2
+},
+{
+question: "What is the 2's complement of 00101101 in 8-bit representation?",
+options: ["11010010", "11010011", "10110011", "11100011"],
+answer: 1
+},
+{
+question: "Which parsing technique is used by an LL(1) parser?",
+options: ["Bottom-up parsing", "Top-down parsing", "Operator precedence only", "Shift-reduce parsing"],
+answer: 1
+},
+{
+question: "Which compiler phase generates intermediate representation?",
+options: ["Lexical analysis", "Syntax analysis", "Intermediate code generation", "Linking"],
+answer: 2
+},
+{
+question: "Which scheduling algorithm can cause starvation?",
+options: ["FCFS", "Round Robin", "Priority Scheduling", "None"],
+answer: 2
+},
+{
+question: "In a B-tree of order m, the maximum number of children of a node is:",
+options: ["m", "m-1", "2m", "m+1"],
+answer: 0
+},
+{
+question: "Which data structure is primarily used in recursive function calls?",
+options: ["Queue", "Stack", "Graph", "Heap"],
+answer: 1
+},
+{
+question: "What is the time complexity of searching in a balanced Binary Search Tree?",
+options: ["O(n)", "O(log n)", "O(n²)", "O(1)"],
+answer: 1
+},
+{
+question: "Which protocol maps an IPv4 address to a MAC address in a local network?",
+options: ["DNS", "ARP", "DHCP", "ICMP"],
+answer: 1
+},
+{
+question: "Which OSI layer is responsible for encryption and data compression?",
+options: ["Network", "Transport", "Presentation", "Session"],
+answer: 2
+},
+{
+question: "What is the default port number of HTTPS?",
+options: ["21", "25", "80", "443"],
+answer: 3
+},
+{
+question: "Which RAID level uses block-level striping with distributed parity?",
+options: ["RAID 0", "RAID 1", "RAID 5", "RAID 10"],
+answer: 2
+},
+{
+question: "Which key can uniquely identify a tuple and may contain multiple attributes?",
+options: ["Foreign Key", "Composite Key", "Alternate Key", "Partial Key"],
+answer: 1
+},
+{
+question: "Which SQL clause filters groups after GROUP BY?",
+options: ["WHERE", "ORDER BY", "HAVING", "DISTINCT"],
+answer: 2
+},
+{
+question: "Which transaction property ensures that committed changes survive system failure?",
+options: ["Atomicity", "Consistency", "Isolation", "Durability"],
+answer: 3
+},
+{
+question: "Which algorithm is commonly used to find a minimum spanning tree?",
+options: ["Dijkstra", "Kruskal", "Bellman-Ford", "Floyd-Warshall"],
+answer: 1
+},
+{
+question: "What is the time complexity of Floyd-Warshall algorithm?",
+options: ["O(V)", "O(V²)", "O(V³)", "O(E log V)"],
+answer: 2
+},
+{
+question: "Which of the following is a stable sorting algorithm?",
+options: ["Heap Sort", "Selection Sort", "Merge Sort", "Quick Sort"],
+answer: 2
+},
+{
+question: "Which RAID level provides disk mirroring?",
+options: ["RAID 0", "RAID 1", "RAID 5", "RAID 6"],
+answer: 1
+},
+{
+question: "What is the minimum number of bits required to represent 256 distinct values?",
+options: ["7", "8", "9", "16"],
+answer: 1
+},
+{
+question: "Which of the following is not a context-free language?",
+options: ["Balanced parentheses", "a^n b^n", "a^n b^n c^n", "a*b*"],
+answer: 2
+},
+{
+question: "Which cryptographic algorithm uses the same key for encryption and decryption?",
+options: ["RSA", "AES", "ECC", "Diffie-Hellman"],
+answer: 1
+},
+{
+question: "Which attack involves intercepting communication between two parties?",
+options: ["Phishing", "Man-in-the-Middle", "Brute Force", "SQL Injection"],
+answer: 1
+},
+{
+question: "Which IPv6 address type is used for communication within a local link?",
+options: ["Global Unicast", "Link-local", "Multicast", "Loopback"],
+answer: 1
+},
+{
+question: "Which memory management technique divides memory into fixed-size blocks?",
+options: ["Segmentation", "Paging", "Compaction", "Swapping"],
+answer: 1
+},
+{
+question: "What is the primary purpose of a TLB?",
+options: ["Store CPU instructions", "Cache page table entries", "Store files", "Manage disk sectors"],
+answer: 1
+},
+{
+question: "Which CPU pipeline hazard occurs due to dependency between instructions?",
+options: ["Structural hazard", "Data hazard", "Control hazard", "Cache hazard"],
+answer: 1
+},
+{
+question: "Which Boolean expression represents the XOR operation?",
+options: ["AB", "A+B", "A'B+AB'", "A'B'"],
+answer: 2
+},
+{
+question: "In an ER model, a weak entity is identified using:",
+options: ["Only a foreign key", "Partial key and identifying relationship", "Only a candidate key", "A multivalued attribute"],
+answer: 1
+},
+{
+question: "Which scheduling algorithm gives the minimum average waiting time when burst times are known?",
+options: ["FCFS", "SJF", "Round Robin", "Priority Scheduling"],
+answer: 1
+},
+{
+question: "What is the output of the following C expression: 5 + 2 * 3 % 4?",
+options: ["7", "9", "11", "5"],
+answer: 0
+}
+
+];
+let current=0,answers=Array(40).fill(null);
+let timeLeft=20,timer=null,language='en',finished=false;
+
+function setLanguage(l){
+ language=l;
+ document.getElementById('eng').classList.toggle('active',l==='en');
+ document.getElementById('hin').classList.toggle('active',l==='hi');
+ if(!document.getElementById('testPage').classList.contains('hidden'))
+ renderQuestion();
+}
+
+function startTest(){
+ document.getElementById('startPage').classList.add('hidden');
+ document.getElementById('testPage').classList.remove('hidden');
+ renderQuestion();
+}
+
+function renderQuestion(){
+ if(finished)return;
+ clearInterval(timer);
+ timeLeft=20;
+
+ let q=questions[current];
+ document.getElementById('qcount').innerText=
+ language==='en'?'Question '+(current+1)+'/40':'प्रश्न '+(current+1)+'/40';
+
+ document.getElementById('time').innerText=timeLeft;
+ document.getElementById('bar').style.width=((current+1)/40*100)+'%';
+
+ document.getElementById('question').innerText=
+ (current+1)+'. '+(language==='en'?q.q:q.h);
+
+ let html='';
+ q.o.forEach((op,i)=>{
+  let text=language==='en'?op:q.oh[i];
+  let selected=answers[current]===i?'selected':'';
+  html+=`<button class="option ${selected}" onclick="selectAnswer(${i})">
+  ${String.fromCharCode(65+i)}. ${text}</button>`;
+ });
+ document.getElementById('options').innerHTML=html;
+
+ document.getElementById('explanation').classList.add('hidden');
+ document.getElementById('prev').disabled=current===0;
+ document.getElementById('prev').style.opacity=current===0?'.4':'1';
+ document.getElementById('next').innerText=
+ current===39?'Submit Test':'Next →';
+
+ makePalette();
+ timer=setInterval(()=>{
+  timeLeft--;
+  document.getElementById('time').innerText=timeLeft;
+  if(timeLeft<=0){
+   clearInterval(timer);
+   if(current<39){current++;renderQuestion();}
+   else finishTest();
+  }
+ },1000);
+}
+
+function selectAnswer(i){
+ answers[current]=i;
+ document.querySelectorAll('.option').forEach((b,index)=>{
+  b.classList.toggle('selected',index===i);
+ });
+ makePalette();
+}
+
+function makePalette(){
+ let html='';
+ questions.forEach((q,i)=>{
+  let cls=i===current?'current':answers[i]!==null?'done':'';
+ html+=`<button class="${cls}" onclick="goTo(${i})">${i+1}</button>`;
+ });
+ document.getElementById('palette').innerHTML=html;
+}
+
+function goTo(i){
+ current=i;
+ renderQuestion();
+}
+
+function previousQuestion(){
+ if(current>0){current--;renderQuestion();}
+}
+
+function nextQuestion(){
+ clearInterval(timer);
+ if(current<39){current++;renderQuestion();}
+ else finishTest();
+}
+
+function finishTest(){
+ if(finished)return;
+ finished=true;
+ clearInterval(timer);
+
+ let correct=0,wrong=0,skip=0;
+ answers.forEach((a,i)=>{
+  if(a===null)skip++;
+  else if(a===questions[i].a)correct++;
+  else wrong++;
+ });
+
+ let score=correct-wrong*.25;
+ let percent=(score/40*100).toFixed(2);
+
+ document.getElementById('testPage').classList.add('hidden');
+ document.getElementById('resultPage').classList.remove('hidden');
+ document.getElementById('score').innerText=score.toFixed(2)+' / 40';
+ document.getElementById('percentage').innerText=percent+'%';
+ document.getElementById('right').innerText=correct;
+ document.getElementById('wrong').innerText=wrong;
+ document.getElementById('skip').innerText=skip;
+ document.getElementById('message').innerText=
+ correct>=32?'Excellent Performance!':correct>=22?'Good Performance!':'Keep Practicing!';
+}
+
+function showReview(){
+ let html='';
+ questions.forEach((q,i)=>{
+  let a=answers[i];
+  let correct=q.a;
+  html+=`<div class="review">
+   <b>Q${i+1}. ${language==='en'?q.q:q.h}</b><br>
+   Your Answer: ${a===null?'Not Attempted':(language==='en'?q.o[a]:q.oh[a])}<br>
+   Correct Answer: <span style="color:green;font-weight:bold">
+   ${language==='en'?q.o[correct]:q.oh[correct]}</span><br>
+   <small>${language==='en'?q.e:q.eh}</small>
+  </div>`;
+ });
+ document.getElementById('review').innerHTML=html;
+ document.getElementById('review').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
