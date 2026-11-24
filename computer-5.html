@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK GS MASTER - Computer Science Test</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#eef2f8;
+ color:#172554;
+}
+header{
+ background:linear-gradient(135deg,#101044,#153e9b);
+ color:white;
+ padding:25px 16px;
+}
+.container{max-width:950px;margin:auto}
+h1{font-size:25px;margin:0 0 8px}
+.sub{color:#ffb35c}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:10px;margin-top:22px
+}
+.stat{
+ background:#ffffff18;
+ padding:13px;
+ border-radius:10px
+}
+.stat b{display:block;font-size:21px}
+.stat small{color:#dbeafe}
+main{max-width:950px;margin:25px auto;padding:0 14px}
+.card{
+ background:white;
+ padding:22px;
+ border-radius:15px;
+ box-shadow:0 4px 18px #00000012;
+}
+button{
+ border:0;padding:11px 17px;
+ border-radius:8px;
+ cursor:pointer;font-weight:bold;
+}
+.primary{background:#f59e0b;color:white}
+.secondary{background:#e5e7eb;color:#172554}
+.danger{background:#dc2626;color:white}
+button:disabled{opacity:.4;cursor:not-allowed}
+.hidden{display:none!important}
+.topline{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;flex-wrap:wrap;
+}
+.progress{
+ height:9px;background:#e5e7eb;
+ border-radius:20px;margin:15px 0;
+ overflow:hidden
+}
+#bar{height:100%;width:0;background:#f59e0b}
+#question{font-size:20px;line-height:1.5;margin:20px 0}
+.option{
+ display:block;width:100%;text-align:left;
+ background:#f1f5f9;margin:11px 0;
+ padding:15px;border:2px solid transparent;
+ color:#172554;font-size:15px
+}
+.option.selected{
+ background:#dbeafe;border-color:#2563eb
+}
+.option:disabled{opacity:1;cursor:pointer}
+.palette{
+ display:grid;
+ grid-template-columns:repeat(8,1fr);
+ gap:8px;margin:15px 0
+}
+.palette button{
+ padding:10px 4px;background:#e5e7eb;
+ color:#172554
+}
+.palette button.current{background:#2563eb;color:white}
+.palette button.answered{background:#16a34a;color:white}
+.palette button.skipped{background:#f59e0b;color:white}
+.controls{
+ display:flex;justify-content:space-between;
+ gap:10px;margin-top:22px;flex-wrap:wrap
+}
+#timer{font-weight:bold;color:#dc2626}
+.result{text-align:center}
+.result h2{font-size:28px}
+.score{font-size:42px;color:#2563eb;font-weight:bold}
+.explanation{
+ background:#eff6ff;padding:12px;
+ border-radius:8px;margin-top:12px
+}
+@media(max-width:550px){
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .palette{grid-template-columns:repeat(5,1fr)}
+ h1{font-size:20px}
+ #question{font-size:17px}
+ .card{padding:15px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container">
+<h1>COMPUTER SCIENCE MASTER TEST</h1>
+<div>UPSSSC | UPPCO | Computer Operator</div>
+<div class="sub">KNOWLEDGE | PRACTICE | SUCCESS</div>
+
+<div class="stats">
+<div class="stat"><b>40</b><small>Questions</small></div>
+<div class="stat"><b>20 Sec</b><small>Per Question</small></div>
+<div class="stat"><b>+1</b><small>Correct</small></div>
+<div class="stat"><b>-0.25</b><small>Wrong</small></div>
+</div>
+</div>
+</header>
+
+<main>
+
+<div class="card" id="startScreen">
+<h2>Computer Science Mock Test</h2>
+<p>40 Questions | 20 Seconds Each</p>
+<p>Correct: +1 | Wrong: -0.25</p>
+<p>Level: Moderate + Advanced</p>
+<button class="primary" onclick="startTest()">START TEST</button>
+</div>
+
+<div class="card hidden" id="testScreen">
+
+<div class="topline">
+<b id="qcount">Question 1/40</b>
+<div id="timer">20 Sec</div>
+</div>
+
+<div class="progress">
+<div id="bar"></div>
+</div>
+
+<div class="topline">
+<button class="secondary" onclick="changeLanguage()"
+id="langBtn">हिंदी</button>
+<b id="status">Not Answered</b>
+</div>
+
+<h3 id="question"></h3>
+
+<div id="options"></div>
+
+<h3>Question Palette</h3>
+<div class="palette" id="palette"></div>
+
+<div class="controls">
+<button class="secondary" onclick="previousQuestion()">← Previous</button>
+<button class="primary" onclick="nextQuestion()" id="nextBtn">Next →</button>
+<button class="danger" onclick="submitTest()">Submit Test</button>
+</div>
+
+</div>
+
+<div class="card hidden result" id="resultScreen">
+<h2>TEST RESULT</h2>
+<div class="score" id="score">0</div>
+<p id="percentage"></p>
+<p id="correct"></p>
+<p id="wrong"></p>
+<p id="unattempted"></p>
+<h3>Answer Analysis</h3>
+<div id="analysis" style="text-align:left"></div>
+<button class="primary" onclick="location.reload()">RESTART TEST</button>
+</div>
+
+</main>
+
+<script>
+
+// QUESTION DATA
+// a = correct answer index (0,1,2,3)
+
+const questions = [
+
+{q:"What is the output of typeof null in JavaScript?",
+h:"JavaScript में typeof null का आउटपुट क्या है?",
+o:["null","object","undefined","number"],
+oh:["null","object","undefined","number"],a:1,
+e:"typeof null returns object due to a historical JavaScript behavior."},
+
+{q:"Which JavaScript queue has higher priority in the event loop?",
+h:"JavaScript Event Loop में किस Queue की प्राथमिकता अधिक होती है?",
+o:["Callback Queue","Microtask Queue","Render Queue","Task Queue"],
+oh:["Callback Queue","Microtask Queue","Render Queue","Task Queue"],a:1,
+e:"Microtasks such as Promise callbacks run before the next task."},
+
+{q:"What is a closure in JavaScript?",
+h:"JavaScript में Closure क्या है?",
+o:["A loop","Function with its lexical environment","An array","A class"],
+oh:["एक Loop","Lexical Environment के साथ Function","एक Array","एक Class"],a:1,
+e:"A closure retains access to variables from its outer lexical scope."},
+
+{q:"Which operator checks both value and type?",
+h:"Value और Type दोनों की जाँच कौन करता है?",
+o:["==","=","===","!="],
+oh:["==","=","===","!="],a:2,
+e:"Strict equality (===) checks value and type without coercion."},
+
+{q:"What is the Temporal Dead Zone associated with?",
+h:"Temporal Dead Zone किससे संबंधित है?",
+o:["var","let and const","Functions only","Objects"],
+oh:["var","let और const","केवल Functions","Objects"],a:1,
+e:"let and const cannot be accessed before their declaration is initialized."},
+
+{q:"Which value represents Not-a-Number in JavaScript?",
+h:"JavaScript में Not-a-Number को कौन दर्शाता है?",
+o:["undefined","NaN","null","Infinity"],
+oh:["undefined","NaN","null","Infinity"],a:1,
+e:"NaN represents an invalid numeric result."},
+
+{q:"Which method creates a new array by transforming elements?",
+h:"Elements को Transform करके नया Array कौन बनाता है?",
+o:["forEach()","map()","push()","pop()"],
+oh:["forEach()","map()","push()","pop()"],a:1,
+e:"map() returns a new array after applying a callback."},
+
+{q:"What happens to an undefined object property during JSON.stringify()?",
+h:"JSON.stringify() में undefined Object Property का क्या होता है?",
+o:["Converted to null","Removed","Converted to zero","Throws error"],
+oh:["null बन जाती है","हटा दी जाती है","Zero बन जाती है","Error आता है"],a:1,
+e:"Undefined-valued object properties are omitted."},
+
+{q:"Which property helps JavaScript objects inherit features?",
+h:"JavaScript Objects में Inheritance के लिए कौन-सी Property उपयोग होती है?",
+o:["constructor","prototype","length","value"],
+oh:["constructor","prototype","length","value"],a:1,
+e:"JavaScript uses prototype-based inheritance."},
+
+{q:"What does Promise.all() do when one promise rejects?",
+h:"एक Promise Reject होने पर Promise.all() क्या करता है?",
+o:["Ignores rejection","Rejects the combined promise","Retries automatically","Returns undefined"],
+oh:["Rejection को Ignore करता है","Combined Promise Reject करता है","Automatic Retry करता है","undefined देता है"],a:1,
+e:"Promise.all rejects as soon as an input promise rejects."},
+
+{q:"What is the size of char in standard C?",
+h:"Standard C में char का Size कितना होता है?",
+o:["1 byte","2 bytes","4 bytes","8 bytes"],
+oh:["1 Byte","2 Bytes","4 Bytes","8 Bytes"],a:0,
+e:"sizeof(char) is always 1 byte in C."},
+
+{q:"Which storage class preserves a local variable between function calls?",
+h:"Function Calls के बीच Local Variable की Value कौन सुरक्षित रखता है?",
+o:["auto","register","static","extern"],
+oh:["auto","register","static","extern"],a:2,
+e:"A static local variable retains its value across function calls."},
+
+{q:"Which data structure follows LIFO?",
+h:"कौन-सा Data Structure LIFO का पालन करता है?",
+o:["Queue","Stack","Tree","Graph"],
+oh:["Queue","Stack","Tree","Graph"],a:1,
+e:"Stack follows Last In First Out."},
+
+{q:"Which traversal of a Binary Search Tree produces sorted order?",
+h:"Binary Search Tree का कौन-सा Traversal Sorted Order देता है?",
+o:["Preorder","Postorder","Inorder","Level order"],
+oh:["Preorder","Postorder","Inorder","Level order"],a:2,
+e:"Inorder traversal visits left, root, right."},
+
+{q:"What is the balance factor of an AVL tree node?",
+h:"AVL Tree Node का Balance Factor क्या होता है?",
+o:["Height(left)-Height(right)","Height(left)+Height(right)","Number of nodes","Tree degree"],
+oh:["Height(left)-Height(right)","Height(left)+Height(right)","Nodes की संख्या","Tree की Degree"],a:0,
+e:"AVL balance factor is the difference between left and right subtree heights."},
+
+{q:"Which data structure is commonly used in BFS?",
+h:"BFS में सामान्यतः कौन-सा Data Structure उपयोग होता है?",
+o:["Stack","Queue","Heap","Hash table"],
+oh:["Stack","Queue","Heap","Hash Table"],a:1,
+e:"Breadth First Search uses a queue."},
+
+{q:"Dijkstra's algorithm is designed for which type of graph?",
+h:"Dijkstra Algorithm किस प्रकार के Graph के लिए बनाया गया है?",
+o:["Only negative weights","Non-negative edge weights","Unweighted trees only","Cyclic graphs only"],
+oh:["केवल Negative Weights","Non-negative Edge Weights","केवल Unweighted Trees","केवल Cyclic Graphs"],a:1,
+e:"Dijkstra's algorithm assumes non-negative edge weights."},
+
+{q:"Which data structure is best suited for priority scheduling?",
+h:"Priority Scheduling के लिए कौन-सा Data Structure उपयुक्त है?",
+o:["Stack","Heap","Linked list only","Queue only"],
+oh:["Stack","Heap","केवल Linked List","केवल Queue"],a:1,
+e:"A priority queue is commonly implemented using a heap."},
+
+{q:"Which collision resolution technique uses linked lists?",
+h:"कौन-सी Collision Resolution Technique Linked Lists का उपयोग करती है?",
+o:["Linear probing","Quadratic probing","Separate chaining","Double hashing"],
+oh:["Linear Probing","Quadratic Probing","Separate Chaining","Double Hashing"],a:2,
+e:"Separate chaining stores colliding entries in linked structures or buckets."},
+
+{q:"Which tree is commonly used in database indexing?",
+h:"Database Indexing में सामान्यतः कौन-सा Tree उपयोग होता है?",
+o:["Binary tree","B+ tree","Expression tree","AVL only"],
+oh:["Binary Tree","B+ Tree","Expression Tree","केवल AVL"],a:1,
+e:"B+ trees support efficient indexing and range queries."},
+
+{q:"Which normal form eliminates transitive dependencies?",
+h:"Transitive Dependency को कौन-सा Normal Form समाप्त करता है?",
+o:["1NF","2NF","3NF","4NF"],
+oh:["1NF","2NF","3NF","4NF"],a:2,
+e:"Third Normal Form addresses transitive dependencies of non-key attributes."},
+
+{q:"Which normal form requires every determinant to be a superkey?",
+h:"किस Normal Form में प्रत्येक Determinant का Superkey होना आवश्यक है?",
+o:["1NF","2NF","3NF","BCNF"],
+oh:["1NF","2NF","3NF","BCNF"],a:3,
+e:"BCNF requires every determinant to be a superkey."},
+
+{q:"Which ACID property ensures committed data survives failures?",
+h:"Committed Data को Failure के बाद सुरक्षित कौन-सी ACID Property रखती है?",
+o:["Atomicity","Consistency","Isolation","Durability"],
+oh:["Atomicity","Consistency","Isolation","Durability"],a:3,
+e:"Durability ensures committed transactions persist."},
+
+{q:"Which SQL command removes all rows but keeps the table structure?",
+h:"Table Structure को बनाए रखते हुए सभी Rows कौन-सा SQL Command हटाता है?",
+o:["DROP","TRUNCATE","ALTER","CREATE"],
+oh:["DROP","TRUNCATE","ALTER","CREATE"],a:1,
+e:"TRUNCATE removes rows while retaining the table definition."},
+
+{q:"Which index stores table rows in the order of the index key?",
+h:"कौन-सा Index Table Rows को Index Key के क्रम में रखता है?",
+o:["Non-clustered index","Clustered index","Bitmap only","Hash index only"],
+oh:["Non-clustered Index","Clustered Index","केवल Bitmap","केवल Hash Index"],a:1,
+e:"A clustered index determines the physical organization of table data in systems that support it."},
+
+{q:"Which is NOT one of the four necessary deadlock conditions?",
+h:"Deadlock की चार आवश्यक Conditions में कौन-सी शामिल नहीं है?",
+o:["Mutual exclusion","Hold and wait","Circular wait","Time sharing"],
+oh:["Mutual Exclusion","Hold and Wait","Circular Wait","Time Sharing"],a:3,
+e:"The four conditions are mutual exclusion, hold and wait, no preemption and circular wait."},
+
+{q:"Which memory management technique may cause internal fragmentation?",
+h:"कौन-सी Memory Management Technique Internal Fragmentation उत्पन्न कर सकती है?",
+o:["Paging","Pure segmentation","Linked allocation","Dynamic partitioning only"],
+oh:["Paging","Pure Segmentation","Linked Allocation","केवल Dynamic Partitioning"],a:0,
+e:"Paging may waste space inside the final allocated page."},
+
+{q:"Which page replacement algorithm can suffer from Belady's anomaly?",
+h:"कौन-सा Page Replacement Algorithm Belady's Anomaly से प्रभावित हो सकता है?",
+o:["LRU","Optimal","FIFO","Stack algorithm"],
+oh:["LRU","Optimal","FIFO","Stack Algorithm"],a:2,
+e:"FIFO can show Belady's anomaly when increasing frames increases page faults."},
+
+{q:"What is thrashing in an operating system?",
+h:"Operating System में Thrashing क्या है?",
+o:["Excessive paging","CPU overheating","Disk formatting","Process compilation"],
+oh:["अत्यधिक Paging","CPU Overheating","Disk Formatting","Process Compilation"],a:0,
+e:"Thrashing occurs when excessive paging reduces useful CPU work."},
+
+{q:"Which synchronization primitive is commonly used to control access to shared resources?",
+h:"Shared Resources के Access को नियंत्रित करने के लिए कौन-सा Synchronization Primitive उपयोग होता है?",
+o:["Compiler","Semaphore","Loader","Cache"],
+oh:["Compiler","Semaphore","Loader","Cache"],a:1,
+e:"A semaphore coordinates access to shared resources."},
+
+{q:"How many steps are there in the TCP three-way handshake?",
+h:"TCP Three-Way Handshake में कितने Steps होते हैं?",
+o:["Two","Three","Four","Five"],
+oh:["दो","तीन","चार","पाँच"],a:1,
+e:"The handshake uses SYN, SYN-ACK and ACK."},
+
+{q:"Which protocol provides connectionless communication?",
+h:"Connectionless Communication कौन-सा Protocol प्रदान करता है?",
+o:["TCP","UDP","FTP","SSH"],
+oh:["TCP","UDP","FTP","SSH"],a:1,
+e:"UDP is a connectionless transport layer protocol."},
+
+{q:"How many usable host addresses are available in a typical IPv4 /26 subnet?",
+h:"एक सामान्य IPv4 /26 Subnet में कितने Usable Host Addresses होते हैं?",
+o:["30","62","64","126"],
+oh:["30","62","64","126"],a:1,
+e:"A /26 has 64 addresses; typically 62 are usable after network and broadcast addresses."},
+
+{q:"Which OSI layer is responsible for logical addressing and routing?",
+h:"Logical Addressing और Routing की जिम्मेदारी किस OSI Layer की है?",
+o:["Data Link","Network","Transport","Session"],
+oh:["Data Link","Network","Transport","Session"],a:1,
+e:"The Network layer handles logical addressing and routing."},
+
+{q:"Which DNS port is commonly used for queries?",
+h:"DNS Queries के लिए सामान्यतः कौन-सा Port उपयोग होता है?",
+o:["21","25","53","110"],
+oh:["21","25","53","110"],a:2,
+e:"DNS commonly uses port 53 over UDP and TCP."},
+
+{q:"Which protocol maps an IPv4 address to a MAC address on a local network?",
+h:"Local Network में IPv4 Address को MAC Address से कौन Map करता है?",
+o:["ARP","DNS","SMTP","DHCP"],
+oh:["ARP","DNS","SMTP","DHCP"],a:0,
+e:"ARP resolves IPv4 addresses to link-layer hardware addresses."},
+
+{q:"What is the length of an IPv6 address?",
+h:"IPv6 Address की Length कितनी होती है?",
+o:["32 bits","64 bits","128 bits","256 bits"],
+oh:["32 Bits","64 Bits","128 Bits","256 Bits"],a:2,
+e:"IPv6 addresses are 128 bits long."},
+
+{q:"Which encryption method uses a public and private key pair?",
+h:"Public और Private Key Pair का उपयोग कौन-सी Encryption Method करती है?",
+o:["Symmetric encryption","Asymmetric encryption","Caesar cipher","Substitution only"],
+oh:["Symmetric Encryption","Asymmetric Encryption","Caesar Cipher","केवल Substitution"],a:1,
+e:"Asymmetric cryptography uses a public-private key pair."},
+
+{q:"Which practice is most effective against SQL injection?",
+h:"SQL Injection से बचने के लिए सबसे प्रभावी तरीका कौन-सा है?",
+o:["String concatenation","Parameterized queries","Disabling CSS","Using longer passwords only"],
+oh:["String Concatenation","Parameterized Queries","CSS बंद करना","केवल लंबे Password"],a:1,
+e:"Parameterized queries separate SQL code from user-supplied data."},
+
+{q:"Which compiler phase converts source code into tokens?",
+h:"Source Code को Tokens में कौन-सा Compiler Phase बदलता है?",
+o:["Syntax analysis","Lexical analysis","Code generation","Optimization"],
+oh:["Syntax Analysis","Lexical Analysis","Code Generation","Optimization"],a:1,
+e:"Lexical analysis identifies tokens from source code."}
+
+];
+
+// TEST STATE
+
+let current=0;
+let answers=new Array(questions.length).fill(null);
+let timeLeft=20;
+let timer=null;
+let language="en";
+let finished=false;
+
+function startTest(){
+ document.getElementById("startScreen").classList.add("hidden");
+ document.getElementById("testScreen").classList.remove("hidden");
+ renderQuestion();
+}
+
+function changeLanguage(){
+ language=language==="en"?"hi":"en";
+ document.getElementById("langBtn").innerText=
+ language==="en"?"हिंदी":"English";
+ renderQuestion();
+}
+
+function renderQuestion(){
+
+ if(finished)return;
+
+ clearInterval(timer);
+
+ const q=questions[current];
+
+ if(!q || !Array.isArray(q.o) || q.o.length!==4){
+   alert("Question Data Error at Question "+(current+1));
+   return;
+ }
+
+ timeLeft=20;
+
+ document.getElementById("qcount").innerText=
+ "Question "+(current+1)+"/"+questions.length;
+
+ document.getElementById("bar").style.width=
+ ((current+1)/questions.length*100)+"%";
+
+ document.getElementById("question").innerText=
+ (current+1)+". "+(language==="en"?q.q:q.h);
+
+ document.getElementById("timer").innerText=timeLeft+" Sec";
+
+ document.getElementById("options").innerHTML="";
+
+ q.o.forEach((op,i)=>{
+
+   const btn=document.createElement("button");
+   btn.className="option";
+
+   if(answers[current]===i)btn.classList.add("selected");
+
+   const text=language==="en"?op:q.oh[i];
+
+   btn.innerText=String.fromCharCode(65+i)+". "+text;
+
+   btn.onclick=()=>selectAnswer(i);
+
+   document.getElementById("options").appendChild(btn);
+
+ });
+
+ document.getElementById("status").innerText=
+ answers[current]===null?"Not Answered":"Answered";
+
+ document.getElementById("nextBtn").innerText=
+ current===questions.length-1?"Finish →":"Next →";
+
+ renderPalette();
+ startTimer();
+}
+
+function selectAnswer(i){
+ if(finished)return;
+
+ answers[current]=i;
+ renderQuestion();
+}
+
+function renderPalette(){
+
+ const box=document.getElementById("palette");
+ box.innerHTML="";
+
+ questions.forEach((q,i)=>{
+
+   const btn=document.createElement("button");
+   btn.innerText=i+1;
+
+   if(i===current)btn.classList.add("current");
+   else if(answers[i]!==null)btn.classList.add("answered");
+   else btn.classList.add("skipped");
+
+   btn.onclick=()=>{
+     if(!finished){
+       current=i;
+       renderQuestion();
+     }
+   };
+
+   box.appendChild(btn);
+
+ });
+
+}
+
+function startTimer(){
+
+ clearInterval(timer);
+
+ timer=setInterval(()=>{
+
+   timeLeft--;
+
+   document.getElementById("timer").innerText=
+   timeLeft+" Sec";
+
+   if(timeLeft<=0){
+     clearInterval(timer);
+     nextQuestion();
+   }
+
+ },1000);
+
+}
+
+function nextQuestion(){
+
+ if(finished)return;
+
+ clearInterval(timer);
+
+ if(current<questions.length-1){
+   current++;
+   renderQuestion();
+ }else{
+   submitTest();
+ }
+
+}
+
+function previousQuestion(){
+
+ if(finished)return;
+
+ if(current>0){
+   current--;
+   renderQuestion();
+ }
+
+}
+
+function submitTest(){
+
+ if(finished)return;
+
+ const unanswered=answers.filter(a=>a===null).length;
+
+ if(!confirm("Submit test? Unattempted: "+unanswered)){
+   return;
+ }
+
+ finished=true;
+ clearInterval(timer);
+
+ let correct=0,wrong=0;
+
+ questions.forEach((q,i)=>{
+   if(answers[i]===null)return;
+   if(answers[i]===q.a)correct++;
+   else wrong++;
+ });
+
+ const unattempted=questions.length-correct-wrong;
+ const score=correct-(wrong*0.25);
+ const percent=(correct/questions.length*100).toFixed(2);
+
+ document.getElementById("testScreen").classList.add("hidden");
+ document.getElementById("resultScreen").classList.remove("hidden");
+
+ document.getElementById("score").innerText=
+ score.toFixed(2)+" / 40";
+
+ document.getElementById("percentage").innerText=
+ "Accuracy: "+percent+"%";
+
+ document.getElementById("correct").innerText=
+ "Correct Answers: "+correct;
+
+ document.getElementById("wrong").innerText=
+ "Wrong Answers: "+wrong;
+
+ document.getElementById("unattempted").innerText=
+ "Unattempted: "+unattempted;
+
+ let html="";
+
+ questions.forEach((q,i)=>{
+
+   const ok=answers[i]===q.a;
+   const user=answers[i];
+
+   html+=`
+   <div class="explanation">
+   <b>Q${i+1}. ${q.q}</b><br>
+   Your Answer: ${user===null?"Not Attempted":q.o[user]}<br>
+   Correct Answer: ${q.o[q.a]}<br>
+   <span style="color:${ok?'green':'#dc2626'}">
+   ${user===null?"Skipped":ok?"Correct":"Wrong"}
+   </span><br>
+   Explanation: ${q.e}
+   </div>`;
+
+ });
+
+ document.getElementById("analysis").innerHTML=html;
+
+}
+
+</script>
+
+</body>
+</html>
