@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reasoning Master Test</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:Arial,sans-serif;
+background:#f1f3f7;
+color:#263448;
+padding-bottom:100px;
+}
+
+.hero{
+background:linear-gradient(120deg,#173c70,#075b79);
+color:white;
+padding:35px 5% 40px;
+}
+
+.brand{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+}
+
+.logo{
+background:#f28b12;
+color:white;
+padding:15px;
+border-radius:50%;
+font-weight:bold;
+}
+
+.brand h3{font-size:20px}
+.brand small{color:#d6e3f2}
+
+.test-no{
+font-size:55px;
+font-weight:bold;
+color:#f28b12;
+}
+
+.hero h1{
+font-size:28px;
+margin:20px 0 8px;
+}
+
+.hero p{color:#d7e4f1;line-height:1.7}
+
+.tagline{
+color:#ffc36a!important;
+font-weight:bold;
+margin:10px 0 20px;
+}
+
+.language{
+display:flex;
+gap:12px;
+margin:20px 0 28px;
+}
+
+.language button{
+padding:13px 25px;
+border-radius:10px;
+border:1px solid #ffffff55;
+background:transparent;
+color:white;
+font-weight:bold;
+}
+
+.language button.active{
+background:#f28b12;
+border-color:#f28b12;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+
+.feature{
+background:#ffffff16;
+padding:15px;
+border-radius:10px;
+}
+
+.feature b{
+display:block;
+font-size:23px;
+margin-bottom:7px;
+}
+
+.feature span{font-size:13px;color:#d8e4f1}
+
+.container{
+max-width:1000px;
+margin:25px auto;
+padding:0 15px;
+}
+
+.start-card{
+background:white;
+border-radius:20px;
+padding:55px 25px;
+text-align:center;
+box-shadow:0 5px 20px #00000008;
+}
+
+.start-card h1{
+color:#173c70;
+font-size:34px;
+margin-bottom:30px;
+}
+
+.start-card h2{margin-bottom:20px}
+
+.start-card p{
+font-size:18px;
+line-height:1.8;
+margin:10px 0;
+}
+
+.start-card hr{
+margin:20px 0;
+border:0;
+border-top:2px solid #ddd;
+}
+
+.orange{
+background:#f28b12;
+color:white;
+border:0;
+padding:16px 35px;
+border-radius:12px;
+font-size:19px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.start-card .orange{margin-top:25px}
+
+.hidden{display:none!important}
+
+.status-card{
+background:white;
+padding:20px 25px;
+border-radius:15px;
+margin-bottom:25px;
+}
+
+.status-card p{
+margin:8px 0;
+font-size:17px;
+}
+
+.status-card .orange{
+width:100%;
+margin-top:10px;
+font-size:17px;
+}
+
+.question-card{
+background:white;
+padding:28px;
+border-radius:20px;
+box-shadow:0 4px 20px #00000008;
+}
+
+.q-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.q-label{
+color:#b87923;
+font-weight:bold;
+font-size:18px;
+}
+
+.subject{
+background:#fff6e7;
+color:#a66c17;
+padding:9px 15px;
+border-radius:20px;
+font-size:14px;
+}
+
+.timer-area{
+display:flex;
+align-items:center;
+gap:20px;
+margin-bottom:30px;
+}
+
+.circle{
+height:80px;
+width:80px;
+border:6px solid #ed8a18;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:bold;
+color:#bd7618;
+flex-shrink:0;
+}
+
+.timer-details{flex:1}
+
+.timer-details h3{font-size:21px}
+
+.timer-details p{color:#777;margin:4px 0}
+
+.timer-line{
+height:8px;
+background:#e5e8ed;
+border-radius:10px;
+overflow:hidden;
+}
+
+#timerBar{
+height:100%;
+width:100%;
+background:#ed8a18;
+transition:width 1s linear;
+}
+
+#questionText{
+font-size:23px;
+line-height:1.65;
+margin-bottom:25px;
+}
+
+.option{
+display:flex;
+align-items:center;
+gap:15px;
+border:1px solid #dedede;
+padding:17px;
+border-radius:13px;
+margin:12px 0;
+font-size:18px;
+cursor:pointer;
+transition:.2s;
+}
+
+.option:hover{
+border-color:#ed8a18;
+background:#fffaf2;
+}
+
+.option.selected{
+background:#fff3df;
+border:2px solid #ed8a18;
+}
+
+.option-letter{
+font-weight:bold;
+min-width:28px;
+}
+
+.option input{display:none}
+
+.answer-status{
+color:#858b94;
+margin:20px 0;
+}
+
+.navigation{
+display:flex;
+justify-content:space-between;
+gap:10px;
+}
+
+.navigation button{
+padding:14px 20px;
+border-radius:10px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.prev{
+background:white;
+border:1px solid #ddd;
+color:#173c70;
+}
+
+.next{
+background:#173c70;
+border:0;
+color:white;
+}
+
+.bottom-bar{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+box-shadow:0 -3px 15px #00000012;
+padding:15px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:10;
+}
+
+.bottom-bar h2{font-size:24px}
+
+.bottom-bar p{font-size:14px;color:#777}
+
+.bottom-bar button{
+background:#f28b12;
+color:white;
+border:0;
+border-radius:12px;
+padding:17px 25px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.result-card{
+background:white;
+padding:25px;
+border-radius:18px;
+text-align:center;
+}
+
+.result-card h1{color:#173c70}
+
+.result-score{
+font-size:40px;
+color:#168451;
+margin:25px;
+}
+
+.result-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin:20px 0;
+}
+
+.result-grid div{
+background:#f0f4f8;
+padding:18px;
+border-radius:10px;
+}
+
+.review{
+text-align:left;
+background:#f4f6fa;
+padding:15px;
+border-radius:10px;
+margin:12px 0;
+line-height:1.8;
+}
+
+.good{color:#168451;font-weight:bold}
+.bad{color:#d32f2f;font-weight:bold}
+
+footer{
+text-align:center;
+padding:35px 10px;
+color:#777;
+line-height:2;
+}
+
+footer b{color:#68758b}
+footer a{color:#e18113;text-decoration:none;font-weight:bold}
+
+@media(max-width:600px){
+.hero{padding:25px 5% 35px}
+.hero h1{font-size:24px}
+.brand h3{font-size:16px}
+.test-no{font-size:42px}
+.features{grid-template-columns:repeat(2,1fr)}
+.start-card{padding:40px 18px}
+.start-card h1{font-size:27px}
+.question-card{padding:20px 16px}
+#questionText{font-size:19px}
+.option{font-size:16px;padding:15px}
+.circle{height:68px;width:68px;font-size:24px}
+.timer-area{gap:12px}
+.navigation button{font-size:14px;padding:13px 15px}
+.bottom-bar{padding:12px}
+.bottom-bar h2{font-size:20px}
+.bottom-bar button{padding:14px 17px;font-size:14px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="brand">
+<div style="display:flex;align-items:center;gap:15px">
+<div class="logo">SG</div>
+<div>
+<h3>REASONING MASTER</h3>
+<small>KNOWLEDGE | PRACTICE | SUCCESS</small>
+</div>
+</div>
+<div class="test-no">01</div>
+</div>
+
+<h1>REASONING MASTER TEST</h1>
+<p>Reasoning Challenge | Moderate to Advanced Level</p>
+
+<p class="tagline">KNOWLEDGE | PRACTICE | SUCCESS</p>
+
+<div class="language">
+<button id="englishBtn" onclick="setLanguage('en')">ENGLISH</button>
+<button id="hindiBtn" class="active" onclick="setLanguage('hi')">हिंदी</button>
+</div>
+
+<div class="features">
+<div class="feature">
+<b>30</b><span>Questions</span>
+</div>
+<div class="feature">
+<b>40 Sec</b><span>Per Question</span>
+</div>
+<div class="feature">
+<b>+1</b><span>Correct</span>
+</div>
+<div class="feature">
+<b>-0.25</b><span>Wrong</span>
+</div>
+</div>
+
+</section>
+
+<div class="container">
+
+<!-- START SCREEN -->
+
+<section id="startScreen" class="start-card">
+
+<h1>REASONING CHALLENGE</h1>
+
+<h2>30 Questions | Moderate to Advanced</h2>
+
+<p>Each question has a 40-second timer.</p>
+<p>Time out automatically moves to next question.</p>
+
+<hr>
+
+<p>Correct: +1 | Wrong: -0.25 | Unattempted: 0</p>
+
+<button class="orange" onclick="startTest()">START TEST</button>
+
+</section>
+
+<!-- TEST SCREEN -->
+
+<section id="testScreen" class="hidden">
+
+<div class="status-card">
+
+<p>Attempted: <b id="attempted">0</b>/30</p>
+<p>Remaining: <b id="remaining">30</b></p>
+
+<button class="orange" onclick="submitTest()">Submit Test</button>
+
+</div>
+
+<div class="question-card">
+
+<div class="q-top">
+<span class="q-label" id="qLabel">QUESTION 1</span>
+<span class="subject">Reasoning</span>
+</div>
+
+<div class="timer-area">
+
+<div class="circle" id="timerCircle">40</div>
+
+<div class="timer-details">
+<h3>Time Remaining</h3>
+<p>Auto Next Enabled</p>
+<div class="timer-line">
+<div id="timerBar"></div>
+</div>
+</div>
+
+</div>
+
+<h2 id="questionText"></h2>
+
+<div id="options"></div>
+
+<p class="answer-status" id="answerStatus">Not Answered</p>
+
+<div class="navigation">
+<button id="prevBtn" class="prev" onclick="previousQuestion()">← Previous</button>
+<button class="next" onclick="nextQuestion()">Next →</button>
+</div>
+
+</div>
+</section>
+
+<!-- RESULT -->
+
+<section id="resultScreen" class="result-card hidden">
+
+<h1>TEST RESULT</h1>
+<div class="result-score" id="score"></div>
+
+<div class="result-grid">
+<div>Correct<br><b id="correct"></b></div>
+<div>Wrong<br><b id="wrong"></b></div>
+<div>Unattempted<br><b id="skipped"></b></div>
+<div>Percentage<br><b id="percentage"></b></div>
+</div>
+
+<h2>ANSWER ANALYSIS</h2>
+<div id="analysis"></div>
+
+<button class="orange" onclick="restartTest()">RETAKE TEST</button>
+
+</section>
+
+</div>
+
+<!-- FIXED BOTTOM -->
+
+<div class="bottom-bar hidden" id="bottomBar">
+<div>
+<h2 id="bottomTimer">40 Sec</h2>
+<p id="bottomAttempted">0/30 Answered</p>
+</div>
+<button onclick="submitTest()">Submit Test</button>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+<b>REASONING MASTER</b><br>
+KNOWLEDGE | PRACTICE | SUCCESS<br>
+UPSSSC | UP POLICE | COMPUTER OPERATOR<br>
+
+Telegram:
+<a href="https://t.me/staticgkgsmaster" target="_blank">
+@staticgkgsmaster
+</a><br>
+
+© 2026 STATIC GK GS MASTER. All Rights Reserved.
+</footer>
+
+<script>
+
+// =================================
+// QUESTION BANK
+// =================================
+
+const questions = [
+
+{
+q: "भारतीय संविधान का कौन-सा अनुच्छेद संवैधानिक उपचारों का अधिकार प्रदान करता है?",
+o: ["अनुच्छेद 14", "अनुच्छेद 19", "अनुच्छेद 21", "अनुच्छेद 32"],
+a: 3,
+e: "अनुच्छेद 32 संवैधानिक उपचारों का अधिकार प्रदान करता है।"
+},
+
+{
+q: "भारत में प्रथम पंचवर्षीय योजना किस वर्ष प्रारंभ हुई?",
+o: ["1947", "1950", "1951", "1952"],
+a: 2,
+e: "प्रथम पंचवर्षीय योजना 1951 में प्रारंभ हुई थी।"
+},
+
+{
+q: "1857 की क्रांति का प्रारंभ किस स्थान से हुआ था?",
+o: ["कानपुर", "मेरठ", "झांसी", "लखनऊ"],
+a: 1,
+e: "10 मई 1857 को मेरठ से विद्रोह प्रारंभ हुआ था।"
+},
+
+{
+q: "भारत की सबसे लंबी प्रायद्वीपीय नदी कौन-सी है?",
+o: ["कृष्णा", "गोदावरी", "कावेरी", "नर्मदा"],
+a: 1,
+e: "गोदावरी भारत की सबसे लंबी प्रायद्वीपीय नदी है।"
+},
+
+{
+q: "भारतीय संविधान में मौलिक कर्तव्य किस संशोधन द्वारा जोड़े गए?",
+o: ["42वाँ", "44वाँ", "52वाँ", "61वाँ"],
+a: 0,
+e: "42वें संविधान संशोधन अधिनियम 1976 द्वारा मौलिक कर्तव्य जोड़े गए।"
+},
+
+{
+q: "किस विटामिन की कमी से रक्त का थक्का बनने में समस्या होती है?",
+o: ["विटामिन A", "विटामिन B12", "विटामिन K", "विटामिन C"],
+a: 2,
+e: "विटामिन K रक्त का थक्का जमाने में महत्वपूर्ण भूमिका निभाता है।"
+},
+
+{
+q: "मानव शरीर की सबसे बड़ी ग्रंथि कौन-सी है?",
+o: ["अग्न्याशय", "यकृत", "थायरॉइड", "पीयूष ग्रंथि"],
+a: 1,
+e: "यकृत मानव शरीर की सबसे बड़ी ग्रंथि है।"
+},
+
+{
+q: "विद्युत प्रतिरोध का SI मात्रक क्या है?",
+o: ["वोल्ट", "एम्पियर", "ओम", "वाट"],
+a: 2,
+e: "विद्युत प्रतिरोध का SI मात्रक ओम है।"
+},
+
+{
+q: "शुद्ध जल का pH मान कितना होता है?",
+o: ["5", "6", "7", "8"],
+a: 2,
+e: "25°C तापमान पर शुद्ध जल का pH मान 7 होता है।"
+},
+
+{
+q: "प्रकाश संश्लेषण की क्रिया पौधों के किस कोशिकांग में होती है?",
+o: ["माइटोकॉन्ड्रिया", "राइबोसोम", "क्लोरोप्लास्ट", "न्यूक्लियस"],
+a: 2,
+e: "क्लोरोप्लास्ट में क्लोरोफिल पाया जाता है, जहाँ प्रकाश संश्लेषण होता है।"
+},
+
+{
+q: "भारत का नियंत्रक एवं महालेखा परीक्षक किस अनुच्छेद के अंतर्गत आता है?",
+o: ["अनुच्छेद 148", "अनुच्छेद 280", "अनुच्छेद 324", "अनुच्छेद 356"],
+a: 0,
+e: "अनुच्छेद 148 में CAG के पद का प्रावधान है।"
+},
+
+{
+q: "कर्क रेखा भारत के कितने राज्यों से होकर गुजरती है?",
+o: ["6", "7", "8", "9"],
+a: 2,
+e: "कर्क रेखा भारत के 8 राज्यों से होकर गुजरती है।"
+},
+
+{
+q: "भारत में हरित क्रांति का प्रमुख संबंध किससे है?",
+o: ["दूध उत्पादन", "खाद्यान्न उत्पादन", "मछली उत्पादन", "तेल उत्पादन"],
+a: 1,
+e: "हरित क्रांति का मुख्य उद्देश्य खाद्यान्न उत्पादन बढ़ाना था।"
+},
+
+{
+q: "भारतीय रिजर्व बैंक की स्थापना कब हुई थी?",
+o: ["1930", "1935", "1947", "1949"],
+a: 1,
+e: "RBI की स्थापना 1 अप्रैल 1935 को हुई थी।"
+},
+
+{
+q: "सार्क (SAARC) का मुख्यालय कहाँ स्थित है?",
+o: ["नई दिल्ली", "ढाका", "काठमांडू", "कोलंबो"],
+a: 2,
+e: "सार्क का मुख्यालय काठमांडू, नेपाल में स्थित है।"
+},
+
+{
+q: "कंप्यूटर में डेटा की सबसे छोटी इकाई कौन-सी है?",
+o: ["बाइट", "बिट", "निबल", "वर्ड"],
+a: 1,
+e: "बिट कंप्यूटर में डेटा की सबसे छोटी इकाई है।"
+},
+
+{
+q: "किस गैस को हँसाने वाली गैस कहा जाता है?",
+o: ["NO2", "N2O", "SO2", "CO2"],
+a: 1,
+e: "नाइट्रस ऑक्साइड (N2O) को हँसाने वाली गैस कहते हैं।"
+},
+
+{
+q: "ध्वनि की चाल सबसे अधिक किस माध्यम में होती है?",
+o: ["गैस", "द्रव", "ठोस", "निर्वात"],
+a: 2,
+e: "सामान्यतः ध्वनि की चाल ठोस में सबसे अधिक होती है।"
+},
+
+{
+q: "मानव शरीर में इंसुलिन हार्मोन का स्राव किससे होता है?",
+o: ["यकृत", "अग्न्याशय", "वृक्क", "हृदय"],
+a: 1,
+e: "अग्न्याशय की बीटा कोशिकाएँ इंसुलिन का स्राव करती हैं।"
+},
+
+{
+q: "ओजोन परत मुख्यतः वायुमंडल की किस परत में पाई जाती है?",
+o: ["क्षोभमंडल", "समतापमंडल", "मध्यमंडल", "तापमंडल"],
+a: 1,
+e: "ओजोन परत मुख्यतः समतापमंडल में स्थित है।"
+},
+
+{
+q: "नवंबर 2026 में राष्ट्रीय खेल बोर्ड के अध्यक्ष का पदभार किसने संभाला?",
+o: ["जय शाह", "देवेश चतुर्वेदी", "पी.टी. उषा", "अभिनव बिंद्रा"],
+a: 1,
+e: "सेवानिवृत्त IAS अधिकारी देवेश चतुर्वेदी ने 16 नवंबर 2026 को राष्ट्रीय खेल बोर्ड के अध्यक्ष का पदभार संभाला।"
+},
+
+{
+q: "नवंबर 2026 में ICC अध्यक्ष के रूप में दूसरे कार्यकाल के लिए किसे पुनर्नियुक्त किया गया?",
+o: ["रोजर बिन्नी", "जय शाह", "ग्रेग बार्कले", "सौरव गांगुली"],
+a: 1,
+e: "जय शाह को ICC अध्यक्ष के रूप में दूसरे कार्यकाल के लिए पुनर्नियुक्त किया गया।"
+},
+
+{
+q: "नवंबर 2026 में संयुक्त राष्ट्र की ACABQ समिति के लिए किस भारतीय राजनयिक का चुनाव हुआ?",
+o: ["शिवानी गुप्ता", "रुचिरा कंबोज", "हरदीप सिंह पुरी", "टी.एस. तिरुमूर्ति"],
+a: 0,
+e: "भारतीय राजनयिक शिवानी गुप्ता का ACABQ के लिए 2027–2029 कार्यकाल हेतु चुनाव हुआ।"
+},
+
+{
+q: "नवंबर 2026 की RBI की D-SIB सूची में कौन-सा बैंक शामिल है?",
+o: ["बैंक ऑफ बड़ौदा", "पंजाब नेशनल बैंक", "SBI", "केनरा बैंक"],
+a: 2,
+e: "नवंबर 2026 की D-SIB सूची में SBI, HDFC Bank और ICICI Bank शामिल हैं।"
+},
+
+{
+q: "नवंबर 2026 में 45वें भारत अंतरराष्ट्रीय व्यापार मेले का आयोजन कहाँ हुआ?",
+o: ["मुंबई", "नई दिल्ली", "लखनऊ", "हैदराबाद"],
+a: 1,
+e: "45वाँ भारत अंतरराष्ट्रीय व्यापार मेला नई दिल्ली के भारत मंडपम में आयोजित हुआ।"
+},
+
+{
+q: "किस भारतीय शास्त्रीय नृत्य शैली का संबंध केरल से है?",
+o: ["कथक", "भरतनाट्यम", "कथकली", "ओडिसी"],
+a: 2,
+e: "कथकली केरल की प्रसिद्ध शास्त्रीय नृत्य शैली है।"
+},
+
+{
+q: "भारत का पहला जैवमंडल आरक्षित क्षेत्र कौन-सा था?",
+o: ["नंदा देवी", "नीलगिरि", "सुंदरबन", "मन्नार की खाड़ी"],
+a: 1,
+e: "नीलगिरि भारत का पहला जैवमंडल आरक्षित क्षेत्र था, जिसे 1986 में स्थापित किया गया।"
+},
+
+{
+q: "किस अनुच्छेद में वित्त आयोग के गठन का प्रावधान है?",
+o: ["अनुच्छेद 263", "अनुच्छेद 280", "अनुच्छेद 300", "अनुच्छेद 324"],
+a: 1,
+e: "अनुच्छेद 280 के अंतर्गत वित्त आयोग के गठन का प्रावधान है।"
+},
+
+{
+q: "किस तत्व का परमाणु क्रमांक 17 है?",
+o: ["फ्लोरीन", "क्लोरीन", "ब्रोमीन", "आयोडीन"],
+a: 1,
+e: "क्लोरीन का परमाणु क्रमांक 17 है।"
+},
+
+{
+q: "भारत में राष्ट्रीय आय का अनुमान कौन तैयार करता है?",
+o: ["RBI", "वित्त आयोग", "राष्ट्रीय सांख्यिकी कार्यालय", "नीति आयोग"],
+a: 2,
+e: "राष्ट्रीय सांख्यिकी कार्यालय (NSO) राष्ट्रीय आय के अनुमान तैयार करता है।"
+}
+
+];
+
+// =================================
+// TEST LOGIC
+// =================================
+
+let current=0;
+let answers=Array(30).fill(null);
+let seconds=40;
+let interval=null;
+let submitted=false;
+let language="hi";
+
+function setLanguage(lang) {
+
+language = lang;
+
+document.getElementById("hindiBtn").classList.toggle("active", lang === "hi");
+document.getElementById("englishBtn").classList.toggle("active", lang === "en");
+
+const t = {
+hi: {
+submit:"टेस्ट जमा करें",
+previous:"← पिछला",
+next:"अगला →",
+attempted:"हल किए",
+remaining:"शेष",
+notAnswered:"उत्तर नहीं दिया",
+time:"शेष समय",
+question:"प्रश्न"
+},
+en: {
+submit:"Submit Test",
+previous:"← Previous",
+next:"Next →",
+attempted:"Attempted",
+remaining:"Remaining",
+notAnswered:"Not Answered",
+time:"Time Remaining",
+question:"QUESTION"
+}
+};
+
+document.querySelector(".status-card button").textContent=t[lang].submit;
+document.querySelector(".prev").textContent=t[lang].previous;
+document.querySelector(".next").textContent=t[lang].next;
+
+showQuestion();
+
+}
+
+function startTest(){
+
+document.getElementById("startScreen").classList.add("hidden");
+document.getElementById("testScreen").classList.remove("hidden");
+document.getElementById("bottomBar").classList.remove("hidden");
+
+current=0;
+showQuestion();
+}
+
+function showQuestion(){
+
+let q=questions[current];
+
+document.getElementById("qLabel").textContent=
+(language==="hi"?"प्रश्न ":"QUESTION ")+(current+1);
+
+document.getElementById("questionText").textContent=q.q;
+
+let options=document.getElementById("options");
+options.innerHTML="";
+
+q.o.forEach((text,i)=>{
+
+let label=document.createElement("label");
+label.className="option"+(answers[current]===i?" selected":"");
+
+let input=document.createElement("input");
+input.type="radio";
+input.name="answer";
+input.checked=answers[current]===i;
+
+input.onchange=()=>{
+answers[current]=i;
+showQuestion();
+};
+
+let letter=document.createElement("span");
+letter.className="option-letter";
+letter.textContent=String.fromCharCode(65+i);
+
+let value=document.createElement("span");
+value.textContent=text;
+
+label.append(input,letter,value);
+options.appendChild(label);
+
+});
+
+document.getElementById("answerStatus").textContent=
+answers[current]===null?"Not Answered":"Answer Saved";
+
+document.getElementById("prevBtn").disabled=current===0;
+
+updateStats();
+startQuestionTimer();
+
+}
+
+function updateStats(){
+
+let attempted=answers.filter(a=>a!==null).length;
+
+document.getElementById("attempted").textContent=attempted;
+document.getElementById("remaining").textContent=30-attempted;
+
+document.getElementById("bottomAttempted").textContent=
+attempted+"/30 Answered";
+
+}
+
+function startQuestionTimer(){
+
+clearInterval(interval);
+seconds=40;
+updateTimerDisplay();
+
+interval=setInterval(()=>{
+
+seconds--;
+updateTimerDisplay();
+
+if(seconds<=0){
+clearInterval(interval);
+if(current<29){
+current++;
+showQuestion();
+}else{
+submitTest();
+}
+}
+
+},1000);
+
+}
+
+function updateTimerDisplay(){
+
+document.getElementById("timerCircle").textContent=seconds;
+document.getElementById("bottomTimer").textContent=seconds+" Sec";
+document.getElementById("timerBar").style.width=(seconds/40*100)+"%";
+
+}
+
+function nextQuestion(){
+
+if(current<29){
+current++;
+showQuestion();
+}else{
+submitTest();
+}
+
+}
+
+function previousQuestion(){
+
+if(current>0){
+current--;
+showQuestion();
+}
+
+}
+
+function submitTest(){
+
+if(submitted)return;
+
+if(!confirm("Are you sure you want to submit the test?"))return;
+
+finishTest();
+
+}
+
+function finishTest(){
+
+submitted=true;
+clearInterval(interval);
+
+let correct=0,wrong=0,skipped=0;
+
+questions.forEach((q,i)=>{
+if(answers[i]===null)skipped++;
+else if(answers[i]===q.a)correct++;
+else wrong++;
+});
+
+let score=correct-(wrong*.25);
+
+document.getElementById("testScreen").classList.add("hidden");
+document.getElementById("bottomBar").classList.add("hidden");
+document.getElementById("resultScreen").classList.remove("hidden");
+
+document.getElementById("score").textContent=score.toFixed(2)+"/30";
+document.getElementById("correct").textContent=correct;
+document.getElementById("wrong").textContent=wrong;
+document.getElementById("skipped").textContent=skipped;
+document.getElementById("percentage").textContent=
+(score/30*100).toFixed(2)+"%";
+
+showAnalysis();
+window.scrollTo(0,0);
+
+}
+
+function showAnalysis(){
+
+let box=document.getElementById("analysis");
+box.innerHTML="";
+
+questions.forEach((q,i)=>{
+
+let div=document.createElement("div");
+div.className="review";
+
+let title=document.createElement("h3");
+title.textContent="Q"+(i+1)+". "+q.q;
+
+let user=document.createElement("p");
+user.textContent="Your Answer: "+
+(answers[i]===null?"Not Attempted":q.o[answers[i]]);
+
+user.className=
+answers[i]===null?"":
+answers[i]===q.a?"good":"bad";
+
+let answer=document.createElement("p");
+answer.className="good";
+answer.textContent="Correct Answer: "+q.o[q.a];
+
+let explanation=document.createElement("p");
+explanation.textContent="Explanation: "+q.e;
+
+div.append(title,user,answer,explanation);
+box.appendChild(div);
+
+});
+
+}
+
+function restartTest(){
+
+answers=Array(30).fill(null);
+current=0;
+seconds=40;
+submitted=false;
+
+document.getElementById("resultScreen").classList.add("hidden");
+document.getElementById("startScreen").classList.remove("hidden");
+
+window.scrollTo(0,0);
+
+}
+
+</script>
+
+</body>
+</html>
