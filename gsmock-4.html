@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gk Gs Master Test</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:Arial,sans-serif;
+background:#f1f3f7;
+color:#263448;
+padding-bottom:100px;
+}
+
+.hero{
+background:linear-gradient(120deg,#173c70,#075b79);
+color:white;
+padding:35px 5% 40px;
+}
+
+.brand{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+}
+
+.logo{
+background:#f28b12;
+color:white;
+padding:15px;
+border-radius:50%;
+font-weight:bold;
+}
+
+.brand h3{font-size:20px}
+.brand small{color:#d6e3f2}
+
+.test-no{
+font-size:55px;
+font-weight:bold;
+color:#f28b12;
+}
+
+.hero h1{
+font-size:28px;
+margin:20px 0 8px;
+}
+
+.hero p{color:#d7e4f1;line-height:1.7}
+
+.tagline{
+color:#ffc36a!important;
+font-weight:bold;
+margin:10px 0 20px;
+}
+
+.language{
+display:flex;
+gap:12px;
+margin:20px 0 28px;
+}
+
+.language button{
+padding:13px 25px;
+border-radius:10px;
+border:1px solid #ffffff55;
+background:transparent;
+color:white;
+font-weight:bold;
+}
+
+.language button.active{
+background:#f28b12;
+border-color:#f28b12;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+
+.feature{
+background:#ffffff16;
+padding:15px;
+border-radius:10px;
+}
+
+.feature b{
+display:block;
+font-size:23px;
+margin-bottom:7px;
+}
+
+.feature span{font-size:13px;color:#d8e4f1}
+
+.container{
+max-width:1000px;
+margin:25px auto;
+padding:0 15px;
+}
+
+.start-card{
+background:white;
+border-radius:20px;
+padding:55px 25px;
+text-align:center;
+box-shadow:0 5px 20px #00000008;
+}
+
+.start-card h1{
+color:#173c70;
+font-size:34px;
+margin-bottom:30px;
+}
+
+.start-card h2{margin-bottom:20px}
+
+.start-card p{
+font-size:18px;
+line-height:1.8;
+margin:10px 0;
+}
+
+.start-card hr{
+margin:20px 0;
+border:0;
+border-top:2px solid #ddd;
+}
+
+.orange{
+background:#f28b12;
+color:white;
+border:0;
+padding:16px 35px;
+border-radius:12px;
+font-size:19px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.start-card .orange{margin-top:25px}
+
+.hidden{display:none!important}
+
+.status-card{
+background:white;
+padding:20px 25px;
+border-radius:15px;
+margin-bottom:25px;
+}
+
+.status-card p{
+margin:8px 0;
+font-size:17px;
+}
+
+.status-card .orange{
+width:100%;
+margin-top:10px;
+font-size:17px;
+}
+
+.question-card{
+background:white;
+padding:28px;
+border-radius:20px;
+box-shadow:0 4px 20px #00000008;
+}
+
+.q-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.q-label{
+color:#b87923;
+font-weight:bold;
+font-size:18px;
+}
+
+.subject{
+background:#fff6e7;
+color:#a66c17;
+padding:9px 15px;
+border-radius:20px;
+font-size:14px;
+}
+
+.timer-area{
+display:flex;
+align-items:center;
+gap:20px;
+margin-bottom:30px;
+}
+
+.circle{
+height:80px;
+width:80px;
+border:6px solid #ed8a18;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:bold;
+color:#bd7618;
+flex-shrink:0;
+}
+
+.timer-details{flex:1}
+
+.timer-details h3{font-size:21px}
+
+.timer-details p{color:#777;margin:4px 0}
+
+.timer-line{
+height:8px;
+background:#e5e8ed;
+border-radius:10px;
+overflow:hidden;
+}
+
+#timerBar{
+height:100%;
+width:100%;
+background:#ed8a18;
+transition:width 1s linear;
+}
+
+#questionText{
+font-size:23px;
+line-height:1.65;
+margin-bottom:25px;
+}
+
+.option{
+display:flex;
+align-items:center;
+gap:15px;
+border:1px solid #dedede;
+padding:17px;
+border-radius:13px;
+margin:12px 0;
+font-size:18px;
+cursor:pointer;
+transition:.2s;
+}
+
+.option:hover{
+border-color:#ed8a18;
+background:#fffaf2;
+}
+
+.option.selected{
+background:#fff3df;
+border:2px solid #ed8a18;
+}
+
+.option-letter{
+font-weight:bold;
+min-width:28px;
+}
+
+.option input{display:none}
+
+.answer-status{
+color:#858b94;
+margin:20px 0;
+}
+
+.navigation{
+display:flex;
+justify-content:space-between;
+gap:10px;
+}
+
+.navigation button{
+padding:14px 20px;
+border-radius:10px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.prev{
+background:white;
+border:1px solid #ddd;
+color:#173c70;
+}
+
+.next{
+background:#173c70;
+border:0;
+color:white;
+}
+
+.bottom-bar{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+box-shadow:0 -3px 15px #00000012;
+padding:15px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:10;
+}
+
+.bottom-bar h2{font-size:24px}
+
+.bottom-bar p{font-size:14px;color:#777}
+
+.bottom-bar button{
+background:#f28b12;
+color:white;
+border:0;
+border-radius:12px;
+padding:17px 25px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.result-card{
+background:white;
+padding:25px;
+border-radius:18px;
+text-align:center;
+}
+
+.result-card h1{color:#173c70}
+
+.result-score{
+font-size:40px;
+color:#168451;
+margin:25px;
+}
+
+.result-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin:20px 0;
+}
+
+.result-grid div{
+background:#f0f4f8;
+padding:18px;
+border-radius:10px;
+}
+
+.review{
+text-align:left;
+background:#f4f6fa;
+padding:15px;
+border-radius:10px;
+margin:12px 0;
+line-height:1.8;
+}
+
+.good{color:#168451;font-weight:bold}
+.bad{color:#d32f2f;font-weight:bold}
+
+footer{
+text-align:center;
+padding:35px 10px;
+color:#777;
+line-height:2;
+}
+
+footer b{color:#68758b}
+footer a{color:#e18113;text-decoration:none;font-weight:bold}
+
+@media(max-width:600px){
+.hero{padding:25px 5% 35px}
+.hero h1{font-size:24px}
+.brand h3{font-size:16px}
+.test-no{font-size:42px}
+.features{grid-template-columns:repeat(2,1fr)}
+.start-card{padding:40px 18px}
+.start-card h1{font-size:27px}
+.question-card{padding:20px 16px}
+#questionText{font-size:19px}
+.option{font-size:16px;padding:15px}
+.circle{height:68px;width:68px;font-size:24px}
+.timer-area{gap:12px}
+.navigation button{font-size:14px;padding:13px 15px}
+.bottom-bar{padding:12px}
+.bottom-bar h2{font-size:20px}
+.bottom-bar button{padding:14px 17px;font-size:14px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="brand">
+<div style="display:flex;align-items:center;gap:15px">
+<div class="logo">SG</div>
+<div>
+<h3>GS MASTER</h3>
+<small>KNOWLEDGE | PRACTICE | SUCCESS</small>
+</div>
+</div>
+<div class="test-no">04</div>
+</div>
+
+<h1>GS MASTER TEST</h1>
+<p>Gs Challenge | Moderate to Advanced Level</p>
+
+<p class="tagline">KNOWLEDGE | PRACTICE | SUCCESS</p>
+
+<div class="language">
+<button id="englishBtn" onclick="setLanguage('en')">ENGLISH</button>
+<button id="hindiBtn" class="active" onclick="setLanguage('hi')">हिंदी</button>
+</div>
+
+<div class="features">
+<div class="feature">
+<b>30</b><span>Questions</span>
+</div>
+<div class="feature">
+<b>40 Sec</b><span>Per Question</span>
+</div>
+<div class="feature">
+<b>+1</b><span>Correct</span>
+</div>
+<div class="feature">
+<b>-0.25</b><span>Wrong</span>
+</div>
+</div>
+
+</section>
+
+<div class="container">
+
+<!-- START SCREEN -->
+
+<section id="startScreen" class="start-card">
+
+<h1>GS CHALLENGE</h1>
+
+<h2>30 Questions | Moderate to Advanced</h2>
+
+<p>Each question has a 40-second timer.</p>
+<p>Time out automatically moves to next question.</p>
+
+<hr>
+
+<p>Correct: +1 | Wrong: -0.25 | Unattempted: 0</p>
+
+<button class="orange" onclick="startTest()">START TEST</button>
+
+</section>
+
+<!-- TEST SCREEN -->
+
+<section id="testScreen" class="hidden">
+
+<div class="status-card">
+
+<p>Attempted: <b id="attempted">0</b>/30</p>
+<p>Remaining: <b id="remaining">30</b></p>
+
+<button class="orange" onclick="submitTest()">Submit Test</button>
+
+</div>
+
+<div class="question-card">
+
+<div class="q-top">
+<span class="q-label" id="qLabel">QUESTION 1</span>
+<span class="subject">Gs</span>
+</div>
+
+<div class="timer-area">
+
+<div class="circle" id="timerCircle">40</div>
+
+<div class="timer-details">
+<h3>Time Remaining</h3>
+<p>Auto Next Enabled</p>
+<div class="timer-line">
+<div id="timerBar"></div>
+</div>
+</div>
+
+</div>
+
+<h2 id="questionText"></h2>
+
+<div id="options"></div>
+
+<p class="answer-status" id="answerStatus">Not Answered</p>
+
+<div class="navigation">
+<button id="prevBtn" class="prev" onclick="previousQuestion()">← Previous</button>
+<button class="next" onclick="nextQuestion()">Next →</button>
+</div>
+
+</div>
+</section>
+
+<!-- RESULT -->
+
+<section id="resultScreen" class="result-card hidden">
+
+<h1>TEST RESULT</h1>
+<div class="result-score" id="score"></div>
+
+<div class="result-grid">
+<div>Correct<br><b id="correct"></b></div>
+<div>Wrong<br><b id="wrong"></b></div>
+<div>Unattempted<br><b id="skipped"></b></div>
+<div>Percentage<br><b id="percentage"></b></div>
+</div>
+
+<h2>ANSWER ANALYSIS</h2>
+<div id="analysis"></div>
+
+<button class="orange" onclick="restartTest()">RETAKE TEST</button>
+
+</section>
+
+</div>
+
+<!-- FIXED BOTTOM -->
+
+<div class="bottom-bar hidden" id="bottomBar">
+<div>
+<h2 id="bottomTimer">40 Sec</h2>
+<p id="bottomAttempted">0/30 Answered</p>
+</div>
+<button onclick="submitTest()">Submit Test</button>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+<b>GS MASTER</b><br>
+KNOWLEDGE | PRACTICE | SUCCESS<br>
+UPSSSC | UP POLICE | COMPUTER OPERATOR<br>
+
+Telegram:
+<a href="https://t.me/staticgkgsmaster" target="_blank">
+@staticgkgsmaster
+</a><br>
+
+© 2026 STATIC GK GS MASTER. All Rights Reserved.
+</footer>
+
+<script>
+
+// =================================
+// QUESTION BANK
+// =================================
+
+const questions = [
+
+// ===== CURRENT AFFAIRS: JANUARY 2026 =====
+{q:"जनवरी 2026 में भारत ने कितनी बार BRICS की अध्यक्षता संभाली (2026 के लिए)?",o:["दूसरी बार","तीसरी बार","चौथी बार","पाँचवीं बार"],a:2,e:"भारत ने 1 जनवरी से 31 दिसंबर 2026 तक BRICS की अध्यक्षता संभाली, यह उसका चौथा कार्यकाल है। यह BRICS की 20वीं वर्षगाँठ का वर्ष भी है।"},
+{q:"भारत के 77वें गणतंत्र दिवस (2026) पर मुख्य अतिथि कौन थे?",o:["इमैनुएल मैक्रों","फ्रेडरिक मर्ज़","उर्सुला वॉन डेर लेयेन और एंटोनियो कोस्टा","जॉर्जिया मेलोनी"],a:2,e:"EU आयोग की अध्यक्ष उर्सुला वॉन डेर लेयेन और EU काउंसिल के अध्यक्ष एंटोनियो कोस्टा 25-27 जनवरी 2026 की यात्रा पर मुख्य अतिथि रहे।"},
+{q:"जनवरी 2026 में दो दिवसीय भारत यात्रा पर कौन-से जर्मन नेता आए?",o:["ओलाफ शोल्ज़","फ्रेडरिक मर्ज़","एंजेला मर्केल","फ्रैंक-वाल्टर श्टाइनमायर"],a:1,e:"जर्मनी के चांसलर फ्रेडरिक मर्ज़ ने जनवरी 2026 में भारत की दो दिवसीय यात्रा की।"},
+{q:"भारत की पहली स्लीपर वंदे भारत ट्रेन किन शहरों के बीच शुरू हुई?",o:["दिल्ली-मुंबई","कोलकाता-गुवाहाटी","चेन्नई-बेंगलुरु","दिल्ली-पटना"],a:1,e:"पहली स्लीपर वंदे भारत जनवरी 2026 में कोलकाता और गुवाहाटी के बीच शुरू की गई।"},
+{q:"जनवरी 2026 में IIT मद्रास में उद्घाटित स्वदेशी सुपरकंप्यूटिंग सुविधा का नाम क्या है?",o:["परम सिद्धि","परम शक्ति","अर्का","प्रत्यूष"],a:1,e:"MeitY ने 3 जनवरी 2026 को IIT मद्रास में PARAM SHAKTI का उद्घाटन किया।"},
+{q:"केंद्रीय मंत्रिमंडल ने अटल पेंशन योजना को किस वर्ष तक जारी रखने की मंजूरी दी?",o:["2027-28","2028-29","2030-31","2035-36"],a:2,e:"जनवरी 2026 में कैबिनेट ने अटल पेंशन योजना (APY) को 2030-31 तक जारी रखने को मंजूरी दी।"},
+{q:"भारत की पहली 'ओपन-सी मरीन फिश फार्मिंग' परियोजना कहाँ शुरू हुई?",o:["लक्षद्वीप","अंडमान और निकोबार द्वीप समूह","गुजरात तट","केरल तट"],a:1,e:"13 जनवरी 2026 को केंद्रीय राज्य मंत्री जितेंद्र सिंह ने इसे अंडमान और निकोबार में शुरू किया।"},
+{q:"इंडिया पोस्ट के जनवरी 2026 में घोषित नए उत्पाद 'स्पीड पोस्ट 24' और 'स्पीड पोस्ट 48' का क्या अर्थ है?",o:["24 और 48 घंटे में डिलीवरी","24 और 48 रुपये शुल्क","24 और 48 किलो वजन सीमा","24 और 48 शहरों में सेवा"],a:0,e:"ये सेवाएँ क्रमशः 24 घंटे और 48 घंटे में डिलीवरी का लक्ष्य रखती हैं। घोषणा केंद्रीय मंत्री ज्योतिरादित्य सिंधिया ने की।"},
+{q:"नीति आयोग का 'संपूर्णता अभियान 2.0' किस अवधि के लिए चलाया गया?",o:["28 जनवरी से 14 अप्रैल 2026","1 जनवरी से 31 मार्च 2026","15 अगस्त से 2 अक्टूबर 2026","26 जनवरी से 26 जुलाई 2026"],a:0,e:"यह तीन माह का अभियान 28 जनवरी से 14 अप्रैल 2026 तक चला।"},
+
+// ===== CURRENT AFFAIRS: FEBRUARY 2026 =====
+{q:"केंद्रीय बजट 2026-27 किस तारीख को पेश किया गया?",o:["1 फरवरी 2026","28 फरवरी 2026","31 जनवरी 2026","5 फरवरी 2026"],a:0,e:"वित्त मंत्री निर्मला सीतारमण ने रविवार, 1 फरवरी 2026 को बजट पेश किया। यह उनका लगातार नौवाँ बजट था।"},
+{q:"बजट 2026-27 में राजकोषीय घाटे का लक्ष्य GDP का कितना प्रतिशत रखा गया?",o:["4.4%","4.3%","4.8%","5.1%"],a:1,e:"2026-27 के लिए राजकोषीय घाटा GDP का 4.3% अनुमानित है, जबकि 2025-26 का लक्ष्य 4.4% था।"},
+{q:"बजट 2026-27 का कुल आकार लगभग कितना है?",o:["₹48.2 लाख करोड़","₹50.7 लाख करोड़","₹53.5 लाख करोड़","₹58.1 लाख करोड़"],a:2,e:"बजट का आकार लगभग ₹53.5 लाख करोड़ है।"},
+{q:"बजट 2026-27 की क्या विशेषता रही?",o:["आयकर की दरों में बड़ी कटौती","आयकर की दरों में कोई बदलाव नहीं","आयकर समाप्त","आयकर छूट सीमा दोगुनी"],a:1,e:"बजट 2026-27 में आयकर की दरों में कोई बदलाव नहीं किया गया।"},
+{q:"नया आयकर अधिनियम, 2025 कब से लागू होगा, जैसा बजट 2026 में कहा गया?",o:["1 जनवरी 2026","1 अप्रैल 2026","1 जुलाई 2026","1 अप्रैल 2027"],a:1,e:"वित्त मंत्री ने कहा कि नया आयकर अधिनियम, 2025 1 अप्रैल से लागू होगा।"},
+
+// ===== CURRENT AFFAIRS: MARCH 2026 =====
+{q:"ICC पुरुष T20 विश्व कप 2026 का फाइनल किसने जीता?",o:["न्यूज़ीलैंड","इंग्लैंड","भारत","दक्षिण अफ्रीका"],a:2,e:"भारत ने 8 मार्च 2026 को फाइनल में न्यूज़ीलैंड को 96 रनों से हराया।"},
+{q:"T20 विश्व कप 2026 फाइनल कहाँ खेला गया?",o:["वानखेड़े स्टेडियम, मुंबई","ईडन गार्डन्स, कोलकाता","नरेंद्र मोदी स्टेडियम, अहमदाबाद","चिन्नास्वामी स्टेडियम, बेंगलुरु"],a:2,e:"फाइनल अहमदाबाद के नरेंद्र मोदी स्टेडियम में हुआ।"},
+{q:"T20 विश्व कप 2026 में 'प्लेयर ऑफ द टूर्नामेंट' कौन रहा?",o:["जसप्रीत बुमराह","अभिषेक शर्मा","संजू सैमसन","सूर्यकुमार यादव"],a:2,e:"संजू सैमसन प्लेयर ऑफ द टूर्नामेंट रहे। फाइनल के प्लेयर ऑफ द मैच बुमराह (4/15) थे।"},
+{q:"T20 विश्व कप जीतकर भारत ने कौन-सा कीर्तिमान बनाया?",o:["लगातार 3 बार खिताब जीता","तीन खिताब जीतने वाली पहली टीम बनी","बिना हारे खिताब जीता","सबसे कम स्कोर बचाकर जीता"],a:1,e:"भारत तीन T20 विश्व कप खिताब जीतने वाली पहली टीम बनी। साथ ही खिताब बचाने और घरेलू धरती पर जीतने वाली पहली टीम भी बनी।"},
+{q:"98वें अकादमी पुरस्कार (ऑस्कर 2026) में सर्वश्रेष्ठ फिल्म का पुरस्कार किसे मिला?",o:["Sinners","Hamnet","One Battle After Another","Bugonia"],a:2,e:"'One Battle After Another' को सर्वश्रेष्ठ फिल्म चुना गया। निर्देशक पॉल थॉमस एंडरसन को सर्वश्रेष्ठ निर्देशक का पुरस्कार भी मिला।"},
+{q:"ऑस्कर 2026 में सर्वश्रेष्ठ अभिनेता का पुरस्कार किसे मिला?",o:["सीन पेन","माइकल बी. जॉर्डन","टिमोथी शैलामे","लियोनार्डो डिकैप्रियो"],a:1,e:"माइकल बी. जॉर्डन को फिल्म 'Sinners' के लिए अपना पहला ऑस्कर मिला। सर्वश्रेष्ठ अभिनेत्री जेसी बकले ('Hamnet') रहीं।"},
+
+// ===== CURRENT AFFAIRS: APRIL 2026 =====
+{q:"2026 के विधानसभा चुनाव में तमिलनाडु में मतदान किस तारीख को हुआ?",o:["9 अप्रैल","23 अप्रैल","29 अप्रैल","4 मई"],a:1,e:"असम, केरल और पुडुचेरी में मतदान 9 अप्रैल को, तमिलनाडु में 23 अप्रैल को और पश्चिम बंगाल में 23 व 29 अप्रैल को हुआ। मतगणना 4 मई को हुई।"},
+
+// ===== CURRENT AFFAIRS: MAY 2026 =====
+{q:"2026 के चुनाव में पश्चिम बंगाल में किस पार्टी ने पहली बार सरकार बनाई?",o:["तृणमूल कांग्रेस","भाजपा","कांग्रेस","CPI(M)"],a:1,e:"भाजपा ने पहली बार पश्चिम बंगाल जीता और TMC का 15 साल का शासन समाप्त किया।"},
+{q:"मई 2026 में पश्चिम बंगाल के मुख्यमंत्री के रूप में किसने शपथ ली?",o:["दिलीप घोष","सुवेंदु अधिकारी","सुकांत मजूमदार","शमिक भट्टाचार्य"],a:1,e:"सुवेंदु अधिकारी ने 9 मई 2026 को शपथ ली।"},
+{q:"2026 के चुनाव में भवानीपुर सीट पर ममता बनर्जी को किसने हराया?",o:["दिलीप घोष","अभिषेक बनर्जी","सुवेंदु अधिकारी","सुकांत मजूमदार"],a:2,e:"सुवेंदु अधिकारी ने भवानीपुर में ममता बनर्जी को हराया।"},
+{q:"मई 2026 में तमिलनाडु के मुख्यमंत्री पद की शपथ किसने ली?",o:["एम.के. स्टालिन","एडप्पादी पलानीस्वामी","सी. जोसेफ विजय","उदयनिधि स्टालिन"],a:2,e:"TVK प्रमुख सी. जोसेफ विजय ने 10 मई 2026 को चेन्नई के नेहरू स्टेडियम में शपथ ली।"},
+{q:"तमिलनाडु में विजय की सरकार की क्या विशेषता है?",o:["DMK के समर्थन से बनी","DMK-AIADMK के बाहर का पहला मुख्यमंत्री (1967 के बाद)","पूर्ण बहुमत वाली अकेली सरकार","राष्ट्रपति शासन के बाद बनी"],a:1,e:"विजय 1967 के बाद DMK और AIADMK के बाहर के पहले नेता हैं जो मुख्यमंत्री बने। उनकी गठबंधन सरकार में कांग्रेस भी शामिल है।"},
+{q:"2026 में असम में भाजपा ने 126 में से कितनी सीटें जीतीं?",o:["64","75","82","91"],a:2,e:"भाजपा ने असम में 126 में से 82 सीटें जीतीं। हिमंता बिस्वा सरमा ने 12 मई 2026 को लगातार दूसरे कार्यकाल की शपथ ली।"},
+{q:"2026 के विधानसभा चुनाव में केरल में किस गठबंधन ने सत्ता में वापसी की?",o:["LDF","UDF (कांग्रेस नेतृत्व)","NDA","LDF-NDA गठबंधन"],a:1,e:"कांग्रेस के नेतृत्व वाले UDF ने केरल में वापसी की और पिनराई विजयन ने इस्तीफा दिया।"},
+{q:"IPL 2026 का खिताब किसने जीता?",o:["गुजरात टाइटंस","चेन्नई सुपर किंग्स","रॉयल चैलेंजर्स बेंगलुरु","मुंबई इंडियंस"],a:2,e:"RCB ने 31 मई 2026 को फाइनल में गुजरात टाइटंस को 5 विकेट से हराकर लगातार दूसरा खिताब जीता। कप्तान रजत पाटीदार थे।"},
+{q:"IPL 2026 में ऑरेंज कैप (सर्वाधिक रन) किसने जीती?",o:["विराट कोहली","शुभमन गिल","वैभव सूर्यवंशी","साई सुदर्शन"],a:2,e:"राजस्थान रॉयल्स के वैभव सूर्यवंशी ने 776 रन बनाकर ऑरेंज कैप जीती। पर्पल कैप कगिसो रबाडा (29 विकेट) को मिली।"},
+
+// =================================
+// TEST LOGIC
+// =================================
+
+let current=0;
+let answers=Array(30).fill(null);
+let seconds=40;
+let interval=null;
+let submitted=false;
+let language="hi";
+
+function setLanguage(lang) {
+
+language = lang;
+
+document.getElementById("hindiBtn").classList.toggle("active", lang === "hi");
+document.getElementById("englishBtn").classList.toggle("active", lang === "en");
+
+const t = {
+hi: {
+submit:"टेस्ट जमा करें",
+previous:"← पिछला",
+next:"अगला →",
+attempted:"हल किए",
+remaining:"शेष",
+notAnswered:"उत्तर नहीं दिया",
+time:"शेष समय",
+question:"प्रश्न"
+},
+en: {
+submit:"Submit Test",
+previous:"← Previous",
+next:"Next →",
+attempted:"Attempted",
+remaining:"Remaining",
+notAnswered:"Not Answered",
+time:"Time Remaining",
+question:"QUESTION"
+}
+};
+
+document.querySelector(".status-card button").textContent=t[lang].submit;
+document.querySelector(".prev").textContent=t[lang].previous;
+document.querySelector(".next").textContent=t[lang].next;
+
+showQuestion();
+
+}
+
+function startTest(){
+
+document.getElementById("startScreen").classList.add("hidden");
+document.getElementById("testScreen").classList.remove("hidden");
+document.getElementById("bottomBar").classList.remove("hidden");
+
+current=0;
+showQuestion();
+}
+
+function showQuestion(){
+
+let q=questions[current];
+
+document.getElementById("qLabel").textContent=
+(language==="hi"?"प्रश्न ":"QUESTION ")+(current+1);
+
+document.getElementById("questionText").textContent=q.q;
+
+let options=document.getElementById("options");
+options.innerHTML="";
+
+q.o.forEach((text,i)=>{
+
+let label=document.createElement("label");
+label.className="option"+(answers[current]===i?" selected":"");
+
+let input=document.createElement("input");
+input.type="radio";
+input.name="answer";
+input.checked=answers[current]===i;
+
+input.onchange=()=>{
+answers[current]=i;
+showQuestion();
+};
+
+let letter=document.createElement("span");
+letter.className="option-letter";
+letter.textContent=String.fromCharCode(65+i);
+
+let value=document.createElement("span");
+value.textContent=text;
+
+label.append(input,letter,value);
+options.appendChild(label);
+
+});
+
+document.getElementById("answerStatus").textContent=
+answers[current]===null?"Not Answered":"Answer Saved";
+
+document.getElementById("prevBtn").disabled=current===0;
+
+updateStats();
+startQuestionTimer();
+
+}
+
+function updateStats(){
+
+let attempted=answers.filter(a=>a!==null).length;
+
+document.getElementById("attempted").textContent=attempted;
+document.getElementById("remaining").textContent=30-attempted;
+
+document.getElementById("bottomAttempted").textContent=
+attempted+"/30 Answered";
+
+}
+
+function startQuestionTimer(){
+
+clearInterval(interval);
+seconds=40;
+updateTimerDisplay();
+
+interval=setInterval(()=>{
+
+seconds--;
+updateTimerDisplay();
+
+if(seconds<=0){
+clearInterval(interval);
+if(current<29){
+current++;
+showQuestion();
+}else{
+submitTest();
+}
+}
+
+},1000);
+
+}
+
+function updateTimerDisplay(){
+
+document.getElementById("timerCircle").textContent=seconds;
+document.getElementById("bottomTimer").textContent=seconds+" Sec";
+document.getElementById("timerBar").style.width=(seconds/40*100)+"%";
+
+}
+
+function nextQuestion(){
+
+if(current<29){
+current++;
+showQuestion();
+}else{
+submitTest();
+}
+
+}
+
+function previousQuestion(){
+
+if(current>0){
+current--;
+showQuestion();
+}
+
+}
+
+function submitTest(){
+
+if(submitted)return;
+
+if(!confirm("Are you sure you want to submit the test?"))return;
+
+finishTest();
+
+}
+
+function finishTest(){
+
+submitted=true;
+clearInterval(interval);
+
+let correct=0,wrong=0,skipped=0;
+
+questions.forEach((q,i)=>{
+if(answers[i]===null)skipped++;
+else if(answers[i]===q.a)correct++;
+else wrong++;
+});
+
+let score=correct-(wrong*.25);
+
+document.getElementById("testScreen").classList.add("hidden");
+document.getElementById("bottomBar").classList.add("hidden");
+document.getElementById("resultScreen").classList.remove("hidden");
+
+document.getElementById("score").textContent=score.toFixed(2)+"/30";
+document.getElementById("correct").textContent=correct;
+document.getElementById("wrong").textContent=wrong;
+document.getElementById("skipped").textContent=skipped;
+document.getElementById("percentage").textContent=
+(score/30*100).toFixed(2)+"%";
+
+showAnalysis();
+window.scrollTo(0,0);
+
+}
+
+function showAnalysis(){
+
+let box=document.getElementById("analysis");
+box.innerHTML="";
+
+questions.forEach((q,i)=>{
+
+let div=document.createElement("div");
+div.className="review";
+
+let title=document.createElement("h3");
+title.textContent="Q"+(i+1)+". "+q.q;
+
+let user=document.createElement("p");
+user.textContent="Your Answer: "+
+(answers[i]===null?"Not Attempted":q.o[answers[i]]);
+
+user.className=
+answers[i]===null?"":
+answers[i]===q.a?"good":"bad";
+
+let answer=document.createElement("p");
+answer.className="good";
+answer.textContent="Correct Answer: "+q.o[q.a];
+
+let explanation=document.createElement("p");
+explanation.textContent="Explanation: "+q.e;
+
+div.append(title,user,answer,explanation);
+box.appendChild(div);
+
+});
+
+}
+
+function restartTest(){
+
+answers=Array(30).fill(null);
+current=0;
+seconds=40;
+submitted=false;
+
+document.getElementById("resultScreen").classList.add("hidden");
+document.getElementById("startScreen").classList.remove("hidden");
+
+window.scrollTo(0,0);
+
+}
+
+</script>
+
+</body>
+</html>
