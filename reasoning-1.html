@@ -433,7 +433,7 @@ footer a{color:#e18113;text-decoration:none;font-weight:bold}
 <b>30</b><span>Questions</span>
 </div>
 <div class="feature">
-<b>20 Sec</b><span>Per Question</span>
+<b>40 Sec</b><span>Per Question</span>
 </div>
 <div class="feature">
 <b>+1</b><span>Correct</span>
@@ -455,7 +455,7 @@ footer a{color:#e18113;text-decoration:none;font-weight:bold}
 
 <h2>30 Questions | Moderate to Advanced</h2>
 
-<p>Each question has a 20-second timer.</p>
+<p>Each question has a 40-second timer.</p>
 <p>Time out automatically moves to next question.</p>
 
 <hr>
@@ -488,7 +488,7 @@ footer a{color:#e18113;text-decoration:none;font-weight:bold}
 
 <div class="timer-area">
 
-<div class="circle" id="timerCircle">20</div>
+<div class="circle" id="timerCircle">40</div>
 
 <div class="timer-details">
 <h3>Time Remaining</h3>
@@ -541,7 +541,7 @@ footer a{color:#e18113;text-decoration:none;font-weight:bold}
 
 <div class="bottom-bar hidden" id="bottomBar">
 <div>
-<h2 id="bottomTimer">20 Sec</h2>
+<h2 id="bottomTimer">40 Sec</h2>
 <p id="bottomAttempted">0/30 Answered</p>
 </div>
 <button onclick="submitTest()">Submit Test</button>
@@ -643,10 +643,42 @@ let interval=null;
 let submitted=false;
 let language="hi";
 
-function setLanguage(lang){
-language=lang;
-document.getElementById("hindiBtn").classList.toggle("active",lang==="hi");
-document.getElementById("englishBtn").classList.toggle("active",lang==="en");
+function setLanguage(lang) {
+
+language = lang;
+
+document.getElementById("hindiBtn").classList.toggle("active", lang === "hi");
+document.getElementById("englishBtn").classList.toggle("active", lang === "en");
+
+const t = {
+hi: {
+submit:"टेस्ट जमा करें",
+previous:"← पिछला",
+next:"अगला →",
+attempted:"हल किए",
+remaining:"शेष",
+notAnswered:"उत्तर नहीं दिया",
+time:"शेष समय",
+question:"प्रश्न"
+},
+en: {
+submit:"Submit Test",
+previous:"← Previous",
+next:"Next →",
+attempted:"Attempted",
+remaining:"Remaining",
+notAnswered:"Not Answered",
+time:"Time Remaining",
+question:"QUESTION"
+}
+};
+
+document.querySelector(".status-card button").textContent=t[lang].submit;
+document.querySelector(".prev").textContent=t[lang].previous;
+document.querySelector(".next").textContent=t[lang].next;
+
+showQuestion();
+
 }
 
 function startTest(){
