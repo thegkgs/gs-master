@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Science Mock Test | STATIC GK GS MASTER</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#f1f3f8;color:#18243a;
+ font-family:Arial,sans-serif
+}
+header{
+ background:linear-gradient(120deg,#172d55,#075a79);
+ color:white;padding:24px 5%;
+}
+.brand{display:flex;justify-content:space-between;align-items:center}
+.logo{
+ background:#f28a16;border-radius:50%;padding:17px;
+ font-weight:bold;color:white
+}
+.orange{color:#ff941c}
+h1{font-size:27px;margin:30px 0 8px}
+.subtitle{color:#dce8f8}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:22px}
+.stat{background:#ffffff18;padding:14px;border-radius:12px}
+.stat b{font-size:23px;display:block}
+.stat small{color:#d8e2f2}
+.container{max-width:850px;margin:22px auto;padding:12px}
+.card{
+ background:white;padding:23px;border-radius:18px;
+ box-shadow:0 5px 20px #0000000c;margin-bottom:18px
+}
+button{
+ border:0;border-radius:9px;padding:13px 19px;
+ font-size:15px;font-weight:bold;cursor:pointer
+}
+.primary{background:#f28a16;color:white}
+.secondary{background:#e8edf5;color:#183253}
+.lang{background:#284b75;color:white;margin-top:12px}
+.lang.active{background:#f28a16}
+.center{text-align:center}
+.hidden{display:none!important}
+#question{font-size:20px;line-height:1.5;font-weight:bold;margin:20px 0}
+.option{
+ display:block;width:100%;text-align:left;margin:12px 0;
+ background:#f2f5fa;border:2px solid #e2e7ef;
+ padding:15px;border-radius:11px;color:#17243b;
+ font-weight:normal
+}
+.option.selected{border-color:#126b99;background:#e5f4ff}
+.option.correct{background:#d9f7e4;border-color:#1b9c54}
+.option.wrong{background:#ffe1e1;border-color:#e34c4c}
+.topline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.timer{font-weight:bold;color:#e87912;font-size:19px}
+.progress{height:9px;background:#e5e8ee;border-radius:20px;overflow:hidden;margin:15px 0}
+.bar{height:100%;background:#f28a16;width:0%;transition:.2s}
+.palette{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:15px}
+.palette button{padding:10px 2px;background:#e8edf5}
+.palette button.done{background:#b9e8c9}
+.palette button.current{background:#f28a16;color:white}
+.navigation{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+#explanation{background:#eef6ff;padding:14px;border-radius:10px;margin-top:15px;line-height:1.6}
+.result-number{font-size:38px;color:#f28a16;font-weight:bold}
+footer{text-align:center;color:#737d8e;padding:25px 10px;line-height:1.9}
+.review{border-bottom:1px solid #ddd;padding:15px 0;line-height:1.6}
+@media(max-width:500px){
+ h1{font-size:23px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .card{padding:17px}
+ #question{font-size:18px}
+ .palette{grid-template-columns:repeat(5,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="brand">
+  <div style="display:flex;align-items:center;gap:12px">
+   <div class="logo">SG</div>
+   <div>
+    <b>STATIC GK GS MASTER</b><br>
+    <small>KNOWLEDGE | PRACTICE | SUCCESS</small>
+   </div>
+  </div>
+  <div class="orange" style="font-size:48px;font-weight:bold">06</div>
+ </div>
+
+ <h1>COMPUTER SCIENCE MASTER TEST</h1>
+ <div class="subtitle">UPSSSC | UPPCO | Computer Operator</div>
+ <b class="orange">KNOWLEDGE | PRACTICE | SUCCESS</b><br>
+
+ <button class="lang active" id="eng" onclick="setLanguage('en')">ENGLISH</button>
+ <button class="lang" id="hin" onclick="setLanguage('hi')">हिंदी</button>
+
+ <div class="stats">
+  <div class="stat"><b>30</b><small>Questions</small></div>
+  <div class="stat"><b>20 Sec</b><small>Per Question</small></div>
+  <div class="stat"><b>+1</b><small>Correct</small></div>
+  <div class="stat"><b>-0.25</b><small>Wrong</small></div>
+ </div>
+</header>
+
+<div class="container">
+
+<div class="card center" id="startPage">
+ <h1 style="color:#21466f">COMPUTER SCIENCE CHALLENGE 2026</h1>
+ <h2>30 Questions | Moderate to Advanced</h2>
+ <p>Each question has a 20-second timer.</p>
+ <p>Time out automatically moves to the next question.</p>
+ <hr>
+ <p>Correct: +1 | Wrong: -0.25 | Unattempted: 0</p>
+ <button class="primary" onclick="startTest()" style="font-size:19px;margin-top:20px">START TEST</button>
+</div>
+
+<div class="card hidden" id="testPage">
+ <div class="topline">
+  <b id="qcount">Question 1/30</b>
+  <div class="timer">⏱️ <span id="time">20</span> Sec</div>
+ </div>
+ <div class="progress"><div class="bar" id="bar"></div></div>
+
+ <div id="question"></div>
+ <div id="options"></div>
+ <div id="explanation" class="hidden"></div>
+
+ <div class="navigation">
+  <button class="secondary" onclick="previousQuestion()" id="prev">← Previous</button>
+  <button class="primary" onclick="nextQuestion()" id="next">Next →</button>
+ </div>
+
+ <h3>Question Palette</h3>
+ <div class="palette" id="palette"></div>
+</div>
+
+<div class="card hidden center" id="resultPage">
+ <h1 style="color:#21466f">TEST COMPLETED!</h1>
+ <p>Your Computer Science Result</p>
+ <div class="result-number" id="score">0</div>
+ <h2 id="percentage">0%</h2>
+ <div class="stats" style="color:#17243b">
+  <div class="stat"><b id="right">0</b><small>Correct</small></div>
+  <div class="stat"><b id="wrong">0</b><small>Wrong</small></div>
+  <div class="stat"><b id="skip">0</b><small>Skipped</small></div>
+  <div class="stat"><b>30</b><small>Total</small></div>
+ </div>
+ <h3 id="message"></h3>
+ <button class="primary" onclick="showReview()">VIEW ANSWERS & EXPLANATIONS</button>
+ <button class="secondary" onclick="location.reload()">RESTART TEST</button>
+ <div id="review" style="text-align:left"></div>
+</div>
+
+</div>
+
+<footer>
+ <b>STATIC GK GS MASTER</b><br>
+ KNOWLEDGE | PRACTICE | SUCCESS<br>
+ GK | GS | COMPUTER SCIENCE | MOCK TESTS<br>
+ Telegram: <b style="color:#ed8415">@staticgkgsmaster</b><br>
+ © 2026 STATIC GK GS MASTER. All Rights Reserved.
+</footer>
+
+<script>
+const questions = [
+
+// ===== HARD: DATA STRUCTURES (STATEMENT BASED) =====
+{q:"Statement I: A stack can be used to evaluate postfix expressions. Statement II: A queue is the data structure used to implement DFS traversal of a graph. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"Postfix evaluation uses a stack. DFS uses a stack (or recursion), while BFS uses a queue, so II is wrong."},
+{q:"Statement I: Binary search on a sorted singly linked list runs in O(log n) time. Statement II: Binary search on a sorted array runs in O(log n) time. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"An array allows direct access to the middle element. A linked list needs traversal to reach the middle, so the overall cost remains O(n)."},
+{q:"Statement I: In a simple linear queue implemented with an array, the space freed by dequeued elements is reused automatically. Statement II: A circular queue can reuse the space freed by dequeued elements. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"In a linear array queue, freed front positions stay unused, so the queue can appear full. A circular queue wraps around and reuses that space."},
+{q:"Statement I: Preorder traversal of a Binary Search Tree always gives the keys in sorted order. Statement II: Inorder traversal of a Binary Search Tree always gives the keys in sorted order. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"Left, Root, Right (inorder) visits BST keys in ascending order. Preorder does not give sorted order in general."},
+{q:"Statement I: In C, array indexing starts from 1. Statement II: The size of a statically declared array can be changed at runtime. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:3,e:"C arrays are zero-indexed, and a static array has a fixed size decided at compile time. Both statements are wrong."},
+{q:"Consider: I. Stack overflow occurs when a push is attempted on a full stack. II. Stack underflow occurs when a pop is attempted on an empty stack. III. Queue underflow occurs when an enqueue is attempted on a full queue. Which are correct?",o:["Only I","I and II only","II and III only","I, II and III"],a:1,e:"Enqueue on a full queue causes overflow, not underflow. Underflow is dequeue on an empty queue, so III is wrong."},
+{q:"Statement I: Accessing the k-th element of a singly linked list takes O(1) time. Statement II: Inserting a node at the beginning of a singly linked list takes O(1) time. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"A linked list has no random access, so reaching the k-th node needs O(k) traversal. Insertion at the head only changes pointers, which is O(1)."},
+{q:"Statement I: In a hash table using separate chaining, the load factor can be greater than 1. Statement II: In a hash table using open addressing, the load factor can be greater than 1. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"Chaining stores multiple keys in one slot's list, so n/m can exceed 1. Open addressing stores one key per slot, so the load factor cannot exceed 1."},
+{q:"Consider: I. Quick sort has O(n²) worst-case time complexity. II. Merge sort has O(n log n) worst-case time complexity. III. Heap sort has O(n²) worst-case time complexity. Which are correct?",o:["Only I","I and II only","II and III only","I, II and III"],a:1,e:"Heap sort is O(n log n) in the worst case, so III is wrong. Quick sort degrades to O(n²) with bad pivots."},
+{q:"Statement I: DFS uses a queue as its main data structure. Statement II: BFS finds the shortest path (fewest edges) between two vertices in an unweighted graph. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"DFS uses a stack, so I is wrong. BFS explores level by level and gives the fewest-edge path in unweighted graphs."},
+
+// ===== HARD: CYBER SECURITY (STATEMENT BASED) =====
+{q:"Statement I: A computer worm needs a host file to attach to and spread. Statement II: A virus replicates by attaching itself to host files or programs. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"A worm is self-replicating and spreads on its own through networks without needing a host file. A virus depends on a host."},
+{q:"Statement I: Symmetric encryption uses a single shared key for both encryption and decryption. Statement II: RSA is a symmetric encryption algorithm. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"AES and DES are symmetric. RSA is asymmetric and uses a public and private key pair."},
+{q:"Statement I: A cryptographic hash function is designed to be easily reversible to recover the original data. Statement II: Hashing can be used to verify data integrity. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"Hash functions are one-way. Comparing hash values shows whether data has changed, which verifies integrity."},
+{q:"Statement I: Phishing is a form of social engineering. Statement II: Spear phishing targets specific individuals or organizations. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:2,e:"Phishing manipulates people instead of breaking systems technically. Spear phishing is a personalized, targeted version."},
+{q:"Statement I: A DDoS attack originates from a single machine. Statement II: Phishing always requires malware to be installed on the victim's computer first. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:3,e:"DDoS uses many distributed machines (a botnet), and DoS uses one source. Phishing mainly deceives users and does not need prior malware."},
+{q:"Consider: I. HTTPS uses TLS/SSL. II. TLS provides encryption of data in transit. III. HTTPS uses port 443 by default. Which are correct?",o:["Only I","I and II only","II and III only","I, II and III"],a:3,e:"All three are correct. HTTP uses port 80 by default."},
+{q:"Statement I: A digital signature provides non-repudiation. Statement II: A digital signature is created using the sender's public key. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"The sender signs with the private key and the receiver verifies with the public key. Only the private key holder could sign, so non-repudiation holds."},
+{q:"Statement I: SQL injection mainly targets the browser of the victim user. Statement II: Cross-Site Scripting (XSS) injects malicious scripts into pages viewed by other users. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"SQL injection targets the backend database through unsafe input. XSS runs malicious script in other users' browsers."},
+{q:"Consider: I. A keylogger records keystrokes. II. A rootkit hides the presence of malware or the attacker's access. III. Adware is a type of ransomware. Which are correct?",o:["Only I","I and II only","II and III only","I, II and III"],a:1,e:"Adware shows unwanted advertisements and is not ransomware, so III is wrong."},
+{q:"Statement I: A brute force attack tries many possible combinations until the correct one is found. Statement II: Salting passwords helps defend against rainbow table attacks. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:2,e:"A unique random salt makes precomputed rainbow tables useless, because each password hash becomes different."},
+
+// ===== HARD: SOFTWARE TESTING (STATEMENT BASED) =====
+{q:"Statement I: Verification is always done only after the software is fully executed. Statement II: Validation checks whether the product meets the user's actual needs. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"Verification can use static activities like reviews and walkthroughs without executing code. Validation checks that the right product has been built."},
+{q:"Statement I: Alpha testing is done at the developer's site by internal staff. Statement II: Beta testing is done by real users in their own environment. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:2,e:"Alpha is in-house, and beta is done with real users before the final release."},
+{q:"Statement I: Regression testing re-executes earlier test cases after code changes to check for new defects. Statement II: Sanity testing is an exhaustive and detailed test of the whole application. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"Sanity testing is narrow and focused, done after minor fixes to confirm the changed part works. It is not exhaustive."},
+{q:"Statement I: Smoke testing is more exhaustive than regression testing. Statement II: Smoke testing checks that the critical functions of a new build work. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"Smoke testing is a shallow, quick check to decide whether the build is stable enough for further testing."},
+{q:"Statement I: 100% branch (decision) coverage ensures 100% statement coverage. Statement II: 100% statement coverage always ensures 100% branch coverage. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"Executing every branch executes every statement, but executing every statement can still miss a branch (such as an else path that has no statements)."},
+{q:"Consider: I. Equivalence partitioning divides input data into classes expected to behave similarly. II. Boundary Value Analysis tests values at the edges of input ranges. III. Both techniques are white box techniques. Which are correct?",o:["Only I","I and II only","II and III only","I, II and III"],a:1,e:"Both are black box techniques, so III is wrong."},
+{q:"Statement I: Top-down integration testing uses stubs for lower-level modules not yet developed. Statement II: Bottom-up integration testing uses drivers to call lower-level modules. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:2,e:"Stubs stand in for called modules (top-down). Drivers stand in for calling modules (bottom-up)."},
+{q:"Statement I: Cyclomatic complexity measures the number of linearly independent paths in a program. Statement II: For a control flow graph, V(G) = E - N + 2, where E is edges and N is nodes. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:2,e:"McCabe's cyclomatic complexity gives the number of independent paths. The formula is E - N + 2 for a connected graph."},
+{q:"Statement I: Stress testing evaluates the system beyond its normal operating capacity. Statement II: Load testing is done only with a single user. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"Load testing checks behavior under expected multiple-user load. Stress testing pushes past limits to find the breaking point."},
+{q:"Statement I: Black box testing requires full knowledge of the internal code. Statement II: Unit testing is typically performed using white box techniques. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"Black box testing needs no code knowledge. Unit testing is usually done by developers who know the code, so white box techniques apply."},
+
+];
+
+let current=0,answers=Array(40).fill(null);
+let timeLeft=20,timer=null,language='en',finished=false;
+
+function setLanguage(l){
+ language=l;
+ document.getElementById('eng').classList.toggle('active',l==='en');
+ document.getElementById('hin').classList.toggle('active',l==='hi');
+ if(!document.getElementById('testPage').classList.contains('hidden'))
+ renderQuestion();
+}
+
+function startTest(){
+ document.getElementById('startPage').classList.add('hidden');
+ document.getElementById('testPage').classList.remove('hidden');
+ renderQuestion();
+}
+
+function renderQuestion(){
+ if(finished)return;
+ clearInterval(timer);
+ timeLeft=20;
+
+ let q=questions[current];
+ document.getElementById('qcount').innerText=
+ language==='en'?'Question '+(current+1)+'/30':'प्रश्न '+(current+1)+'/30';
+
+ document.getElementById('time').innerText=timeLeft;
+ document.getElementById('bar').style.width=((current+1)/30*100)+'%';
+
+ document.getElementById('question').innerText=
+ (current+1)+'. '+(language==='en'?q.q:q.h);
+
+ let html='';
+ q.o.forEach((op,i)=>{
+  let text=language==='en'?op:q.oh[i];
+  let selected=answers[current]===i?'selected':'';
+  html+=`<button class="option ${selected}" onclick="selectAnswer(${i})">
+  ${String.fromCharCode(65+i)}. ${text}</button>`;
+ });
+ document.getElementById('options').innerHTML=html;
+
+ document.getElementById('explanation').classList.add('hidden');
+ document.getElementById('prev').disabled=current===0;
+ document.getElementById('prev').style.opacity=current===0?'.4':'1';
+ document.getElementById('next').innerText=
+ current===39?'Submit Test':'Next →';
+
+ makePalette();
+ timer=setInterval(()=>{
+  timeLeft--;
+  document.getElementById('time').innerText=timeLeft;
+  if(timeLeft<=0){
+   clearInterval(timer);
+   if(current<39){current++;renderQuestion();}
+   else finishTest();
+  }
+ },1000);
+}
+
+function selectAnswer(i){
+ answers[current]=i;
+ document.querySelectorAll('.option').forEach((b,index)=>{
+  b.classList.toggle('selected',index===i);
+ });
+ makePalette();
+}
+
+function makePalette(){
+ let html='';
+ questions.forEach((q,i)=>{
+  let cls=i===current?'current':answers[i]!==null?'done':'';
+ html+=`<button class="${cls}" onclick="goTo(${i})">${i+1}</button>`;
+ });
+ document.getElementById('palette').innerHTML=html;
+}
+
+function goTo(i){
+ current=i;
+ renderQuestion();
+}
+
+function previousQuestion(){
+ if(current>0){current--;renderQuestion();}
+}
+
+function nextQuestion(){
+ clearInterval(timer);
+ if(current<39){current++;renderQuestion();}
+ else finishTest();
+}
+
+function finishTest(){
+ if(finished)return;
+ finished=true;
+ clearInterval(timer);
+
+ let correct=0,wrong=0,skip=0;
+ answers.forEach((a,i)=>{
+  if(a===null)skip++;
+  else if(a===questions[i].a)correct++;
+  else wrong++;
+ });
+
+ let score=correct-wrong*.25;
+ let percent=(score/30*100).toFixed(2);
+
+ document.getElementById('testPage').classList.add('hidden');
+ document.getElementById('resultPage').classList.remove('hidden');
+ document.getElementById('score').innerText=score.toFixed(2)+' / 30';
+ document.getElementById('percentage').innerText=percent+'%';
+ document.getElementById('right').innerText=correct;
+ document.getElementById('wrong').innerText=wrong;
+ document.getElementById('skip').innerText=skip;
+ document.getElementById('message').innerText=
+ correct>=32?'Excellent Performance!':correct>=22?'Good Performance!':'Keep Practicing!';
+}
+
+function showReview(){
+ let html='';
+ questions.forEach((q,i)=>{
+  let a=answers[i];
+  let correct=q.a;
+  html+=`<div class="review">
+   <b>Q${i+1}. ${language==='en'?q.q:q.h}</b><br>
+   Your Answer: ${a===null?'Not Attempted':(language==='en'?q.o[a]:q.oh[a])}<br>
+   Correct Answer: <span style="color:green;font-weight:bold">
+   ${language==='en'?q.o[correct]:q.oh[correct]}</span><br>
+   <small>${language==='en'?q.e:q.eh}</small>
+  </div>`;
+ });
+ document.getElementById('review').innerHTML=html;
+ document.getElementById('review').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
