@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK GS MASTER</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#101827;
+  color:white;
+  padding:15px;
+}
+.container{
+  max-width:600px;
+  margin:25px auto;
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 5px 20px #0005;
+}
+h2{text-align:center;color:#ff9d32}
+.header{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  color:#ffb45c;
+}
+#question{
+  font-size:19px;
+  margin:25px 0;
+}
+.option{
+  display:block;
+  background:#334155;
+  padding:13px;
+  border-radius:8px;
+  margin:10px 0;
+  cursor:pointer;
+}
+.option:hover{background:#475569}
+button{
+  border:0;
+  padding:11px 16px;
+  border-radius:7px;
+  margin:5px 2px;
+  background:#f28c28;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:disabled{opacity:.5}
+#timer{color:#ffb45c;font-weight:bold}
+#result{margin-top:15px;text-align:center}
+a{color:#38bdf8}
+footer{text-align:center;color:#aaa;margin-top:20px}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>GK GS MASTER</h2>
+
+<div class="header">
+ <span id="qno">Question: 0</span>
+ <span id="timer">30 Seconds</span>
+ <button onclick="switchLang()" id="langBtn">English</button>
+</div>
+
+<hr>
+
+<div id="question">Start Button दबाएं</div>
+<div id="options"></div>
+
+<div style="text-align:center;margin-top:20px">
+ <button onclick="startQuiz()" id="startBtn">START</button>
+ <button onclick="previousQ()" id="prevBtn" disabled>Previous</button>
+ <button onclick="nextQ()" id="nextBtn" disabled>Next</button>
+ <button onclick="submitQuiz()" id="submitBtn" disabled>Submit</button>
+</div>
+
+<div id="result"></div>
+
+<hr>
+
+<div style="text-align:center">
+ <a href="https://t.me/staticgkgsmaster" target="_blank">
+   Join Telegram Channel
+ </a>
+</div>
+
+<footer>
+© 2026 GK GS MASTER | All Rights Reserved
+</footer>
+
+</div>
+
+<script>
+
+const questions = [
+{
+q:"भारत की राजधानी क्या है?",
+h:"भारत की राजधानी क्या है?",
+e:"What is the capital of India?",
+o:["Mumbai","Delhi","Kolkata","Chennai"],
+a:1
+},
+{
+q:"CPU का पूरा नाम क्या है?",
+h:"CPU का पूरा नाम क्या है?",
+e:"What is the full form of CPU?",
+o:["Central Processing Unit","Computer Personal Unit","Central Program Unit","Control Processing Unit"],
+a:0
+},
+{
+q:"भारत का संविधान कब लागू हुआ?",
+h:"भारत का संविधान कब लागू हुआ?",
+e:"When did the Constitution of India come into force?",
+o:["15 August 1947","26 January 1950","26 November 1949","2 October 1950"],
+a:1
+}
+];
+
+let current=0;
+let time=30;
+let interval=null;
+let started=false;
+let lang="hi";
+let answers={};
+
+function startQuiz(){
+ if(started)return;
+ started=true;
+ document.getElementById("startBtn").disabled=true;
+ document.getElementById("nextBtn").disabled=false;
+ document.getElementById("prevBtn").disabled=false;
+ document.getElementById("submitBtn").disabled=false;
+ showQuestion();
+}
+
+function showQuestion(){
+ clearInterval(interval);
+ time=30;
+
+ if(current>=questions.length){
+  submitQuiz();
+  return;
+ }
+
+ let q=questions[current];
+
+ document.getElementById("qno").innerText=
+ (lang==="hi"?"प्रश्न संख्या: ":"Question: ")+(current+1);
+
+ document.getElementById("question").innerText=
+ lang==="hi"?q.h:q.e;
+
+ document.getElementById("options").innerHTML="";
+
+ q.o.forEach((option,i)=>{
+  let div=document.createElement("label");
+  div.className="option";
+
+  let checked=answers[current]===i?"checked":"";
+
+  div.innerHTML=`
+  <input type="radio" name="answer"
+  value="${i}" ${checked}>
+  ${option}`;
+
+  div.querySelector("input").addEventListener("change",()=>{
+   answers[current]=i;
+  });
+
+  document.getElementById("options").appendChild(div);
+ });
+
+ startTimer();
+}
+
+function startTimer(){
+ document.getElementById("timer").innerText=
+ "⏱️ "+time+" Seconds";
+
+ interval=setInterval(()=>{
+  time--;
+  document.getElementById("timer").innerText=
+  "⏱️ "+time+" Seconds";
+
+  if(time<=0){
+   clearInterval(interval);
+   nextQ();
+  }
+ },1000);
+}
+
+function nextQ(){
+ if(!started)return;
+ if(current<questions.length-1){
+  current++;
+  showQuestion();
+ }else{
+  submitQuiz();
+ }
+}
+
+function previousQ(){
+ if(current>0){
+  current--;
+  showQuestion();
+ }
+}
+
+function submitQuiz(){
+ clearInterval(interval);
+ started=false;
+
+ let score=0;
+ questions.forEach((q,i)=>{
+  if(answers[i]===q.a)score++;
+ });
+
+ document.getElementById("question").innerText="QUIZ COMPLETED";
+ document.getElementById("options").innerHTML="";
+ document.getElementById("qno").innerText="Result";
+
+ document.getElementById("timer").innerText="Finished";
+
+ document.getElementById("result").innerHTML=
+ `Total Questions: ${questions.length}<br>
+ Correct Answers: ${score}<br>
+ Wrong Answers: ${questions.length-score}<br>
+ <h2>Score: ${score}/${questions.length}</h2>`;
+
+ ["nextBtn","prevBtn","submitBtn"].forEach(id=>{
+  document.getElementById(id).disabled=true;
+ });
+}
+
+function switchLang(){
+ lang=lang==="hi"?"en":"hi";
+ document.getElementById("langBtn").innerText=
+ lang==="hi"?"English":"हिंदी";
+
+ if(started)showQuestion();
+}
+
+</script>
+</body>
+</html>
