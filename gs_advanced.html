@@ -124,7 +124,7 @@ a{color:#0783bb}
   <h2>STATIC GK GS MASTER</h2>
   <small>KNOWLEDGE | PRACTICE | SUCCESS</small>
  </div>
- <div class="number">05</div>
+ <div class="number">08</div>
 </div>
 
 <h1 id="heading">STATIC GK GS MASTER TEST</h1>
@@ -480,9 +480,8 @@ function showQuestion(){
  document.getElementById("qno").innerText=
  "Question "+(current+1)+"/"+questions.length;
 
- document.getElementById("question").innerText=
- lang==="en"?q.en:q.hi;
-
+document.getElementById("question").innerText =
+lang==="en" ? q.e : q.h;
  document.getElementById("options").innerHTML="";
 
  q.o.forEach((op,i)=>{
