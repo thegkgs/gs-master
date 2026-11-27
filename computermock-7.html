@@ -265,9 +265,8 @@ function renderQuestion(){
  document.getElementById("bar").style.width=
  ((current+1)/questions.length*100)+"%";
 
- document.getElementById("question").innerText=
- (current+1)+". "+(language==="en"?q.q:q.h);
-
+document.getElementById("question").innerText =
+(current+1)+". "+(language==="en"?q.q:(q.h||q.q));
  document.getElementById("timer").innerText=timeLeft+" Sec";
 
  document.getElementById("options").innerHTML="";
@@ -279,8 +278,7 @@ function renderQuestion(){
 
    if(answers[current]===i)btn.classList.add("selected");
 
-   const text=language==="en"?op:q.oh[i];
-
+  const text=language==="en"?op:(q.oh?.[i]||op)
    btn.innerText=String.fromCharCode(65+i)+". "+text;
 
    btn.onclick=()=>selectAnswer(i);
