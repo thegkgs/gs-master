@@ -761,12 +761,17 @@ document.getElementById("timerBar").style.width=(seconds/40*100)+"%";
 
 function nextQuestion(){
 
-if(current<29){
-current++;
-showQuestion();
-}else{
-submitTest();
-}
+    if(current < questions.length - 1){
+
+        current++;
+
+        showQuestion();
+
+    }else{
+
+        submitTest();
+
+    }
 
 }
 
