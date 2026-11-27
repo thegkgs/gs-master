@@ -114,7 +114,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <div class="sub">KNOWLEDGE | PRACTICE | SUCCESS</div>
 
 <div class="stats">
-<div class="stat"><b>40</b><small>Questions</small></div>
+<div class="stat"><b>30</b><small>Questions</small></div>
 <div class="stat"><b>20 Sec</b><small>Per Question</small></div>
 <div class="stat"><b>+1</b><small>Correct</small></div>
 <div class="stat"><b>-0.25</b><small>Wrong</small></div>
@@ -126,7 +126,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
 <div class="card" id="startScreen">
 <h2>Computer Science Mock Test</h2>
-<p>40 Questions | 20 Seconds Each</p>
+<p>30 Questions | 20 Seconds Each</p>
 <p>Correct: +1 | Wrong: -0.25</p>
 <p>Level: Moderate + Advanced</p>
 <button class="primary" onclick="startTest()">START TEST</button>
@@ -135,7 +135,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 <div class="card hidden" id="testScreen">
 
 <div class="topline">
-<b id="qcount">Question 1/40</b>
+<b id="qcount">Question 1/30</b>
 <div id="timer">20 Sec</div>
 </div>
 
@@ -408,7 +408,7 @@ function submitTest(){
  document.getElementById("resultScreen").classList.remove("hidden");
 
  document.getElementById("score").innerText=
- score.toFixed(2)+" / 40";
+ score.toFixed(2)+" / 30";
 
  document.getElementById("percentage").innerText=
  "Accuracy: "+percent+"%";
