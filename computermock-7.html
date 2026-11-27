@@ -3,74 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Computer Science Mock Test | STATIC GK GS MASTER</title>
+<title>GK GS MASTER - Computer Science Test</title>
 
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;background:#f1f3f8;color:#18243a;
- font-family:Arial,sans-serif
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#eef2f8;
+ color:#172554;
 }
 header{
- background:linear-gradient(120deg,#172d55,#075a79);
- color:white;padding:24px 5%;
+ background:linear-gradient(135deg,#101044,#153e9b);
+ color:white;
+ padding:25px 16px;
 }
-.brand{display:flex;justify-content:space-between;align-items:center}
-.logo{
- background:#f28a16;border-radius:50%;padding:17px;
- font-weight:bold;color:white
+.container{max-width:950px;margin:auto}
+h1{font-size:25px;margin:0 0 8px}
+.sub{color:#ffb35c}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:10px;margin-top:22px
 }
-.orange{color:#ff941c}
-h1{font-size:27px;margin:30px 0 8px}
-.subtitle{color:#dce8f8}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:22px}
-.stat{background:#ffffff18;padding:14px;border-radius:12px}
-.stat b{font-size:23px;display:block}
-.stat small{color:#d8e2f2}
-.container{max-width:850px;margin:22px auto;padding:12px}
+.stat{
+ background:#ffffff18;
+ padding:13px;
+ border-radius:10px
+}
+.stat b{display:block;font-size:21px}
+.stat small{color:#dbeafe}
+main{max-width:950px;margin:25px auto;padding:0 14px}
 .card{
- background:white;padding:23px;border-radius:18px;
- box-shadow:0 5px 20px #0000000c;margin-bottom:18px
+ background:white;
+ padding:22px;
+ border-radius:15px;
+ box-shadow:0 4px 18px #00000012;
 }
 button{
- border:0;border-radius:9px;padding:13px 19px;
- font-size:15px;font-weight:bold;cursor:pointer
+ border:0;padding:11px 17px;
+ border-radius:8px;
+ cursor:pointer;font-weight:bold;
 }
-.primary{background:#f28a16;color:white}
-.secondary{background:#e8edf5;color:#183253}
-.lang{background:#284b75;color:white;margin-top:12px}
-.lang.active{background:#f28a16}
-.center{text-align:center}
+.primary{background:#f59e0b;color:white}
+.secondary{background:#e5e7eb;color:#172554}
+.danger{background:#dc2626;color:white}
+button:disabled{opacity:.4;cursor:not-allowed}
 .hidden{display:none!important}
-#question{font-size:20px;line-height:1.5;font-weight:bold;margin:20px 0}
-.option{
- display:block;width:100%;text-align:left;margin:12px 0;
- background:#f2f5fa;border:2px solid #e2e7ef;
- padding:15px;border-radius:11px;color:#17243b;
- font-weight:normal
+.topline{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;flex-wrap:wrap;
 }
-.option.selected{border-color:#126b99;background:#e5f4ff}
-.option.correct{background:#d9f7e4;border-color:#1b9c54}
-.option.wrong{background:#ffe1e1;border-color:#e34c4c}
-.topline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.timer{font-weight:bold;color:#e87912;font-size:19px}
-.progress{height:9px;background:#e5e8ee;border-radius:20px;overflow:hidden;margin:15px 0}
-.bar{height:100%;background:#f28a16;width:0%;transition:.2s}
-.palette{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:15px}
-.palette button{padding:10px 2px;background:#e8edf5}
-.palette button.done{background:#b9e8c9}
-.palette button.current{background:#f28a16;color:white}
-.navigation{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
-#explanation{background:#eef6ff;padding:14px;border-radius:10px;margin-top:15px;line-height:1.6}
-.result-number{font-size:38px;color:#f28a16;font-weight:bold}
-footer{text-align:center;color:#737d8e;padding:25px 10px;line-height:1.9}
-.review{border-bottom:1px solid #ddd;padding:15px 0;line-height:1.6}
-@media(max-width:500px){
- h1{font-size:23px}
+.progress{
+ height:9px;background:#e5e7eb;
+ border-radius:20px;margin:15px 0;
+ overflow:hidden
+}
+#bar{height:100%;width:0;background:#f59e0b}
+#question{font-size:20px;line-height:1.5;margin:20px 0}
+.option{
+ display:block;width:100%;text-align:left;
+ background:#f1f5f9;margin:11px 0;
+ padding:15px;border:2px solid transparent;
+ color:#172554;font-size:15px
+}
+.option.selected{
+ background:#dbeafe;border-color:#2563eb
+}
+.option:disabled{opacity:1;cursor:pointer}
+.palette{
+ display:grid;
+ grid-template-columns:repeat(8,1fr);
+ gap:8px;margin:15px 0
+}
+.palette button{
+ padding:10px 4px;background:#e5e7eb;
+ color:#172554
+}
+.palette button.current{background:#2563eb;color:white}
+.palette button.answered{background:#16a34a;color:white}
+.palette button.skipped{background:#f59e0b;color:white}
+.controls{
+ display:flex;justify-content:space-between;
+ gap:10px;margin-top:22px;flex-wrap:wrap
+}
+#timer{font-weight:bold;color:#dc2626}
+.result{text-align:center}
+.result h2{font-size:28px}
+.score{font-size:42px;color:#2563eb;font-weight:bold}
+.explanation{
+ background:#eff6ff;padding:12px;
+ border-radius:8px;margin-top:12px
+}
+@media(max-width:550px){
  .stats{grid-template-columns:repeat(2,1fr)}
- .card{padding:17px}
- #question{font-size:18px}
  .palette{grid-template-columns:repeat(5,1fr)}
+ h1{font-size:20px}
+ #question{font-size:17px}
+ .card{padding:15px}
 }
 </style>
 </head>
@@ -78,270 +108,349 @@ footer{text-align:center;color:#737d8e;padding:25px 10px;line-height:1.9}
 <body>
 
 <header>
- <div class="brand">
-  <div style="display:flex;align-items:center;gap:12px">
-   <div class="logo">SG</div>
-   <div>
-    <b>STATIC GK GS MASTER</b><br>
-    <small>KNOWLEDGE | PRACTICE | SUCCESS</small>
-   </div>
-  </div>
-  <div class="orange" style="font-size:48px;font-weight:bold">07</div>
- </div>
+<div class="container">
+<h1>COMPUTER SCIENCE MASTER TEST</h1>
+<div>UPSSSC | UPPCO | Computer Operator</div>
+<div class="sub">KNOWLEDGE | PRACTICE | SUCCESS</div>
 
- <h1>COMPUTER SCIENCE MASTER TEST</h1>
- <div class="subtitle">UPSSSC | UPPCO | Computer Operator</div>
- <b class="orange">KNOWLEDGE | PRACTICE | SUCCESS</b><br>
-
- <button type="button" id="submitBtn" onclick="submitTest()">
-    Submit Test
-</button>
- 
- <div class="stats">
-  <div class="stat"><b>30</b><small>Questions</small></div>
-  <div class="stat"><b>20 Sec</b><small>Per Question</small></div>
-  <div class="stat"><b>+1</b><small>Correct</small></div>
-  <div class="stat"><b>-0.25</b><small>Wrong</small></div>
- </div>
+<div class="stats">
+<div class="stat"><b>40</b><small>Questions</small></div>
+<div class="stat"><b>20 Sec</b><small>Per Question</small></div>
+<div class="stat"><b>+1</b><small>Correct</small></div>
+<div class="stat"><b>-0.25</b><small>Wrong</small></div>
+</div>
+</div>
 </header>
 
-<div class="container">
+<main>
 
-<div class="card center" id="startPage">
- <h1 style="color:#21466f">COMPUTER SCIENCE CHALLENGE 2026</h1>
- <h2>30 Questions | Moderate to Advanced</h2>
- <p>Each question has a 20-second timer.</p>
- <p>Time out automatically moves to the next question.</p>
- <hr>
- <p>Correct: +1 | Wrong: -0.25 | Unattempted: 0</p>
- <button class="primary" onclick="startTest()" style="font-size:19px;margin-top:20px">START TEST</button>
+<div class="card" id="startScreen">
+<h2>Computer Science Mock Test</h2>
+<p>40 Questions | 20 Seconds Each</p>
+<p>Correct: +1 | Wrong: -0.25</p>
+<p>Level: Moderate + Advanced</p>
+<button class="primary" onclick="startTest()">START TEST</button>
 </div>
 
-<div class="card hidden" id="testPage">
- <div class="topline">
-  <b id="qcount">Question 1/30</b>
-  <div class="timer">⏱️ <span id="time">20</span> Sec</div>
- </div>
- <div class="progress"><div class="bar" id="bar"></div></div>
+<div class="card hidden" id="testScreen">
 
- <div id="question"></div>
- <div id="options"></div>
- <div id="explanation" class="hidden"></div>
-
- <div class="navigation">
-  <button class="secondary" onclick="previousQuestion()" id="prev">← Previous</button>
-  <button class="primary" onclick="nextQuestion()" id="next">Next →</button>
- </div>
-
- <h3>Question Palette</h3>
- <div class="palette" id="palette"></div>
+<div class="topline">
+<b id="qcount">Question 1/40</b>
+<div id="timer">20 Sec</div>
 </div>
 
-<div class="card hidden center" id="resultPage">
- <h1 style="color:#21466f">TEST COMPLETED!</h1>
- <p>Your Computer Science Result</p>
- <div class="result-number" id="score">0</div>
- <h2 id="percentage">0%</h2>
- <div class="stats" style="color:#17243b">
-  <div class="stat"><b id="right">0</b><small>Correct</small></div>
-  <div class="stat"><b id="wrong">0</b><small>Wrong</small></div>
-  <div class="stat"><b id="skip">0</b><small>Skipped</small></div>
-  <div class="stat"><b>30</b><small>Total</small></div>
- </div>
- <h3 id="message"></h3>
- <button class="primary" onclick="showReview()">VIEW ANSWERS & EXPLANATIONS</button>
- <button class="secondary" onclick="location.reload()">RESTART TEST</button>
- <div id="review" style="text-align:left"></div>
+<div class="progress">
+<div id="bar"></div>
+</div>
+
+<div class="topline">
+<button class="secondary" onclick="changeLanguage()"
+id="langBtn">हिंदी</button>
+<b id="status">Not Answered</b>
+</div>
+
+<h3 id="question"></h3>
+
+<div id="options"></div>
+
+<h3>Question Palette</h3>
+<div class="palette" id="palette"></div>
+
+<div class="controls">
+<button class="secondary" onclick="previousQuestion()">← Previous</button>
+<button class="primary" onclick="nextQuestion()" id="nextBtn">Next →</button>
+<button class="danger" onclick="submitTest()">Submit Test</button>
 </div>
 
 </div>
 
-<footer>
- <b>STATIC GK GS MASTER</b><br>
- KNOWLEDGE | PRACTICE | SUCCESS<br>
- GK | GS | COMPUTER SCIENCE | MOCK TESTS<br>
- Telegram: <b style="color:#ed8415">@staticgkgsmaster</b><br>
- © 2026 STATIC GK GS MASTER. All Rights Reserved.
-</footer>
+<div class="card hidden result" id="resultScreen">
+<h2>TEST RESULT</h2>
+<div class="score" id="score">0</div>
+<p id="percentage"></p>
+<p id="correct"></p>
+<p id="wrong"></p>
+<p id="unattempted"></p>
+<h3>Answer Analysis</h3>
+<div id="analysis" style="text-align:left"></div>
+<button class="primary" onclick="location.reload()">RESTART TEST</button>
+</div>
+
+</main>
 
 <script>
+
+// QUESTION DATA
+// a = correct answer index (0,1,2,3)
+
+
 const questions = [
+// ===== HARD: DATA STRUCTURES (STATEMENT BASED) =====
+{q:"Statement I: A stack can be used to evaluate postfix expressions. Statement II: A queue is the data structure used to implement DFS traversal of a graph. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"Postfix evaluation uses a stack. DFS uses a stack (or recursion), while BFS uses a queue, so II is wrong."},
+{q:"Statement I: Binary search on a sorted singly linked list runs in O(log n) time. Statement II: Binary search on a sorted array runs in O(log n) time. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"An array allows direct access to the middle element. A linked list needs traversal to reach the middle, so the overall cost remains O(n)."},
+{q:"Statement I: In a simple linear queue implemented with an array, the space freed by dequeued elements is reused automatically. Statement II: A circular queue can reuse the space freed by dequeued elements. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"In a linear array queue, freed front positions stay unused, so the queue can appear full. A circular queue wraps around and reuses that space."},
+{q:"Statement I: Preorder traversal of a Binary Search Tree always gives the keys in sorted order. Statement II: Inorder traversal of a Binary Search Tree always gives the keys in sorted order. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"Left, Root, Right (inorder) visits BST keys in ascending order. Preorder does not give sorted order in general."},
+{q:"Statement I: In C, array indexing starts from 1. Statement II: The size of a statically declared array can be changed at runtime. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:3,e:"C arrays are zero-indexed, and a static array has a fixed size decided at compile time. Both statements are wrong."},
+{q:"Consider: I. Stack overflow occurs when a push is attempted on a full stack. II. Stack underflow occurs when a pop is attempted on an empty stack. III. Queue underflow occurs when an enqueue is attempted on a full queue. Which are correct?",o:["Only I","I and II only","II and III only","I, II and III"],a:1,e:"Enqueue on a full queue causes overflow, not underflow. Underflow is dequeue on an empty queue, so III is wrong."},
+{q:"Statement I: Accessing the k-th element of a singly linked list takes O(1) time. Statement II: Inserting a node at the beginning of a singly linked list takes O(1) time. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"A linked list has no random access, so reaching the k-th node needs O(k) traversal. Insertion at the head only changes pointers, which is O(1)."},
+{q:"Statement I: In a hash table using separate chaining, the load factor can be greater than 1. Statement II: In a hash table using open addressing, the load factor can be greater than 1. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"Chaining stores multiple keys in one slot's list, so n/m can exceed 1. Open addressing stores one key per slot, so the load factor cannot exceed 1."},
+{q:"Consider: I. Quick sort has O(n²) worst-case time complexity. II. Merge sort has O(n log n) worst-case time complexity. III. Heap sort has O(n²) worst-case time complexity. Which are correct?",o:["Only I","I and II only","II and III only","I, II and III"],a:1,e:"Heap sort is O(n log n) in the worst case, so III is wrong. Quick sort degrades to O(n²) with bad pivots."},
+{q:"Statement I: DFS uses a queue as its main data structure. Statement II: BFS finds the shortest path (fewest edges) between two vertices in an unweighted graph. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"DFS uses a stack, so I is wrong. BFS explores level by level and gives the fewest-edge path in unweighted graphs."},
 
-// ===== HARD COMPUTER: NUMBER SYSTEM =====
-{q:"बाइनरी संख्या 11001 का दशमलव मान क्या है?",o:["21","25","27","29"],a:1,e:"16 + 8 + 0 + 0 + 1 = 25।"},
-{q:"दशमलव संख्या 45 का बाइनरी रूप क्या है?",o:["101101","101011","110101","100111"],a:0,e:"45 = 32 + 8 + 4 + 1, यानी 101101।"},
-{q:"हेक्साडेसिमल संख्या 2F का दशमलव मान क्या है?",o:["37","45","47","63"],a:2,e:"2 × 16 + 15 = 47।"},
-{q:"बाइनरी संख्या 101110 का अष्टाल (octal) रूप क्या है?",o:["46","56","62","65"],a:1,e:"तीन-तीन बिट के समूह: 101 = 5 और 110 = 6, यानी 56।"},
-{q:"हेक्साडेसिमल अंक B का 4-बिट बाइनरी रूप क्या है?",o:["1010","1011","1100","1101"],a:1,e:"B का मान 11 है और 11 = 1011।"},
+// ===== HARD: CYBER SECURITY (STATEMENT BASED) =====
+{q:"Statement I: A computer worm needs a host file to attach to and spread. Statement II: A virus replicates by attaching itself to host files or programs. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"A worm is self-replicating and spreads on its own through networks without needing a host file. A virus depends on a host."},
+{q:"Statement I: Symmetric encryption uses a single shared key for both encryption and decryption. Statement II: RSA is a symmetric encryption algorithm. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"AES and DES are symmetric. RSA is asymmetric and uses a public and private key pair."},
+{q:"Statement I: A cryptographic hash function is designed to be easily reversible to recover the original data. Statement II: Hashing can be used to verify data integrity. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"Hash functions are one-way. Comparing hash values shows whether data has changed, which verifies integrity."},
+{q:"Statement I: Phishing is a form of social engineering. Statement II: Spear phishing targets specific individuals or organizations. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:2,e:"Phishing manipulates people instead of breaking systems technically. Spear phishing is a personalized, targeted version."},
+{q:"Statement I: A DDoS attack originates from a single machine. Statement II: Phishing always requires malware to be installed on the victim's computer first. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:3,e:"DDoS uses many distributed machines (a botnet), and DoS uses one source. Phishing mainly deceives users and does not need prior malware."},
+{q:"Consider: I. HTTPS uses TLS/SSL. II. TLS provides encryption of data in transit. III. HTTPS uses port 443 by default. Which are correct?",o:["Only I","I and II only","II and III only","I, II and III"],a:3,e:"All three are correct. HTTP uses port 80 by default."},
+{q:"Statement I: A digital signature provides non-repudiation. Statement II: A digital signature is created using the sender's public key. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"The sender signs with the private key and the receiver verifies with the public key. Only the private key holder could sign, so non-repudiation holds."},
+{q:"Statement I: SQL injection mainly targets the browser of the victim user. Statement II: Cross-Site Scripting (XSS) injects malicious scripts into pages viewed by other users. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"SQL injection targets the backend database through unsafe input. XSS runs malicious script in other users' browsers."},
+{q:"Consider: I. A keylogger records keystrokes. II. A rootkit hides the presence of malware or the attacker's access. III. Adware is a type of ransomware. Which are correct?",o:["Only I","I and II only","II and III only","I, II and III"],a:1,e:"Adware shows unwanted advertisements and is not ransomware, so III is wrong."},
+{q:"Statement I: A brute force attack tries many possible combinations until the correct one is found. Statement II: Salting passwords helps defend against rainbow table attacks. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:2,e:"A unique random salt makes precomputed rainbow tables useless, because each password hash becomes different."},
 
-// ===== HARD COMPUTER: MS EXCEL & WORD =====
-{q:"MS Excel 2007 और उसके बाद के संस्करणों में एक वर्कशीट में कुल कितनी पंक्तियाँ होती हैं?",o:["65,536","1,00,000","10,48,576","16,384"],a:2,e:"1,048,576 पंक्तियाँ और 16,384 स्तंभ (XFD तक) होते हैं। 65,536 पंक्तियाँ पुराने .xls में थीं।"},
-{q:"Excel में किसी रेंज की गैर-खाली (non-empty) सेल गिनने का फंक्शन कौन-सा है?",o:["COUNT","COUNTA","COUNTBLANK","COUNTIF"],a:1,e:"COUNTA हर प्रकार के गैर-खाली मान गिनता है, जबकि COUNT केवल संख्याएँ गिनता है।"},
-{q:"VLOOKUP फंक्शन लुकअप मान को टेबल के किस स्तंभ में खोजता है?",o:["अंतिम स्तंभ","सबसे बाएँ (पहले) स्तंभ","किसी भी स्तंभ में","सबसे दाएँ स्तंभ"],a:1,e:"VLOOKUP हमेशा टेबल के सबसे बाएँ स्तंभ में खोजता है और दाईं ओर के स्तंभ से मान लौटाता है।"},
-{q:"Excel में सेल रेफरेंस को एब्सोल्यूट ($A$1) बनाने की कुंजी कौन-सी है?",o:["F2","F4","F5","F7"],a:1,e:"फ़ॉर्मूला में रेफरेंस चुनकर F4 दबाने से $ चिह्न लग जाते हैं। F2 सेल एडिट करता है।"},
-{q:"MS Word में स्पेलिंग और ग्रामर चेक करने की कुंजी कौन-सी है?",o:["F5","F7","F9","F12"],a:1,e:"F7 से Spelling & Grammar चेक होता है। F12 'Save As' है।"},
+// ===== HARD: SOFTWARE TESTING (STATEMENT BASED) =====
+{q:"Statement I: Verification is always done only after the software is fully executed. Statement II: Validation checks whether the product meets the user's actual needs. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"Verification can use static activities like reviews and walkthroughs without executing code. Validation checks that the right product has been built."},
+{q:"Statement I: Alpha testing is done at the developer's site by internal staff. Statement II: Beta testing is done by real users in their own environment. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:2,e:"Alpha is in-house, and beta is done with real users before the final release."},
+{q:"Statement I: Regression testing re-executes earlier test cases after code changes to check for new defects. Statement II: Sanity testing is an exhaustive and detailed test of the whole application. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"Sanity testing is narrow and focused, done after minor fixes to confirm the changed part works. It is not exhaustive."},
+{q:"Statement I: Smoke testing is more exhaustive than regression testing. Statement II: Smoke testing checks that the critical functions of a new build work. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"Smoke testing is a shallow, quick check to decide whether the build is stable enough for further testing."},
+{q:"Statement I: 100% branch (decision) coverage ensures 100% statement coverage. Statement II: 100% statement coverage always ensures 100% branch coverage. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"Executing every branch executes every statement, but executing every statement can still miss a branch (such as an else path that has no statements)."},
+{q:"Consider: I. Equivalence partitioning divides input data into classes expected to behave similarly. II. Boundary Value Analysis tests values at the edges of input ranges. III. Both techniques are white box techniques. Which are correct?",o:["Only I","I and II only","II and III only","I, II and III"],a:1,e:"Both are black box techniques, so III is wrong."},
+{q:"Statement I: Top-down integration testing uses stubs for lower-level modules not yet developed. Statement II: Bottom-up integration testing uses drivers to call lower-level modules. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:2,e:"Stubs stand in for called modules (top-down). Drivers stand in for calling modules (bottom-up)."},
+{q:"Statement I: Cyclomatic complexity measures the number of linearly independent paths in a program. Statement II: For a control flow graph, V(G) = E - N + 2, where E is edges and N is nodes. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:2,e:"McCabe's cyclomatic complexity gives the number of independent paths. The formula is E - N + 2 for a connected graph."},
+{q:"Statement I: Stress testing evaluates the system beyond its normal operating capacity. Statement II: Load testing is done only with a single user. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:0,e:"Load testing checks behavior under expected multiple-user load. Stress testing pushes past limits to find the breaking point."},
+{q:"Statement I: Black box testing requires full knowledge of the internal code. Statement II: Unit testing is typically performed using white box techniques. Which is correct?",o:["Only I","Only II","Both I and II","Neither I nor II"],a:1,e:"Black box testing needs no code knowledge. Unit testing is usually done by developers who know the code, so white box techniques apply."},
 
-// ===== HARD COMPUTER: NETWORKING =====
-{q:"IPv6 पता कितने बिट का होता है?",o:["32","64","128","256"],a:2,e:"IPv4 में 32 बिट और IPv6 में 128 बिट होते हैं।"},
-{q:"IP पता 172.16.0.1 किस क्लास में आता है?",o:["क्लास A","क्लास B","क्लास C","क्लास D"],a:1,e:"क्लास B की पहली ऑक्टेट सीमा 128 से 191 है।"},
-{q:"HTTPS का डिफ़ॉल्ट पोर्ट नंबर क्या है?",o:["21","25","80","443"],a:3,e:"HTTPS = 443, HTTP = 80, FTP = 21, SMTP = 25।"},
-{q:"OSI मॉडल की किस परत पर राउटर कार्य करता है?",o:["भौतिक परत","डेटा लिंक परत","नेटवर्क परत","ट्रांसपोर्ट परत"],a:2,e:"राउटर नेटवर्क परत (IP एड्रेस) पर, स्विच डेटा लिंक परत पर और हब भौतिक परत पर कार्य करता है।"},
-{q:"5 डिवाइसों के पूर्ण मेश (full mesh) टोपोलॉजी में कुल कितने लिंक चाहिए?",o:["5","10","15","20"],a:1,e:"सूत्र n(n-1)/2 = 5 × 4 / 2 = 10।"},
-{q:"कई डिवाइसों में मेल सिंक रखने के लिए मेल सर्वर पर रखकर पढ़ने वाला प्रोटोकॉल कौन-सा है?",o:["SMTP","POP3","IMAP","FTP"],a:2,e:"IMAP मेल सर्वर पर रखता है और कई डिवाइस सिंक होते हैं। POP3 आमतौर पर डाउनलोड करके सर्वर से हटा देता है। SMTP मेल भेजता है।"},
-
-// ===== HARD COMPUTER: DBMS & SQL =====
-{q:"निम्न में से कौन-सा SQL कमांड DDL (Data Definition Language) का है?",o:["SELECT","INSERT","ALTER","UPDATE"],a:2,e:"CREATE, ALTER, DROP, TRUNCATE DDL के हैं। SELECT, INSERT, UPDATE, DELETE DML के हैं।"},
-{q:"निम्न में से कौन-सा कमांड TCL (Transaction Control Language) का है?",o:["GRANT","COMMIT","SELECT","CREATE"],a:1,e:"COMMIT, ROLLBACK और SAVEPOINT TCL के हैं। GRANT और REVOKE DCL के हैं।"},
-{q:"SQL का कौन-सा कमांड टेबल को उसकी संरचना सहित पूरी तरह हटा देता है?",o:["DELETE","TRUNCATE","DROP","REMOVE"],a:2,e:"DROP टेबल और उसकी संरचना दोनों हटाता है। TRUNCATE केवल डेटा हटाता है और संरचना रखता है।"},
-{q:"प्राइमरी की (Primary Key) के बारे में कौन-सा कथन सही है?",o:["NULL मान स्वीकार करती है","डुप्लीकेट स्वीकार करती है","यूनिक और NOT NULL होती है","एक टेबल में एक से अधिक होती हैं"],a:2,e:"प्राइमरी की यूनिक होती है, NULL स्वीकार नहीं करती और एक टेबल में केवल एक ही होती है।"},
-
-// ===== HARD COMPUTER: LOGIC GATES & OS =====
-{q:"यूनिवर्सल गेट्स (Universal Gates) कौन-से हैं?",o:["AND और OR","NAND और NOR","XOR और XNOR","NOT और AND"],a:1,e:"NAND और NOR से किसी भी अन्य गेट को बनाया जा सकता है।"},
-{q:"XOR गेट के दोनों इनपुट 1 और 1 हों तो आउटपुट क्या होगा?",o:["0","1","अनिश्चित","इनपुट पर निर्भर नहीं"],a:0,e:"XOR का आउटपुट तभी 1 होता है जब इनपुट अलग-अलग हों। 1 और 1 पर आउटपुट 0 है।"},
-{q:"डेडलॉक (Deadlock) के लिए कितनी आवश्यक शर्तें होती हैं?",o:["2","3","4","5"],a:2,e:"चार शर्तें: म्यूचुअल एक्सक्लूज़न, होल्ड एंड वेट, नो प्रीएम्प्शन और सर्कुलर वेट।"},
-{q:"स्टोर्ड प्रोग्राम अवधारणा किसने दी?",o:["चार्ल्स बैबेज","जॉन वॉन न्यूमैन","एलन ट्यूरिंग","हर्मन होलेरिथ"],a:1,e:"जॉन वॉन न्यूमैन ने स्टोर्ड प्रोग्राम अवधारणा दी, जिसमें निर्देश और डेटा दोनों मेमोरी में रहते हैं।"},
-
-// ===== HARD COMPUTER: LANGUAGES, CLOUD & SECURITY =====
-{q:"जावा (Java) भाषा के विकासकर्ता कौन माने जाते हैं?",o:["डेनिस रिची","जेम्स गॉसलिंग","बजार्न स्ट्रॉस्ट्रप","गुइडो वैन रॉसम"],a:1,e:"जेम्स गॉसलिंग ने सन माइक्रोसिस्टम्स में जावा बनाई। C के रिची, C++ के स्ट्रॉस्ट्रप और Python के वैन रॉसम हैं।"},
-{q:"व्यावसायिक (बिज़नेस) अनुप्रयोगों के लिए डिज़ाइन की गई प्रोग्रामिंग भाषा कौन-सी है?",o:["FORTRAN","COBOL","BASIC","Pascal"],a:1,e:"COBOL = Common Business Oriented Language। FORTRAN वैज्ञानिक गणनाओं के लिए है।"},
-{q:"RSA एल्गोरिदम किस प्रकार की एन्क्रिप्शन का उदाहरण है?",o:["सिमेट्रिक की","असिमेट्रिक (पब्लिक-की)","हैशिंग","कंप्रेशन"],a:1,e:"RSA असिमेट्रिक है और पब्लिक व प्राइवेट कुंजी की जोड़ी उपयोग करता है। AES सिमेट्रिक है।"},
-{q:"निम्न में से कौन-सा क्लाउड कंप्यूटिंग की SaaS सेवा का उदाहरण है?",o:["Amazon EC2","Google Docs","Google App Engine","Microsoft Azure VM"],a:1,e:"SaaS में तैयार सॉफ्टवेयर ब्राउज़र से मिलता है, जैसे Google Docs और Gmail। EC2 IaaS है और App Engine PaaS।"},
-{q:"डिजिटल हस्ताक्षर (Digital Signature) का मुख्य उद्देश्य क्या है?",o:["डेटा को सिकोड़ना","प्रमाणीकरण और डेटा अखंडता सुनिश्चित करना","इंटरनेट की गति बढ़ाना","वायरस हटाना"],a:1,e:"डिजिटल हस्ताक्षर भेजने वाले की पहचान (प्रमाणीकरण), डेटा में बदलाव न होने (अखंडता) और अस्वीकार न कर पाने (नॉन-रिपडिएशन) की गारंटी देता है।"},
 ];
 
-let current=0,answers=Array(40).fill(null);
-let timeLeft=20,timer=null,language='en',finished=false;
+// TEST STATE
 
-function setLanguage(l){
- language=l;
- document.getElementById('eng').classList.toggle('active',l==='en');
- document.getElementById('hin').classList.toggle('active',l==='hi');
- if(!document.getElementById('testPage').classList.contains('hidden'))
- renderQuestion();
-}
+let current=0;
+let answers=new Array(questions.length).fill(null);
+let timeLeft=20;
+let timer=null;
+let language="en";
+let finished=false;
 
 function startTest(){
- document.getElementById('startPage').classList.add('hidden');
- document.getElementById('testPage').classList.remove('hidden');
+ document.getElementById("startScreen").classList.add("hidden");
+ document.getElementById("testScreen").classList.remove("hidden");
+ renderQuestion();
+}
+function changeLanguage(){
+ language=language==="en"?"hi":"en";
+ document.getElementById("langBtn").innerText=
+ language==="en"?"हिंदी":"English";
  renderQuestion();
 }
 
 function renderQuestion(){
+
  if(finished)return;
+
  clearInterval(timer);
+
+ const q=questions[current];
+
+ if(!q || !Array.isArray(q.o) || q.o.length!==4){
+   alert("Question Data Error at Question "+(current+1));
+   return;
+ }
+
  timeLeft=20;
 
- let q=questions[current];
- document.getElementById('qcount').innerText=
- language==='en'?'Question '+(current+1)+'/30':'प्रश्न '+(current+1)+'/30';
+ document.getElementById("qcount").innerText=
+ "Question "+(current+1)+"/"+questions.length;
 
- document.getElementById('time').innerText=timeLeft;
- document.getElementById('bar').style.width=((current+1)/30*100)+'%';
+ document.getElementById("bar").style.width=
+ ((current+1)/questions.length*100)+"%";
 
- document.getElementById('question').innerText=
- (current+1)+'. '+(language==='en'?q.q:q.h);
+ document.getElementById("question").innerText=
+ (current+1)+". "+(language==="en"?q.q:q.h);
 
- let html='';
+ document.getElementById("timer").innerText=timeLeft+" Sec";
+
+ document.getElementById("options").innerHTML="";
+
  q.o.forEach((op,i)=>{
-  let text=language==='en'?op:q.oh[i];
-  let selected=answers[current]===i?'selected':'';
-  html+=`<button class="option ${selected}" onclick="selectAnswer(${i})">
-  ${String.fromCharCode(65+i)}. ${text}</button>`;
+
+   const btn=document.createElement("button");
+   btn.className="option";
+
+   if(answers[current]===i)btn.classList.add("selected");
+
+   const text=language==="en"?op:q.oh[i];
+
+   btn.innerText=String.fromCharCode(65+i)+". "+text;
+
+   btn.onclick=()=>selectAnswer(i);
+
+   document.getElementById("options").appendChild(btn);
+
  });
- document.getElementById('options').innerHTML=html;
 
- document.getElementById('explanation').classList.add('hidden');
- document.getElementById('prev').disabled=current===0;
- document.getElementById('prev').style.opacity=current===0?'.4':'1';
- document.getElementById('next').innerText=
- current===39?'Submit Test':'Next →';
+ document.getElementById("status").innerText=
+ answers[current]===null?"Not Answered":"Answered";
 
- makePalette();
- timer=setInterval(()=>{
-  timeLeft--;
-  document.getElementById('time').innerText=timeLeft;
-  if(timeLeft<=0){
-   clearInterval(timer);
-   if(current<39){current++;renderQuestion();}
-   else finishTest();
-  }
- },1000);
+ document.getElementById("nextBtn").innerText=
+ current===questions.length-1?"Finish →":"Next →";
+
+ renderPalette();
+ startTimer();
 }
 
 function selectAnswer(i){
+ if(finished)return;
+
  answers[current]=i;
- document.querySelectorAll('.option').forEach((b,index)=>{
-  b.classList.toggle('selected',index===i);
- });
- makePalette();
-}
-
-function makePalette(){
- let html='';
- questions.forEach((q,i)=>{
-  let cls=i===current?'current':answers[i]!==null?'done':'';
- html+=`<button class="${cls}" onclick="goTo(${i})">${i+1}</button>`;
- });
- document.getElementById('palette').innerHTML=html;
-}
-
-function goTo(i){
- current=i;
  renderQuestion();
 }
 
-function previousQuestion(){
- if(current>0){current--;renderQuestion();}
+function renderPalette(){
+
+ const box=document.getElementById("palette");
+ box.innerHTML="";
+
+ questions.forEach((q,i)=>{
+
+   const btn=document.createElement("button");
+   btn.innerText=i+1;
+
+   if(i===current)btn.classList.add("current");
+   else if(answers[i]!==null)btn.classList.add("answered");
+   else btn.classList.add("skipped");
+
+   btn.onclick=()=>{
+     if(!finished){
+       current=i;
+       renderQuestion();
+     }
+   };
+
+   box.appendChild(btn);
+
+ });
+
+}
+
+function startTimer(){
+
+ clearInterval(timer);
+
+ timer=setInterval(()=>{
+
+   timeLeft--;
+
+   document.getElementById("timer").innerText=
+   timeLeft+" Sec";
+
+   if(timeLeft<=0){
+     clearInterval(timer);
+     nextQuestion();
+   }
+
+ },1000);
+
 }
 
 function nextQuestion(){
+
+ if(finished)return;
+
  clearInterval(timer);
- if(current<39){current++;renderQuestion();}
- else finishTest();
+
+ if(current<questions.length-1){
+   current++;
+   renderQuestion();
+ }else{
+   submitTest();
+ }
+
 }
 
-function finishTest(){
+function previousQuestion(){
+
  if(finished)return;
+
+ if(current>0){
+   current--;
+   renderQuestion();
+ }
+
+}
+
+function submitTest(){
+
+ if(finished)return;
+
+ const unanswered=answers.filter(a=>a===null).length;
+
+ if(!confirm("Submit test? Unattempted: "+unanswered)){
+   return;
+ }
+
  finished=true;
  clearInterval(timer);
 
- let correct=0,wrong=0,skip=0;
- answers.forEach((a,i)=>{
-  if(a===null)skip++;
-  else if(a===questions[i].a)correct++;
-  else wrong++;
- });
+ let correct=0,wrong=0;
 
- let score=correct-wrong*.25;
- let percent=(score/30*100).toFixed(2);
-
- document.getElementById('testPage').classList.add('hidden');
- document.getElementById('resultPage').classList.remove('hidden');
- document.getElementById('score').innerText=score.toFixed(2)+' / 30';
- document.getElementById('percentage').innerText=percent+'%';
- document.getElementById('right').innerText=correct;
- document.getElementById('wrong').innerText=wrong;
- document.getElementById('skip').innerText=skip;
- document.getElementById('message').innerText=
- correct>=32?'Excellent Performance!':correct>=22?'Good Performance!':'Keep Practicing!';
-}
-
-function showReview(){
- let html='';
  questions.forEach((q,i)=>{
-  let a=answers[i];
-  let correct=q.a;
-  html+=`<div class="review">
-   <b>Q${i+1}. ${language==='en'?q.q:q.h}</b><br>
-   Your Answer: ${a===null?'Not Attempted':(language==='en'?q.o[a]:q.oh[a])}<br>
-   Correct Answer: <span style="color:green;font-weight:bold">
-   ${language==='en'?q.o[correct]:q.oh[correct]}</span><br>
-   <small>${language==='en'?q.e:q.eh}</small>
-  </div>`;
+   if(answers[i]===null)return;
+   if(answers[i]===q.a)correct++;
+   else wrong++;
  });
- document.getElementById('review').innerHTML=html;
- document.getElementById('review').scrollIntoView({behavior:'smooth'});
+
+ const unattempted=questions.length-correct-wrong;
+ const score=correct-(wrong*0.25);
+ const percent=(correct/questions.length*100).toFixed(2);
+
+ document.getElementById("testScreen").classList.add("hidden");
+ document.getElementById("resultScreen").classList.remove("hidden");
+
+ document.getElementById("score").innerText=
+ score.toFixed(2)+" / 40";
+
+ document.getElementById("percentage").innerText=
+ "Accuracy: "+percent+"%";
+
+ document.getElementById("correct").innerText=
+ "Correct Answers: "+correct;
+
+ document.getElementById("wrong").innerText=
+ "Wrong Answers: "+wrong;
+
+ document.getElementById("unattempted").innerText=
+ "Unattempted: "+unattempted;
+
+ let html="";
+
+ questions.forEach((q,i)=>{
+
+   const ok=answers[i]===q.a;
+   const user=answers[i];
+
+   html+=`
+   <div class="explanation">
+   <b>Q${i+1}. ${q.q}</b><br>
+   Your Answer: ${user===null?"Not Attempted":q.o[user]}<br>
+   Correct Answer: ${q.o[q.a]}<br>
+   <span style="color:${ok?'green':'#dc2626'}">
+   ${user===null?"Skipped":ok?"Correct":"Wrong"}
+   </span><br>
+   Explanation: ${q.e}
+   </div>`;
+
+ });
+
+ document.getElementById("analysis").innerHTML=html;
+
 }
+
 </script>
+<footer>
+  © 2026 GK GS MASTER. All Rights Reserved.
+</footer>
+</body>
+</html>
 </body>
 </html>
