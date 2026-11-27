@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STATIC GK GS MASTER TEST</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f1f3f8;
+ color:#263447;
+}
+.hero{
+ background:linear-gradient(120deg,#153c68,#075b75);
+ color:white;
+ padding:35px 20px 50px;
+}
+.brand{
+ display:flex;
+ align-items:center;
+ gap:15px;
+}
+.logo{
+ background:#ff920d;
+ color:white;
+ border-radius:50%;
+ padding:20px;
+ font-weight:bold;
+}
+.brand h2{margin:0}
+.brand small{color:#d5e5f5}
+.number{
+ margin-left:auto;
+ color:#ff920d;
+ font-size:55px;
+ font-weight:bold;
+}
+h1{margin-top:55px;font-size:32px}
+.subtitle{font-size:20px;color:#dce8f5}
+.tag{
+ color:#ffbe61;
+ font-weight:bold;
+ font-size:18px;
+}
+.languages{margin:35px 0}
+button{
+ cursor:pointer;
+ border:0;
+ border-radius:10px;
+ padding:14px 22px;
+ font-weight:bold;
+ font-size:15px;
+}
+.lang{
+ background:transparent;
+ color:white;
+ border:1px solid #91b1c9;
+ margin-right:10px;
+}
+.lang.active,.start{
+ background:#ff920d;
+ color:white;
+ border:0;
+}
+.stats{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:15px;
+ margin-top:35px;
+}
+.stat{
+ background:#ffffff20;
+ padding:22px;
+ border-radius:14px;
+}
+.stat b{font-size:35px}
+.stat p{margin-bottom:0;color:#d9e6f2}
+.test{
+ background:white;
+ margin:40px 20px;
+ padding:35px 20px;
+ border-radius:25px;
+ text-align:center;
+}
+.test h1{
+ margin:20px 0 45px;
+ color:#1d416d;
+}
+.test h2{font-size:25px}
+.test p{font-size:19px;line-height:1.8}
+.start{margin-top:20px;font-size:18px}
+#quiz{display:none;text-align:left}
+#question{font-size:20px;font-weight:bold}
+.option{
+ display:block;
+ background:#f0f3f8;
+ padding:15px;
+ margin:12px 0;
+ border-radius:9px;
+ cursor:pointer;
+}
+.controls{text-align:center;margin-top:20px}
+.controls button{margin:4px}
+#timer{color:#e77e00;font-weight:bold}
+footer{text-align:center;padding:20px;color:#777}
+a{color:#0783bb}
+@media(max-width:400px){
+ h1{font-size:27px}
+ .number{font-size:40px}
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+<div class="brand">
+ <div class="logo">SG</div>
+ <div>
+  <h2>STATIC GK GS MASTER</h2>
+  <small>KNOWLEDGE | PRACTICE | SUCCESS</small>
+ </div>
+ <div class="number">05</div>
+</div>
+
+<h1 id="heading">STATIC GK GS MASTER TEST</h1>
+<div class="subtitle" id="subheading">
+ GS Challenge | Moderate to Advanced Level
+</div>
+
+<p class="tag">KNOWLEDGE | PRACTICE | SUCCESS</p>
+
+<div class="languages">
+ <button class="lang active" onclick="language('en',this)">ENGLISH</button>
+ <button class="lang" onclick="language('hi',this)">हिंदी</button>
+</div>
+
+<div class="stats">
+ <div class="stat">
+  <b id="total">30</b>
+  <p>Questions</p>
+ </div>
+ <div class="stat">
+  <b>30 Sec</b>
+  <p>Per Question</p>
+ </div>
+ <div class="stat">
+  <b>+1</b>
+  <p>Correct</p>
+ </div>
+ <div class="stat">
+  <b>-0.25</b>
+  <p>Wrong</p>
+ </div>
+</div>
+</section>
+
+<section class="test">
+
+<div id="intro">
+ <h1>GS CHALLENGE</h1>
+ <h2>30 Questions | Moderate to Advanced</h2>
+ <p>Each question has a 30-second timer.</p>
+ <p>Time out automatically moves to next question.</p>
+ <button class="start" onclick="startQuiz()">START TEST</button>
+</div>
+
+<div id="quiz">
+ <div style="display:flex;justify-content:space-between">
+  <b id="qno">Question 1/30</b>
+  <span id="timer">30 Sec</span>
+ </div>
+
+ <hr>
+ <p id="question"></p>
+ <div id="options"></div>
+
+ <div class="controls">
+  <button onclick="previous()">Previous</button>
+  <button onclick="next()">Next</button>
+  <button onclick="submit()">Submit</button>
+ </div>
+</div>
+
+<div id="result"></div>
+
+</section>
+
+<footer>
+ <a href="https://t.me/staticgkgsmaster" target="_blank">
+ JOIN TELEGRAM CHANNEL
+ </a>
+ <p>© 2026 STATIC GK GS MASTER | All Rights Reserved</p>
+</footer>
+
+<script>
+
+const questions = [
+
+{
+q:"इल्बर्ट बिल विवाद किस वर्ष हुआ था?",
+h:"इल्बर्ट बिल विवाद किस वर्ष हुआ था?",
+e:"In which year did the Ilbert Bill controversy take place?",
+o:["1878","1883","1885","1892"],
+a:1
+},
+
+{
+q:"भारतीय परिषद अधिनियम 1909 किस नाम से प्रसिद्ध है?",
+h:"भारतीय परिषद अधिनियम 1909 किस नाम से प्रसिद्ध है?",
+e:"By which name is the Indian Councils Act of 1909 known?",
+o:["मॉर्ले-मिंटो सुधार","मोंटेग्यू-चेम्सफोर्ड सुधार","पिट्स इंडिया एक्ट","चार्टर एक्ट"],
+a:0
+},
+
+{
+q:"स्थायी बंदोबस्त व्यवस्था किसने लागू की थी?",
+h:"स्थायी बंदोबस्त व्यवस्था किसने लागू की थी?",
+e:"Who introduced the Permanent Settlement?",
+o:["लॉर्ड वेलेजली","लॉर्ड कॉर्नवालिस","लॉर्ड डलहौजी","वारेन हेस्टिंग्स"],
+a:1
+},
+
+{
+q:"भारतीय राष्ट्रीय कांग्रेस के प्रथम अधिवेशन के अध्यक्ष कौन थे?",
+h:"भारतीय राष्ट्रीय कांग्रेस के प्रथम अधिवेशन के अध्यक्ष कौन थे?",
+e:"Who presided over the first session of the Indian National Congress?",
+o:["दादाभाई नौरोजी","ए.ओ. ह्यूम","डब्ल्यू.सी. बनर्जी","सुरेंद्रनाथ बनर्जी"],
+a:2
+},
+
+{
+q:"कैबिनेट मिशन भारत कब आया था?",
+h:"कैबिनेट मिशन भारत कब आया था?",
+e:"When did the Cabinet Mission come to India?",
+o:["1942","1945","1946","1947"],
+a:2
+},
+
+{
+q:"मुस्लिम लीग ने पाकिस्तान की मांग वाला लाहौर प्रस्ताव कब पारित किया?",
+h:"मुस्लिम लीग ने पाकिस्तान की मांग वाला लाहौर प्रस्ताव कब पारित किया?",
+e:"When did the Muslim League pass the Lahore Resolution?",
+o:["1937","1940","1942","1946"],
+a:1
+},
+
+{
+q:"पूना समझौता किनके बीच हुआ था?",
+h:"पूना समझौता किनके बीच हुआ था?",
+e:"Between whom was the Poona Pact signed?",
+o:["गांधी और जिन्ना","गांधी और डॉ. बी.आर. आंबेडकर","नेहरू और पटेल","तिलक और गोखले"],
+a:1
+},
+
+{
+q:"वर्नाक्युलर प्रेस एक्ट किस वायसराय के कार्यकाल में लागू हुआ?",
+h:"वर्नाक्युलर प्रेस एक्ट किस वायसराय के कार्यकाल में लागू हुआ?",
+e:"During whose tenure was the Vernacular Press Act introduced?",
+o:["लॉर्ड रिपन","लॉर्ड लिटन","लॉर्ड कर्जन","लॉर्ड डफरिन"],
+a:1
+},
+
+{
+q:"गांधी-इरविन समझौता किस वर्ष हुआ था?",
+h:"गांधी-इरविन समझौता किस वर्ष हुआ था?",
+e:"In which year was the Gandhi-Irwin Pact signed?",
+o:["1929","1930","1931","1932"],
+a:2
+},
+
+{
+q:"चौरी-चौरा की घटना किस वर्ष हुई थी?",
+h:"चौरी-चौरा की घटना किस वर्ष हुई थी?",
+e:"In which year did the Chauri Chaura incident occur?",
+o:["1919","1920","1922","1925"],
+a:2
+},
+
+{
+q:"रेगुलेटिंग एक्ट 1773 के तहत बंगाल का पहला गवर्नर जनरल कौन बना?",
+h:"रेगुलेटिंग एक्ट 1773 के तहत बंगाल का पहला गवर्नर जनरल कौन बना?",
+e:"Who became the first Governor-General of Bengal under the Regulating Act of 1773?",
+o:["लॉर्ड कॉर्नवालिस","वारेन हेस्टिंग्स","रॉबर्ट क्लाइव","लॉर्ड वेलेजली"],
+a:1
+},
+
+{
+q:"चार्टर एक्ट 1833 के तहत बंगाल के गवर्नर जनरल को किस पद में बदल दिया गया?",
+h:"चार्टर एक्ट 1833 के तहत बंगाल के गवर्नर जनरल को किस पद में बदल दिया गया?",
+e:"Under the Charter Act of 1833, the Governor-General of Bengal became the Governor-General of which territory?",
+o:["ब्रिटिश भारत","बंगाल प्रेसीडेंसी","मद्रास प्रेसीडेंसी","बॉम्बे प्रेसीडेंसी"],
+a:0
+},
+
+{
+q:"भारत में सती प्रथा का उन्मूलन किस वर्ष हुआ?",
+h:"भारत में सती प्रथा का उन्मूलन किस वर्ष हुआ?",
+e:"In which year was Sati abolished in India?",
+o:["1825","1829","1833","1856"],
+a:1
+},
+
+{
+q:"एशियाटिक सोसाइटी ऑफ बंगाल की स्थापना किसने की थी?",
+h:"एशियाटिक सोसाइटी ऑफ बंगाल की स्थापना किसने की थी?",
+e:"Who founded the Asiatic Society of Bengal?",
+o:["जेम्स प्रिंसेप","विलियम जोन्स","मैक्स मूलर","अलेक्जेंडर कनिंघम"],
+a:1
+},
+
+{
+q:"वांडीवाश का युद्ध किस वर्ष हुआ था?",
+h:"वांडीवाश का युद्ध किस वर्ष हुआ था?",
+e:"In which year was the Battle of Wandiwash fought?",
+o:["1757","1760","1764","1772"],
+a:1
+},
+
+{
+q:"हड़प्पा सभ्यता का धोलावीरा स्थल किस राज्य में स्थित है?",
+h:"हड़प्पा सभ्यता का धोलावीरा स्थल किस राज्य में स्थित है?",
+e:"In which state is the Harappan site of Dholavira located?",
+o:["राजस्थान","हरियाणा","गुजरात","पंजाब"],
+a:2
+},
+
+{
+q:"सिंधु घाटी सभ्यता का लोथल स्थल किसके लिए प्रसिद्ध है?",
+h:"सिंधु घाटी सभ्यता का लोथल स्थल किसके लिए प्रसिद्ध है?",
+e:"The Harappan site of Lothal is famous for which structure?",
+o:["विशाल स्नानागार","गोदीबाड़ा","अन्नागार","स्तूप"],
+a:1
+},
+
+{
+q:"अशोक के ब्राह्मी अभिलेखों को किसने पढ़ने में सफलता प्राप्त की थी?",
+h:"अशोक के ब्राह्मी अभिलेखों को किसने पढ़ने में सफलता प्राप्त की थी?",
+e:"Who successfully deciphered Ashoka's Brahmi inscriptions?",
+o:["जॉन मार्शल","जेम्स प्रिंसेप","अलेक्जेंडर कनिंघम","जेम्स टॉड"],
+a:1
+},
+
+{
+q:"प्रयाग प्रशस्ति की रचना किसने की थी?",
+h:"प्रयाग प्रशस्ति की रचना किसने की थी?",
+e:"Who composed the Prayag Prashasti?",
+o:["बाणभट्ट","हरिषेण","कालिदास","विशाखदत्त"],
+a:1
+},
+
+{
+q:"ऐहोल अभिलेख किस शासक से संबंधित है?",
+h:"ऐहोल अभिलेख किस शासक से संबंधित है?",
+e:"The Aihole inscription is associated with which ruler?",
+o:["समुद्रगुप्त","पुलकेशिन द्वितीय","हर्षवर्धन","अशोक"],
+a:1
+},
+
+{
+q:"संगम साहित्य मुख्यतः किस भाषा में लिखा गया था?",
+h:"संगम साहित्य मुख्यतः किस भाषा में लिखा गया था?",
+e:"In which language was Sangam literature primarily composed?",
+o:["संस्कृत","पाली","तमिल","प्राकृत"],
+a:2
+},
+
+{
+q:"चौथी बौद्ध संगीति किस शासक के शासनकाल में आयोजित हुई थी?",
+h:"चौथी बौद्ध संगीति किस शासक के शासनकाल में आयोजित हुई थी?",
+e:"During whose reign was the Fourth Buddhist Council held?",
+o:["अशोक","कनिष्क","बिंबिसार","हर्षवर्धन"],
+a:1
+},
+
+{
+q:"गुप्त शासकों के स्वर्ण सिक्कों को सामान्यतः किस नाम से जाना जाता था?",
+h:"गुप्त शासकों के स्वर्ण सिक्कों को सामान्यतः किस नाम से जाना जाता था?",
+e:"By what name were Gupta gold coins generally known?",
+o:["दीनार","टंका","निष्क","कार्षापण"],
+a:0
+},
+
+{
+q:"उत्तरमेरूर अभिलेख किस राजवंश की स्थानीय स्वशासन व्यवस्था की जानकारी देते हैं?",
+h:"उत्तरमेरूर अभिलेख किस राजवंश की स्थानीय स्वशासन व्यवस्था की जानकारी देते हैं?",
+e:"The Uttaramerur inscriptions describe the local self-government system of which dynasty?",
+o:["मौर्य","चोल","गुप्त","पाल"],
+a:1
+},
+
+{
+q:"भारत में कर्क रेखा कितने राज्यों से होकर गुजरती है?",
+h:"भारत में कर्क रेखा कितने राज्यों से होकर गुजरती है?",
+e:"Through how many Indian states does the Tropic of Cancer pass?",
+o:["6","7","8","9"],
+a:2
+},
+
+{
+q:"नर्मदा नदी किस प्रकार की घाटी से होकर बहती है?",
+h:"नर्मदा नदी किस प्रकार की घाटी से होकर बहती है?",
+e:"Through which type of valley does the Narmada River flow?",
+o:["हिमानी घाटी","भ्रंश घाटी","डेल्टा घाटी","कार्स्ट घाटी"],
+a:1
+},
+
+{
+q:"कोरिओलिस बल भूमध्य रेखा पर कितना होता है?",
+h:"कोरिओलिस बल भूमध्य रेखा पर कितना होता है?",
+e:"What is the Coriolis force at the Equator?",
+o:["अधिकतम","न्यूनतम लेकिन शून्य नहीं","शून्य","अनंत"],
+a:2
+},
+
+{
+q:"अल नीनो घटना का संबंध किस महासागर के तापमान में वृद्धि से है?",
+h:"अल नीनो घटना का संबंध किस महासागर के तापमान में वृद्धि से है?",
+e:"El Nino is associated with warming of which ocean region?",
+o:["उत्तरी अटलांटिक","भूमध्यरेखीय प्रशांत महासागर","हिंद महासागर","दक्षिणी अटलांटिक"],
+a:1
+},
+
+{
+q:"ओजोन परत वायुमंडल की किस परत में पाई जाती है?",
+h:"ओजोन परत वायुमंडल की किस परत में पाई जाती है?",
+e:"In which atmospheric layer is the ozone layer found?",
+o:["क्षोभमंडल","समतापमंडल","मध्यमंडल","तापमंडल"],
+a:1
+},
+
+{
+q:"रामसर अभिसमय किस वर्ष अपनाया गया था?",
+h:"रामसर अभिसमय किस वर्ष अपनाया गया था?",
+e:"In which year was the Ramsar Convention adopted?",
+o:["1965","1971","1975","1982"],
+a:1
+}
+
+];
+
+let current=0,time=30,interval=null;
+let answers={},lang="en",running=false;
+
+function language(l,btn){
+ lang=l;
+ document.querySelectorAll(".lang").forEach(b=>b.classList.remove("active"));
+ btn.classList.add("active");
+
+ document.getElementById("heading").innerText=
+ l==="en"?"GS MASTER TEST":"जीएस मास्टर टेस्ट";
+
+ document.getElementById("subheading").innerText=
+ l==="en"?"GS Challenge | Moderate to Advanced Level":
+ "जीएस चैलेंज | मध्यम से उच्च स्तर";
+
+ if(running)showQuestion();
+}
+
+function startQuiz(){
+ current=0;
+ answers={};
+ running=true;
+ document.getElementById("intro").style.display="none";
+ document.getElementById("quiz").style.display="block";
+ document.getElementById("result").innerHTML="";
+ showQuestion();
+}
+
+function showQuestion(){
+ clearInterval(interval);
+ time=30;
+
+ let q=questions[current];
+
+ document.getElementById("qno").innerText=
+ "Question "+(current+1)+"/"+questions.length;
+
+ document.getElementById("question").innerText=
+ lang==="en"?q.en:q.hi;
+
+ document.getElementById("options").innerHTML="";
+
+ q.o.forEach((op,i)=>{
+ document.getElementById("options").innerHTML+=`
+ <label class="option">
+ <input type="radio" name="answer" value="${i}"
+ ${answers[current]===i?"checked":""}>
+ ${op}
+ </label>`;
+ });
+
+ document.querySelectorAll('input[name="answer"]').forEach(input=>{
+ input.onchange=()=>answers[current]=Number(input.value);
+ });
+
+ timer();
+}
+
+function timer(){
+ document.getElementById("timer").innerText=time+" Sec";
+
+ interval=setInterval(()=>{
+ time--;
+ document.getElementById("timer").innerText=time+" Sec";
+
+ if(time<=0)next();
+ },1000);
+}
+
+function next(){
+ if(current<questions.length-1){
+ current++;
+ showQuestion();
+ }else submit();
+}
+
+function previous(){
+ if(current>0){
+ current--;
+ showQuestion();
+ }
+}
+
+function submit(){
+ clearInterval(interval);
+ running=false;
+
+ let score=0,wrong=0,unattempted=0;
+
+ questions.forEach((q,i)=>{
+ if(answers[i]===undefined)unattempted++;
+ else if(answers[i]===q.a)score++;
+ else wrong++;
+ });
+
+ document.getElementById("quiz").style.display="none";
+
+ document.getElementById("result").innerHTML=`
+ <h2>TEST COMPLETED</h2>
+ <h3>Correct: ${score}</h3>
+ <h3>Wrong: ${wrong}</h3>
+ <h3>Unattempted: ${unattempted}</h3>
+ <h2>Score: ${(score-wrong*0.25).toFixed(2)}</h2>
+ <button class="start" onclick="location.reload()">HOME</button>
+ `;
+}
+
+</script>
+</body>
+</html>
