@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gk Gs Master Test</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:Arial,sans-serif;
+background:#f1f3f7;
+color:#263448;
+padding-bottom:100px;
+}
+
+.hero{
+background:linear-gradient(120deg,#173c70,#075b79);
+color:white;
+padding:35px 5% 40px;
+}
+
+.brand{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+}
+
+.logo{
+background:#f28b12;
+color:white;
+padding:15px;
+border-radius:50%;
+font-weight:bold;
+}
+
+.brand h3{font-size:20px}
+.brand small{color:#d6e3f2}
+
+.test-no{
+font-size:55px;
+font-weight:bold;
+color:#f28b12;
+}
+
+.hero h1{
+font-size:28px;
+margin:20px 0 8px;
+}
+
+.hero p{color:#d7e4f1;line-height:1.7}
+
+.tagline{
+color:#ffc36a!important;
+font-weight:bold;
+margin:10px 0 20px;
+}
+
+.language{
+display:flex;
+gap:12px;
+margin:20px 0 28px;
+}
+
+.language button{
+padding:13px 25px;
+border-radius:10px;
+border:1px solid #ffffff55;
+background:transparent;
+color:white;
+font-weight:bold;
+}
+
+.language button.active{
+background:#f28b12;
+border-color:#f28b12;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+
+.feature{
+background:#ffffff16;
+padding:15px;
+border-radius:10px;
+}
+
+.feature b{
+display:block;
+font-size:23px;
+margin-bottom:7px;
+}
+
+.feature span{font-size:13px;color:#d8e4f1}
+
+.container{
+max-width:1000px;
+margin:25px auto;
+padding:0 15px;
+}
+
+.start-card{
+background:white;
+border-radius:20px;
+padding:55px 25px;
+text-align:center;
+box-shadow:0 5px 20px #00000008;
+}
+
+.start-card h1{
+color:#173c70;
+font-size:34px;
+margin-bottom:30px;
+}
+
+.start-card h2{margin-bottom:20px}
+
+.start-card p{
+font-size:18px;
+line-height:1.8;
+margin:10px 0;
+}
+
+.start-card hr{
+margin:20px 0;
+border:0;
+border-top:2px solid #ddd;
+}
+
+.orange{
+background:#f28b12;
+color:white;
+border:0;
+padding:16px 35px;
+border-radius:12px;
+font-size:19px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.start-card .orange{margin-top:25px}
+
+.hidden{display:none!important}
+
+.status-card{
+background:white;
+padding:20px 25px;
+border-radius:15px;
+margin-bottom:25px;
+}
+
+.status-card p{
+margin:8px 0;
+font-size:17px;
+}
+
+.status-card .orange{
+width:100%;
+margin-top:10px;
+font-size:17px;
+}
+
+.question-card{
+background:white;
+padding:28px;
+border-radius:20px;
+box-shadow:0 4px 20px #00000008;
+}
+
+.q-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.q-label{
+color:#b87923;
+font-weight:bold;
+font-size:18px;
+}
+
+.subject{
+background:#fff6e7;
+color:#a66c17;
+padding:9px 15px;
+border-radius:20px;
+font-size:14px;
+}
+
+.timer-area{
+display:flex;
+align-items:center;
+gap:20px;
+margin-bottom:30px;
+}
+
+.circle{
+height:80px;
+width:80px;
+border:6px solid #ed8a18;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+font-weight:bold;
+color:#bd7618;
+flex-shrink:0;
+}
+
+.timer-details{flex:1}
+
+.timer-details h3{font-size:21px}
+
+.timer-details p{color:#777;margin:4px 0}
+
+.timer-line{
+height:8px;
+background:#e5e8ed;
+border-radius:10px;
+overflow:hidden;
+}
+
+#timerBar{
+height:100%;
+width:100%;
+background:#ed8a18;
+transition:width 1s linear;
+}
+
+#questionText{
+font-size:23px;
+line-height:1.65;
+margin-bottom:25px;
+}
+
+.option{
+display:flex;
+align-items:center;
+gap:15px;
+border:1px solid #dedede;
+padding:17px;
+border-radius:13px;
+margin:12px 0;
+font-size:18px;
+cursor:pointer;
+transition:.2s;
+}
+
+.option:hover{
+border-color:#ed8a18;
+background:#fffaf2;
+}
+
+.option.selected{
+background:#fff3df;
+border:2px solid #ed8a18;
+}
+
+.option-letter{
+font-weight:bold;
+min-width:28px;
+}
+
+.option input{display:none}
+
+.answer-status{
+color:#858b94;
+margin:20px 0;
+}
+
+.navigation{
+display:flex;
+justify-content:space-between;
+gap:10px;
+}
+
+.navigation button{
+padding:14px 20px;
+border-radius:10px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.prev{
+background:white;
+border:1px solid #ddd;
+color:#173c70;
+}
+
+.next{
+background:#173c70;
+border:0;
+color:white;
+}
+
+.bottom-bar{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+box-shadow:0 -3px 15px #00000012;
+padding:15px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:10;
+}
+
+.bottom-bar h2{font-size:24px}
+
+.bottom-bar p{font-size:14px;color:#777}
+
+.bottom-bar button{
+background:#f28b12;
+color:white;
+border:0;
+border-radius:12px;
+padding:17px 25px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.result-card{
+background:white;
+padding:25px;
+border-radius:18px;
+text-align:center;
+}
+
+.result-card h1{color:#173c70}
+
+.result-score{
+font-size:40px;
+color:#168451;
+margin:25px;
+}
+
+.result-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin:20px 0;
+}
+
+.result-grid div{
+background:#f0f4f8;
+padding:18px;
+border-radius:10px;
+}
+
+.review{
+text-align:left;
+background:#f4f6fa;
+padding:15px;
+border-radius:10px;
+margin:12px 0;
+line-height:1.8;
+}
+
+.good{color:#168451;font-weight:bold}
+.bad{color:#d32f2f;font-weight:bold}
+
+footer{
+text-align:center;
+padding:35px 10px;
+color:#777;
+line-height:2;
+}
+
+footer b{color:#68758b}
+footer a{color:#e18113;text-decoration:none;font-weight:bold}
+
+@media(max-width:600px){
+.hero{padding:25px 5% 35px}
+.hero h1{font-size:24px}
+.brand h3{font-size:16px}
+.test-no{font-size:42px}
+.features{grid-template-columns:repeat(2,1fr)}
+.start-card{padding:40px 18px}
+.start-card h1{font-size:27px}
+.question-card{padding:20px 16px}
+#questionText{font-size:19px}
+.option{font-size:16px;padding:15px}
+.circle{height:68px;width:68px;font-size:24px}
+.timer-area{gap:12px}
+.navigation button{font-size:14px;padding:13px 15px}
+.bottom-bar{padding:12px}
+.bottom-bar h2{font-size:20px}
+.bottom-bar button{padding:14px 17px;font-size:14px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="brand">
+<div style="display:flex;align-items:center;gap:15px">
+<div class="logo">SG</div>
+<div>
+<h3>GS MASTER</h3>
+<small>KNOWLEDGE | PRACTICE | SUCCESS</small>
+</div>
+</div>
+<div class="test-no">05</div>
+</div>
+
+<h1>GS MASTER TEST</h1>
+<p>Gs Challenge | Moderate to Advanced Level</p>
+
+<p class="tagline">KNOWLEDGE | PRACTICE | SUCCESS</p>
+
+<div class="language">
+<button id="englishBtn" onclick="setLanguage('en')">ENGLISH</button>
+<button id="hindiBtn" class="active" onclick="setLanguage('hi')">हिंदी</button>
+</div>
+
+<div class="features">
+<div class="feature">
+<b>30</b><span>Questions</span>
+</div>
+<div class="feature">
+<b>40 Sec</b><span>Per Question</span>
+</div>
+<div class="feature">
+<b>+1</b><span>Correct</span>
+</div>
+<div class="feature">
+<b>-0.25</b><span>Wrong</span>
+</div>
+</div>
+
+</section>
+
+<div class="container">
+
+<!-- START SCREEN -->
+
+<section id="startScreen" class="start-card">
+
+<h1>GS CHALLENGE</h1>
+
+<h2>30 Questions | Moderate to Advanced</h2>
+
+<p>Each question has a 40-second timer.</p>
+<p>Time out automatically moves to next question.</p>
+
+<hr>
+
+<p>Correct: +1 | Wrong: -0.25 | Unattempted: 0</p>
+
+<button class="orange" onclick="startTest()">START TEST</button>
+
+</section>
+
+<!-- TEST SCREEN -->
+
+<section id="testScreen" class="hidden">
+
+<div class="status-card">
+
+<p>Attempted: <b id="attempted">0</b>/30</p>
+<p>Remaining: <b id="remaining">30</b></p>
+
+<button class="orange" onclick="submitTest()">Submit Test</button>
+
+</div>
+
+<div class="question-card">
+
+<div class="q-top">
+<span class="q-label" id="qLabel">QUESTION 1</span>
+<span class="subject">Gs</span>
+</div>
+
+<div class="timer-area">
+
+<div class="circle" id="timerCircle">40</div>
+
+<div class="timer-details">
+<h3>Time Remaining</h3>
+<p>Auto Next Enabled</p>
+<div class="timer-line">
+<div id="timerBar"></div>
+</div>
+</div>
+
+</div>
+
+<h2 id="questionText"></h2>
+
+<div id="options"></div>
+
+<p class="answer-status" id="answerStatus">Not Answered</p>
+
+<div class="navigation">
+<button id="prevBtn" class="prev" onclick="previousQuestion()">← Previous</button>
+<button class="next" onclick="nextQuestion()">Next →</button>
+</div>
+
+</div>
+</section>
+
+<!-- RESULT -->
+
+<section id="resultScreen" class="result-card hidden">
+
+<h1>TEST RESULT</h1>
+<div class="result-score" id="score"></div>
+
+<div class="result-grid">
+<div>Correct<br><b id="correct"></b></div>
+<div>Wrong<br><b id="wrong"></b></div>
+<div>Unattempted<br><b id="skipped"></b></div>
+<div>Percentage<br><b id="percentage"></b></div>
+</div>
+
+<h2>ANSWER ANALYSIS</h2>
+<div id="analysis"></div>
+
+<button class="orange" onclick="restartTest()">RETAKE TEST</button>
+
+</section>
+
+</div>
+
+<!-- FIXED BOTTOM -->
+
+<div class="bottom-bar hidden" id="bottomBar">
+<div>
+<h2 id="bottomTimer">40 Sec</h2>
+<p id="bottomAttempted">0/30 Answered</p>
+</div>
+<button onclick="submitTest()">Submit Test</button>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+<b>GS MASTER</b><br>
+KNOWLEDGE | PRACTICE | SUCCESS<br>
+UPSSSC | UP POLICE | COMPUTER OPERATOR<br>
+
+Telegram:
+<a href="https://t.me/staticgkgsmaster" target="_blank">
+@staticgkgsmaster
+</a><br>
+
+© 2026 STATIC GK GS MASTER. All Rights Reserved.
+</footer>
+
+<script>
+
+// =================================
+// QUESTION BANK
+// =================================
+
+const questions = [
+
+// ===== प्राचीन इतिहास =====
+{q:"भारत में सिंधु घाटी सभ्यता का सबसे बड़ा स्थल कौन सा है?",o:["कालीबंगा","लोथल","राखीगढ़ी","बनावली"],a:2,e:"राखीगढ़ी (हरियाणा) भारत में सिंधु घाटी सभ्यता का सबसे बड़ा स्थल माना जाता है।"},
+{q:"लोथल किस कारण प्रसिद्ध है?",o:["विशाल स्नानागार","गोदीवाड़ा (डॉकयार्ड)","जुता हुआ खेत","विशाल अन्नागार"],a:1,e:"लोथल (गुजरात) में बंदरगाह/गोदीवाड़ा के अवशेष मिले हैं।"},
+{q:"अशोक के कलिंग युद्ध का वर्णन किस शिलालेख में मिलता है?",o:["13वें शिलालेख","7वें शिलालेख","11वें शिलालेख","14वें शिलालेख"],a:0,e:"अशोक के 13वें मुख्य शिलालेख में कलिंग युद्ध और उसके पश्चाताप का वर्णन है।"},
+{q:"गुप्त वंश का संस्थापक किसे माना जाता है?",o:["चंद्रगुप्त प्रथम","समुद्रगुप्त","कुमारगुप्त","श्रीगुप्त"],a:3,e:"गुप्त वंश का संस्थापक श्रीगुप्त माना जाता है। चंद्रगुप्त प्रथम इस वंश के पहले महान शासक थे।"},
+{q:"'भारत का नेपोलियन' किस शासक को कहा जाता है?",o:["समुद्रगुप्त","अशोक","चंद्रगुप्त मौर्य","हर्षवर्धन"],a:0,e:"विजयों के कारण इतिहासकार वी.ए. स्मिथ ने समुद्रगुप्त को 'भारत का नेपोलियन' कहा।"},
+{q:"नालंदा विश्वविद्यालय की स्थापना किस गुप्त शासक ने की थी?",o:["चंद्रगुप्त द्वितीय","कुमारगुप्त प्रथम","स्कंदगुप्त","समुद्रगुप्त"],a:1,e:"नालंदा की स्थापना कुमारगुप्त प्रथम (5वीं सदी) ने की थी।"},
+{q:"यूनानी राजदूत मेगस्थनीज किस शासक के दरबार में आया था?",o:["बिंदुसार","अशोक","चंद्रगुप्त मौर्य","पुष्यमित्र शुंग"],a:2,e:"मेगस्थनीज सेल्यूकस का राजदूत बनकर चंद्रगुप्त मौर्य के दरबार में आया और 'इंडिका' लिखी।"},
+{q:"ऋग्वेद में कुल कितने मंडल हैं?",o:["12","8","4","10"],a:3,e:"ऋग्वेद 10 मंडलों में विभाजित है और इसमें 1028 सूक्त हैं।"},
+
+// ===== 1857 की क्रांति =====
+{q:"1857 की क्रांति की शुरुआत किस स्थान से हुई?",o:["दिल्ली","कानपुर","मेरठ","झाँसी"],a:2,e:"10 मई 1857 को मेरठ से क्रांति की शुरुआत हुई।"},
+{q:"मंगल पांडे ने 1857 में किस स्थान पर विद्रोह किया था?",o:["बैरकपुर","मेरठ","लखनऊ","अंबाला"],a:0,e:"29 मार्च 1857 को बैरकपुर (बंगाल) में मंगल पांडे ने विद्रोह किया।"},
+{q:"1857 की क्रांति के समय भारत का गवर्नर जनरल कौन था?",o:["लॉर्ड डलहौजी","लॉर्ड कैनिंग","लॉर्ड रिपन","लॉर्ड लिटन"],a:1,e:"1857 के समय गवर्नर जनरल लॉर्ड कैनिंग थे।"},
+{q:"कानपुर में 1857 के विद्रोह का नेतृत्व किसने किया?",o:["बहादुर शाह जफर","कुँवर सिंह","बख्त खाँ","नाना साहेब"],a:3,e:"कानपुर में नाना साहेब ने नेतृत्व किया और तात्या टोपे उनके सेनापति थे।"},
+{q:"बिहार के जगदीशपुर में 1857 के विद्रोह का नेतृत्व किसने किया?",o:["तात्या टोपे","मौलवी अहमदुल्ला","कुँवर सिंह","बेगम हजरत महल"],a:2,e:"जगदीशपुर (बिहार) में लगभग 80 वर्ष की आयु में कुँवर सिंह ने नेतृत्व किया।"},
+{q:"1857 में लखनऊ में विद्रोह का नेतृत्व किसने किया?",o:["झलकारी बाई","अजीजन बाई","रानी लक्ष्मीबाई","बेगम हजरत महल"],a:3,e:"लखनऊ में अवध की बेगम हजरत महल ने अपने पुत्र बिरजिस कदर को नवाब घोषित कर नेतृत्व किया।"},
+{q:"1857 की क्रांति के बाद भारत का शासन ईस्ट इंडिया कंपनी से ब्रिटिश ताज को किस अधिनियम द्वारा सौंपा गया?",o:["भारत शासन अधिनियम 1858","चार्टर अधिनियम 1853","भारतीय परिषद अधिनियम 1861","रेगुलेटिंग एक्ट 1773"],a:0,e:"1858 के अधिनियम से कंपनी शासन समाप्त हुआ और भारत सचिव का पद बना।"},
+{q:"1857 की क्रांति में प्रतीकात्मक नेता के रूप में किसे घोषित किया गया?",o:["नाना साहेब","बख्त खाँ","बहादुर शाह द्वितीय (जफर)","तात्या टोपे"],a:2,e:"विद्रोहियों ने अंतिम मुगल सम्राट बहादुर शाह द्वितीय को भारत का सम्राट घोषित किया।"},
+
+// ===== भारतीय राजव्यवस्था =====
+{q:"संविधान सभा की पहली बैठक कब हुई थी?",o:["26 जनवरी 1950","9 दिसंबर 1946","26 नवंबर 1949","15 अगस्त 1947"],a:1,e:"संविधान सभा की पहली बैठक 9 दिसंबर 1946 को हुई। अस्थायी अध्यक्ष डॉ. सच्चिदानंद सिन्हा थे।"},
+{q:"संविधान की प्रारूप समिति के अध्यक्ष कौन थे?",o:["डॉ. राजेंद्र प्रसाद","जवाहरलाल नेहरू","डॉ. बी. आर. अंबेडकर","सरदार पटेल"],a:2,e:"प्रारूप समिति के अध्यक्ष डॉ. बी. आर. अंबेडकर थे।"},
+{q:"मौलिक अधिकारों का वर्णन संविधान के किस भाग में है?",o:["भाग 2","भाग 4","भाग 4क","भाग 3"],a:3,e:"मौलिक अधिकार भाग 3 (अनुच्छेद 12 से 35) में हैं।"},
+{q:"प्रस्तावना में 'समाजवादी' शब्द किस संशोधन द्वारा जोड़ा गया?",o:["42वाँ संशोधन","44वाँ संशोधन","52वाँ संशोधन","73वाँ संशोधन"],a:0,e:"1976 के 42वें संशोधन से 'समाजवादी', 'पंथनिरपेक्ष' और 'अखंडता' शब्द जोड़े गए।"},
+{q:"डॉ. अंबेडकर ने किस अनुच्छेद को संविधान की 'आत्मा' कहा था?",o:["अनुच्छेद 14","अनुच्छेद 32","अनुच्छेद 21","अनुच्छेद 19"],a:1,e:"अनुच्छेद 32 (संवैधानिक उपचारों का अधिकार) को उन्होंने संविधान की आत्मा और हृदय कहा।"},
+{q:"राष्ट्रपति पर महाभियोग की प्रक्रिया किस अनुच्छेद में दी गई है?",o:["अनुच्छेद 52","अनुच्छेद 72","अनुच्छेद 356","अनुच्छेद 61"],a:3,e:"अनुच्छेद 61 में राष्ट्रपति पर महाभियोग की प्रक्रिया है।"},
+{q:"राज्य के नीति निदेशक तत्व भारतीय संविधान ने किस देश के संविधान से लिए हैं?",o:["अमेरिका","ब्रिटेन","आयरलैंड","कनाडा"],a:2,e:"नीति निदेशक तत्व आयरलैंड के संविधान से लिए गए हैं।"},
+
+// ===== महात्मा गांधी और आंदोलन =====
+{q:"गांधीजी ने भारत में पहला सत्याग्रह कहाँ किया था?",o:["खेड़ा","अहमदाबाद","चंपारण","बारडोली"],a:2,e:"1917 में चंपारण (बिहार) में नील की खेती के विरुद्ध गांधीजी ने भारत में पहला सत्याग्रह किया।"},
+{q:"गांधीजी ने असहयोग आंदोलन किस वर्ष शुरू किया?",o:["1920","1919","1922","1930"],a:0,e:"असहयोग आंदोलन अगस्त 1920 में शुरू हुआ और खिलाफत आंदोलन से जुड़ा था।"},
+{q:"चौरी-चौरा कांड (1922) के बाद गांधीजी ने कौन सा आंदोलन वापस ले लिया?",o:["सविनय अवज्ञा आंदोलन","असहयोग आंदोलन","भारत छोड़ो आंदोलन","चंपारण सत्याग्रह"],a:1,e:"फरवरी 1922 में चौरी-चौरा (गोरखपुर) में हिंसा के बाद गांधीजी ने असहयोग आंदोलन वापस लिया।"},
+{q:"1930 में गांधीजी ने दांडी मार्च किस स्थान से शुरू किया?",o:["वर्धा","पोरबंदर","पुणे","साबरमती आश्रम"],a:3,e:"12 मार्च 1930 को साबरमती आश्रम से दांडी की यात्रा शुरू हुई और नमक कानून तोड़ा गया।"},
+{q:"गांधीजी ने 'करो या मरो' का नारा किस आंदोलन में दिया?",o:["असहयोग आंदोलन","सविनय अवज्ञा आंदोलन","भारत छोड़ो आंदोलन","खेड़ा सत्याग्रह"],a:2,e:"8 अगस्त 1942 को बंबई में भारत छोड़ो आंदोलन के दौरान यह नारा दिया गया।"},
+{q:"गांधी-इरविन समझौता किस वर्ष हुआ?",o:["1930","1932","1931","1935"],a:2,e:"मार्च 1931 में गांधी-इरविन समझौता हुआ और सविनय अवज्ञा आंदोलन स्थगित हुआ।"},
+{q:"पूना समझौता (1932) किन दो नेताओं के बीच हुआ था?",o:["गांधीजी और जिन्ना","गांधीजी और अंबेडकर","नेहरू और अंबेडकर","गांधीजी और इरविन"],a:1,e:"पूना समझौता गांधीजी और डॉ. अंबेडकर के बीच हुआ और दलितों के लिए पृथक निर्वाचन की जगह आरक्षित सीटें मिलीं।"}
+];
+// =================================
+// TEST LOGIC
+// =================================
+
+let current=0;
+let answers=Array(30).fill(null);
+let seconds=40;
+let interval=null;
+let submitted=false;
+let language="hi";
+
+function setLanguage(lang) {
+
+language = lang;
+
+document.getElementById("hindiBtn").classList.toggle("active", lang === "hi");
+document.getElementById("englishBtn").classList.toggle("active", lang === "en");
+
+const t = {
+hi: {
+submit:"टेस्ट जमा करें",
+previous:"← पिछला",
+next:"अगला →",
+attempted:"हल किए",
+remaining:"शेष",
+notAnswered:"उत्तर नहीं दिया",
+time:"शेष समय",
+question:"प्रश्न"
+},
+en: {
+submit:"Submit Test",
+previous:"← Previous",
+next:"Next →",
+attempted:"Attempted",
+remaining:"Remaining",
+notAnswered:"Not Answered",
+time:"Time Remaining",
+question:"QUESTION"
+}
+};
+
+document.querySelector(".status-card button").textContent=t[lang].submit;
+document.querySelector(".prev").textContent=t[lang].previous;
+document.querySelector(".next").textContent=t[lang].next;
+
+showQuestion();
+
+}
+
+function startTest(){
+
+document.getElementById("startScreen").classList.add("hidden");
+document.getElementById("testScreen").classList.remove("hidden");
+document.getElementById("bottomBar").classList.remove("hidden");
+
+current=0;
+showQuestion();
+}
+
+function showQuestion(){
+
+let q=questions[current];
+
+document.getElementById("qLabel").textContent=
+(language==="hi"?"प्रश्न ":"QUESTION ")+(current+1);
+
+document.getElementById("questionText").textContent=q.q;
+
+let options=document.getElementById("options");
+options.innerHTML="";
+
+q.o.forEach((text,i)=>{
+
+let label=document.createElement("label");
+label.className="option"+(answers[current]===i?" selected":"");
+
+let input=document.createElement("input");
+input.type="radio";
+input.name="answer";
+input.checked=answers[current]===i;
+
+input.onchange=()=>{
+answers[current]=i;
+showQuestion();
+};
+
+let letter=document.createElement("span");
+letter.className="option-letter";
+letter.textContent=String.fromCharCode(65+i);
+
+let value=document.createElement("span");
+value.textContent=text;
+
+label.append(input,letter,value);
+options.appendChild(label);
+
+});
+
+document.getElementById("answerStatus").textContent=
+answers[current]===null?"Not Answered":"Answer Saved";
+
+document.getElementById("prevBtn").disabled=current===0;
+
+updateStats();
+startQuestionTimer();
+
+}
+
+function updateStats(){
+
+let attempted=answers.filter(a=>a!==null).length;
+
+document.getElementById("attempted").textContent=attempted;
+document.getElementById("remaining").textContent=30-attempted;
+
+document.getElementById("bottomAttempted").textContent=
+attempted+"/30 Answered";
+
+}
+
+function startQuestionTimer(){
+
+clearInterval(interval);
+seconds=40;
+updateTimerDisplay();
+
+interval=setInterval(()=>{
+
+seconds--;
+updateTimerDisplay();
+
+if(seconds<=0){
+clearInterval(interval);
+if(current<29){
+current++;
+showQuestion();
+}else{
+submitTest();
+}
+}
+
+},1000);
+
+}
+
+function updateTimerDisplay(){
+
+document.getElementById("timerCircle").textContent=seconds;
+document.getElementById("bottomTimer").textContent=seconds+" Sec";
+document.getElementById("timerBar").style.width=(seconds/40*100)+"%";
+
+}
+
+function nextQuestion(){
+
+if(current<29){
+current++;
+showQuestion();
+}else{
+submitTest();
+}
+
+}
+
+function previousQuestion(){
+
+if(current>0){
+current--;
+showQuestion();
+}
+
+}
+
+function submitTest(){
+
+if(submitted)return;
+
+if(!confirm("Are you sure you want to submit the test?"))return;
+
+finishTest();
+
+}
+
+function finishTest(){
+
+submitted=true;
+clearInterval(interval);
+
+let correct=0,wrong=0,skipped=0;
+
+questions.forEach((q,i)=>{
+if(answers[i]===null)skipped++;
+else if(answers[i]===q.a)correct++;
+else wrong++;
+});
+
+let score=correct-(wrong*.25);
+
+document.getElementById("testScreen").classList.add("hidden");
+document.getElementById("bottomBar").classList.add("hidden");
+document.getElementById("resultScreen").classList.remove("hidden");
+
+document.getElementById("score").textContent=score.toFixed(2)+"/30";
+document.getElementById("correct").textContent=correct;
+document.getElementById("wrong").textContent=wrong;
+document.getElementById("skipped").textContent=skipped;
+document.getElementById("percentage").textContent=
+(score/30*100).toFixed(2)+"%";
+
+showAnalysis();
+window.scrollTo(0,0);
+
+}
+
+function showAnalysis(){
+
+let box=document.getElementById("analysis");
+box.innerHTML="";
+
+questions.forEach((q,i)=>{
+
+let div=document.createElement("div");
+div.className="review";
+
+let title=document.createElement("h3");
+title.textContent="Q"+(i+1)+". "+q.q;
+
+let user=document.createElement("p");
+user.textContent="Your Answer: "+
+(answers[i]===null?"Not Attempted":q.o[answers[i]]);
+
+user.className=
+answers[i]===null?"":
+answers[i]===q.a?"good":"bad";
+
+let answer=document.createElement("p");
+answer.className="good";
+answer.textContent="Correct Answer: "+q.o[q.a];
+
+let explanation=document.createElement("p");
+explanation.textContent="Explanation: "+q.e;
+
+div.append(title,user,answer,explanation);
+box.appendChild(div);
+
+});
+
+}
+
+function restartTest(){
+
+answers=Array(30).fill(null);
+current=0;
+seconds=40;
+submitted=false;
+
+document.getElementById("resultScreen").classList.add("hidden");
+document.getElementById("startScreen").classList.remove("hidden");
+
+window.scrollTo(0,0);
+
+}
+
+</script>
+
+</body>
+</html>
