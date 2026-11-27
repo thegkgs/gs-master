@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Science Mock Test | STATIC GK GS MASTER</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#f1f3f8;color:#18243a;
+ font-family:Arial,sans-serif
+}
+header{
+ background:linear-gradient(120deg,#172d55,#075a79);
+ color:white;padding:24px 5%;
+}
+.brand{display:flex;justify-content:space-between;align-items:center}
+.logo{
+ background:#f28a16;border-radius:50%;padding:17px;
+ font-weight:bold;color:white
+}
+.orange{color:#ff941c}
+h1{font-size:27px;margin:30px 0 8px}
+.subtitle{color:#dce8f8}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:22px}
+.stat{background:#ffffff18;padding:14px;border-radius:12px}
+.stat b{font-size:23px;display:block}
+.stat small{color:#d8e2f2}
+.container{max-width:850px;margin:22px auto;padding:12px}
+.card{
+ background:white;padding:23px;border-radius:18px;
+ box-shadow:0 5px 20px #0000000c;margin-bottom:18px
+}
+button{
+ border:0;border-radius:9px;padding:13px 19px;
+ font-size:15px;font-weight:bold;cursor:pointer
+}
+.primary{background:#f28a16;color:white}
+.secondary{background:#e8edf5;color:#183253}
+.lang{background:#284b75;color:white;margin-top:12px}
+.lang.active{background:#f28a16}
+.center{text-align:center}
+.hidden{display:none!important}
+#question{font-size:20px;line-height:1.5;font-weight:bold;margin:20px 0}
+.option{
+ display:block;width:100%;text-align:left;margin:12px 0;
+ background:#f2f5fa;border:2px solid #e2e7ef;
+ padding:15px;border-radius:11px;color:#17243b;
+ font-weight:normal
+}
+.option.selected{border-color:#126b99;background:#e5f4ff}
+.option.correct{background:#d9f7e4;border-color:#1b9c54}
+.option.wrong{background:#ffe1e1;border-color:#e34c4c}
+.topline{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.timer{font-weight:bold;color:#e87912;font-size:19px}
+.progress{height:9px;background:#e5e8ee;border-radius:20px;overflow:hidden;margin:15px 0}
+.bar{height:100%;background:#f28a16;width:0%;transition:.2s}
+.palette{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:15px}
+.palette button{padding:10px 2px;background:#e8edf5}
+.palette button.done{background:#b9e8c9}
+.palette button.current{background:#f28a16;color:white}
+.navigation{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+#explanation{background:#eef6ff;padding:14px;border-radius:10px;margin-top:15px;line-height:1.6}
+.result-number{font-size:38px;color:#f28a16;font-weight:bold}
+footer{text-align:center;color:#737d8e;padding:25px 10px;line-height:1.9}
+.review{border-bottom:1px solid #ddd;padding:15px 0;line-height:1.6}
+@media(max-width:500px){
+ h1{font-size:23px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .card{padding:17px}
+ #question{font-size:18px}
+ .palette{grid-template-columns:repeat(5,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="brand">
+  <div style="display:flex;align-items:center;gap:12px">
+   <div class="logo">SG</div>
+   <div>
+    <b>STATIC GK GS MASTER</b><br>
+    <small>KNOWLEDGE | PRACTICE | SUCCESS</small>
+   </div>
+  </div>
+  <div class="orange" style="font-size:48px;font-weight:bold">07</div>
+ </div>
+
+ <h1>COMPUTER SCIENCE MASTER TEST</h1>
+ <div class="subtitle">UPSSSC | UPPCO | Computer Operator</div>
+ <b class="orange">KNOWLEDGE | PRACTICE | SUCCESS</b><br>
+
+ <button class="lang active" id="eng" onclick="setLanguage('en')">ENGLISH</button>
+ 
+ <div class="stats">
+  <div class="stat"><b>30</b><small>Questions</small></div>
+  <div class="stat"><b>20 Sec</b><small>Per Question</small></div>
+  <div class="stat"><b>+1</b><small>Correct</small></div>
+  <div class="stat"><b>-0.25</b><small>Wrong</small></div>
+ </div>
+</header>
+
+<div class="container">
+
+<div class="card center" id="startPage">
+ <h1 style="color:#21466f">COMPUTER SCIENCE CHALLENGE 2026</h1>
+ <h2>30 Questions | Moderate to Advanced</h2>
+ <p>Each question has a 20-second timer.</p>
+ <p>Time out automatically moves to the next question.</p>
+ <hr>
+ <p>Correct: +1 | Wrong: -0.25 | Unattempted: 0</p>
+ <button class="primary" onclick="startTest()" style="font-size:19px;margin-top:20px">START TEST</button>
+</div>
+
+<div class="card hidden" id="testPage">
+ <div class="topline">
+  <b id="qcount">Question 1/30</b>
+  <div class="timer">⏱️ <span id="time">20</span> Sec</div>
+ </div>
+ <div class="progress"><div class="bar" id="bar"></div></div>
+
+ <div id="question"></div>
+ <div id="options"></div>
+ <div id="explanation" class="hidden"></div>
+
+ <div class="navigation">
+  <button class="secondary" onclick="previousQuestion()" id="prev">← Previous</button>
+  <button class="primary" onclick="nextQuestion()" id="next">Next →</button>
+ </div>
+
+ <h3>Question Palette</h3>
+ <div class="palette" id="palette"></div>
+</div>
+
+<div class="card hidden center" id="resultPage">
+ <h1 style="color:#21466f">TEST COMPLETED!</h1>
+ <p>Your Computer Science Result</p>
+ <div class="result-number" id="score">0</div>
+ <h2 id="percentage">0%</h2>
+ <div class="stats" style="color:#17243b">
+  <div class="stat"><b id="right">0</b><small>Correct</small></div>
+  <div class="stat"><b id="wrong">0</b><small>Wrong</small></div>
+  <div class="stat"><b id="skip">0</b><small>Skipped</small></div>
+  <div class="stat"><b>30</b><small>Total</small></div>
+ </div>
+ <h3 id="message"></h3>
+ <button class="primary" onclick="showReview()">VIEW ANSWERS & EXPLANATIONS</button>
+ <button class="secondary" onclick="location.reload()">RESTART TEST</button>
+ <div id="review" style="text-align:left"></div>
+</div>
+
+</div>
+
+<footer>
+ <b>STATIC GK GS MASTER</b><br>
+ KNOWLEDGE | PRACTICE | SUCCESS<br>
+ GK | GS | COMPUTER SCIENCE | MOCK TESTS<br>
+ Telegram: <b style="color:#ed8415">@staticgkgsmaster</b><br>
+ © 2026 STATIC GK GS MASTER. All Rights Reserved.
+</footer>
+
+<script>
+const questions = [
+
+// ===== HARD COMPUTER: NUMBER SYSTEM =====
+{q:"बाइनरी संख्या 11001 का दशमलव मान क्या है?",o:["21","25","27","29"],a:1,e:"16 + 8 + 0 + 0 + 1 = 25।"},
+{q:"दशमलव संख्या 45 का बाइनरी रूप क्या है?",o:["101101","101011","110101","100111"],a:0,e:"45 = 32 + 8 + 4 + 1, यानी 101101।"},
+{q:"हेक्साडेसिमल संख्या 2F का दशमलव मान क्या है?",o:["37","45","47","63"],a:2,e:"2 × 16 + 15 = 47।"},
+{q:"बाइनरी संख्या 101110 का अष्टाल (octal) रूप क्या है?",o:["46","56","62","65"],a:1,e:"तीन-तीन बिट के समूह: 101 = 5 और 110 = 6, यानी 56।"},
+{q:"हेक्साडेसिमल अंक B का 4-बिट बाइनरी रूप क्या है?",o:["1010","1011","1100","1101"],a:1,e:"B का मान 11 है और 11 = 1011।"},
+
+// ===== HARD COMPUTER: MS EXCEL & WORD =====
+{q:"MS Excel 2007 और उसके बाद के संस्करणों में एक वर्कशीट में कुल कितनी पंक्तियाँ होती हैं?",o:["65,536","1,00,000","10,48,576","16,384"],a:2,e:"1,048,576 पंक्तियाँ और 16,384 स्तंभ (XFD तक) होते हैं। 65,536 पंक्तियाँ पुराने .xls में थीं।"},
+{q:"Excel में किसी रेंज की गैर-खाली (non-empty) सेल गिनने का फंक्शन कौन-सा है?",o:["COUNT","COUNTA","COUNTBLANK","COUNTIF"],a:1,e:"COUNTA हर प्रकार के गैर-खाली मान गिनता है, जबकि COUNT केवल संख्याएँ गिनता है।"},
+{q:"VLOOKUP फंक्शन लुकअप मान को टेबल के किस स्तंभ में खोजता है?",o:["अंतिम स्तंभ","सबसे बाएँ (पहले) स्तंभ","किसी भी स्तंभ में","सबसे दाएँ स्तंभ"],a:1,e:"VLOOKUP हमेशा टेबल के सबसे बाएँ स्तंभ में खोजता है और दाईं ओर के स्तंभ से मान लौटाता है।"},
+{q:"Excel में सेल रेफरेंस को एब्सोल्यूट ($A$1) बनाने की कुंजी कौन-सी है?",o:["F2","F4","F5","F7"],a:1,e:"फ़ॉर्मूला में रेफरेंस चुनकर F4 दबाने से $ चिह्न लग जाते हैं। F2 सेल एडिट करता है।"},
+{q:"MS Word में स्पेलिंग और ग्रामर चेक करने की कुंजी कौन-सी है?",o:["F5","F7","F9","F12"],a:1,e:"F7 से Spelling & Grammar चेक होता है। F12 'Save As' है।"},
+
+// ===== HARD COMPUTER: NETWORKING =====
+{q:"IPv6 पता कितने बिट का होता है?",o:["32","64","128","256"],a:2,e:"IPv4 में 32 बिट और IPv6 में 128 बिट होते हैं।"},
+{q:"IP पता 172.16.0.1 किस क्लास में आता है?",o:["क्लास A","क्लास B","क्लास C","क्लास D"],a:1,e:"क्लास B की पहली ऑक्टेट सीमा 128 से 191 है।"},
+{q:"HTTPS का डिफ़ॉल्ट पोर्ट नंबर क्या है?",o:["21","25","80","443"],a:3,e:"HTTPS = 443, HTTP = 80, FTP = 21, SMTP = 25।"},
+{q:"OSI मॉडल की किस परत पर राउटर कार्य करता है?",o:["भौतिक परत","डेटा लिंक परत","नेटवर्क परत","ट्रांसपोर्ट परत"],a:2,e:"राउटर नेटवर्क परत (IP एड्रेस) पर, स्विच डेटा लिंक परत पर और हब भौतिक परत पर कार्य करता है।"},
+{q:"5 डिवाइसों के पूर्ण मेश (full mesh) टोपोलॉजी में कुल कितने लिंक चाहिए?",o:["5","10","15","20"],a:1,e:"सूत्र n(n-1)/2 = 5 × 4 / 2 = 10।"},
+{q:"कई डिवाइसों में मेल सिंक रखने के लिए मेल सर्वर पर रखकर पढ़ने वाला प्रोटोकॉल कौन-सा है?",o:["SMTP","POP3","IMAP","FTP"],a:2,e:"IMAP मेल सर्वर पर रखता है और कई डिवाइस सिंक होते हैं। POP3 आमतौर पर डाउनलोड करके सर्वर से हटा देता है। SMTP मेल भेजता है।"},
+
+// ===== HARD COMPUTER: DBMS & SQL =====
+{q:"निम्न में से कौन-सा SQL कमांड DDL (Data Definition Language) का है?",o:["SELECT","INSERT","ALTER","UPDATE"],a:2,e:"CREATE, ALTER, DROP, TRUNCATE DDL के हैं। SELECT, INSERT, UPDATE, DELETE DML के हैं।"},
+{q:"निम्न में से कौन-सा कमांड TCL (Transaction Control Language) का है?",o:["GRANT","COMMIT","SELECT","CREATE"],a:1,e:"COMMIT, ROLLBACK और SAVEPOINT TCL के हैं। GRANT और REVOKE DCL के हैं।"},
+{q:"SQL का कौन-सा कमांड टेबल को उसकी संरचना सहित पूरी तरह हटा देता है?",o:["DELETE","TRUNCATE","DROP","REMOVE"],a:2,e:"DROP टेबल और उसकी संरचना दोनों हटाता है। TRUNCATE केवल डेटा हटाता है और संरचना रखता है।"},
+{q:"प्राइमरी की (Primary Key) के बारे में कौन-सा कथन सही है?",o:["NULL मान स्वीकार करती है","डुप्लीकेट स्वीकार करती है","यूनिक और NOT NULL होती है","एक टेबल में एक से अधिक होती हैं"],a:2,e:"प्राइमरी की यूनिक होती है, NULL स्वीकार नहीं करती और एक टेबल में केवल एक ही होती है।"},
+
+// ===== HARD COMPUTER: LOGIC GATES & OS =====
+{q:"यूनिवर्सल गेट्स (Universal Gates) कौन-से हैं?",o:["AND और OR","NAND और NOR","XOR और XNOR","NOT और AND"],a:1,e:"NAND और NOR से किसी भी अन्य गेट को बनाया जा सकता है।"},
+{q:"XOR गेट के दोनों इनपुट 1 और 1 हों तो आउटपुट क्या होगा?",o:["0","1","अनिश्चित","इनपुट पर निर्भर नहीं"],a:0,e:"XOR का आउटपुट तभी 1 होता है जब इनपुट अलग-अलग हों। 1 और 1 पर आउटपुट 0 है।"},
+{q:"डेडलॉक (Deadlock) के लिए कितनी आवश्यक शर्तें होती हैं?",o:["2","3","4","5"],a:2,e:"चार शर्तें: म्यूचुअल एक्सक्लूज़न, होल्ड एंड वेट, नो प्रीएम्प्शन और सर्कुलर वेट।"},
+{q:"स्टोर्ड प्रोग्राम अवधारणा किसने दी?",o:["चार्ल्स बैबेज","जॉन वॉन न्यूमैन","एलन ट्यूरिंग","हर्मन होलेरिथ"],a:1,e:"जॉन वॉन न्यूमैन ने स्टोर्ड प्रोग्राम अवधारणा दी, जिसमें निर्देश और डेटा दोनों मेमोरी में रहते हैं।"},
+
+// ===== HARD COMPUTER: LANGUAGES, CLOUD & SECURITY =====
+{q:"जावा (Java) भाषा के विकासकर्ता कौन माने जाते हैं?",o:["डेनिस रिची","जेम्स गॉसलिंग","बजार्न स्ट्रॉस्ट्रप","गुइडो वैन रॉसम"],a:1,e:"जेम्स गॉसलिंग ने सन माइक्रोसिस्टम्स में जावा बनाई। C के रिची, C++ के स्ट्रॉस्ट्रप और Python के वैन रॉसम हैं।"},
+{q:"व्यावसायिक (बिज़नेस) अनुप्रयोगों के लिए डिज़ाइन की गई प्रोग्रामिंग भाषा कौन-सी है?",o:["FORTRAN","COBOL","BASIC","Pascal"],a:1,e:"COBOL = Common Business Oriented Language। FORTRAN वैज्ञानिक गणनाओं के लिए है।"},
+{q:"RSA एल्गोरिदम किस प्रकार की एन्क्रिप्शन का उदाहरण है?",o:["सिमेट्रिक की","असिमेट्रिक (पब्लिक-की)","हैशिंग","कंप्रेशन"],a:1,e:"RSA असिमेट्रिक है और पब्लिक व प्राइवेट कुंजी की जोड़ी उपयोग करता है। AES सिमेट्रिक है।"},
+{q:"निम्न में से कौन-सा क्लाउड कंप्यूटिंग की SaaS सेवा का उदाहरण है?",o:["Amazon EC2","Google Docs","Google App Engine","Microsoft Azure VM"],a:1,e:"SaaS में तैयार सॉफ्टवेयर ब्राउज़र से मिलता है, जैसे Google Docs और Gmail। EC2 IaaS है और App Engine PaaS।"},
+{q:"डिजिटल हस्ताक्षर (Digital Signature) का मुख्य उद्देश्य क्या है?",o:["डेटा को सिकोड़ना","प्रमाणीकरण और डेटा अखंडता सुनिश्चित करना","इंटरनेट की गति बढ़ाना","वायरस हटाना"],a:1,e:"डिजिटल हस्ताक्षर भेजने वाले की पहचान (प्रमाणीकरण), डेटा में बदलाव न होने (अखंडता) और अस्वीकार न कर पाने (नॉन-रिपडिएशन) की गारंटी देता है।"},
+];
+
+let current=0,answers=Array(40).fill(null);
+let timeLeft=20,timer=null,language='en',finished=false;
+
+function setLanguage(l){
+ language=l;
+ document.getElementById('eng').classList.toggle('active',l==='en');
+ document.getElementById('hin').classList.toggle('active',l==='hi');
+ if(!document.getElementById('testPage').classList.contains('hidden'))
+ renderQuestion();
+}
+
+function startTest(){
+ document.getElementById('startPage').classList.add('hidden');
+ document.getElementById('testPage').classList.remove('hidden');
+ renderQuestion();
+}
+
+function renderQuestion(){
+ if(finished)return;
+ clearInterval(timer);
+ timeLeft=20;
+
+ let q=questions[current];
+ document.getElementById('qcount').innerText=
+ language==='en'?'Question '+(current+1)+'/30':'प्रश्न '+(current+1)+'/30';
+
+ document.getElementById('time').innerText=timeLeft;
+ document.getElementById('bar').style.width=((current+1)/30*100)+'%';
+
+ document.getElementById('question').innerText=
+ (current+1)+'. '+(language==='en'?q.q:q.h);
+
+ let html='';
+ q.o.forEach((op,i)=>{
+  let text=language==='en'?op:q.oh[i];
+  let selected=answers[current]===i?'selected':'';
+  html+=`<button class="option ${selected}" onclick="selectAnswer(${i})">
+  ${String.fromCharCode(65+i)}. ${text}</button>`;
+ });
+ document.getElementById('options').innerHTML=html;
+
+ document.getElementById('explanation').classList.add('hidden');
+ document.getElementById('prev').disabled=current===0;
+ document.getElementById('prev').style.opacity=current===0?'.4':'1';
+ document.getElementById('next').innerText=
+ current===39?'Submit Test':'Next →';
+
+ makePalette();
+ timer=setInterval(()=>{
+  timeLeft--;
+  document.getElementById('time').innerText=timeLeft;
+  if(timeLeft<=0){
+   clearInterval(timer);
+   if(current<39){current++;renderQuestion();}
+   else finishTest();
+  }
+ },1000);
+}
+
+function selectAnswer(i){
+ answers[current]=i;
+ document.querySelectorAll('.option').forEach((b,index)=>{
+  b.classList.toggle('selected',index===i);
+ });
+ makePalette();
+}
+
+function makePalette(){
+ let html='';
+ questions.forEach((q,i)=>{
+  let cls=i===current?'current':answers[i]!==null?'done':'';
+ html+=`<button class="${cls}" onclick="goTo(${i})">${i+1}</button>`;
+ });
+ document.getElementById('palette').innerHTML=html;
+}
+
+function goTo(i){
+ current=i;
+ renderQuestion();
+}
+
+function previousQuestion(){
+ if(current>0){current--;renderQuestion();}
+}
+
+function nextQuestion(){
+ clearInterval(timer);
+ if(current<39){current++;renderQuestion();}
+ else finishTest();
+}
+
+function finishTest(){
+ if(finished)return;
+ finished=true;
+ clearInterval(timer);
+
+ let correct=0,wrong=0,skip=0;
+ answers.forEach((a,i)=>{
+  if(a===null)skip++;
+  else if(a===questions[i].a)correct++;
+  else wrong++;
+ });
+
+ let score=correct-wrong*.25;
+ let percent=(score/30*100).toFixed(2);
+
+ document.getElementById('testPage').classList.add('hidden');
+ document.getElementById('resultPage').classList.remove('hidden');
+ document.getElementById('score').innerText=score.toFixed(2)+' / 30';
+ document.getElementById('percentage').innerText=percent+'%';
+ document.getElementById('right').innerText=correct;
+ document.getElementById('wrong').innerText=wrong;
+ document.getElementById('skip').innerText=skip;
+ document.getElementById('message').innerText=
+ correct>=32?'Excellent Performance!':correct>=22?'Good Performance!':'Keep Practicing!';
+}
+
+function showReview(){
+ let html='';
+ questions.forEach((q,i)=>{
+  let a=answers[i];
+  let correct=q.a;
+  html+=`<div class="review">
+   <b>Q${i+1}. ${language==='en'?q.q:q.h}</b><br>
+   Your Answer: ${a===null?'Not Attempted':(language==='en'?q.o[a]:q.oh[a])}<br>
+   Correct Answer: <span style="color:green;font-weight:bold">
+   ${language==='en'?q.o[correct]:q.oh[correct]}</span><br>
+   <small>${language==='en'?q.e:q.eh}</small>
+  </div>`;
+ });
+ document.getElementById('review').innerHTML=html;
+ document.getElementById('review').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
