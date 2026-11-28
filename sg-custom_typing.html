@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STATIC GK GS MASTER Typing Test</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ padding:15px;
+ background:#101827;
+ color:white;
+ font-family:Arial,sans-serif;
+}
+.container{
+ max-width:850px;
+ margin:auto;
+ padding:20px;
+ background:#1e293b;
+ border-radius:15px;
+}
+h1{text-align:center;color:#ff9f43}
+h3{text-align:center}
+textarea{
+ width:100%;
+ padding:12px;
+ border:0;
+ border-radius:8px;
+ font-size:17px;
+ margin:8px 0;
+}
+button{
+ padding:12px 20px;
+ margin:5px;
+ border:0;
+ border-radius:7px;
+ background:#ff9f43;
+ font-weight:bold;
+ cursor:pointer;
+}
+#passage{
+ background:#334155;
+ padding:15px;
+ border-radius:8px;
+ line-height:1.9;
+ font-size:19px;
+ min-height:100px;
+ white-space:pre-wrap;
+}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ margin:15px 0;
+}
+.stat{
+ background:#334155;
+ padding:12px;
+ text-align:center;
+ border-radius:8px;
+}
+.stat b{
+ display:block;
+ color:#ffad55;
+ font-size:22px;
+ margin-top:5px;
+}
+#result{
+ display:none;
+ background:#065f46;
+ padding:15px;
+ border-radius:8px;
+ margin-top:15px;
+}
+.logo-area{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.logo-area img{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    border-radius:50%;
+    background:white;
+    padding:5px;
+}
+
+.logo-area h1{
+    color:#ff9f43;
+    margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="logo-area">
+    <img src="sg-logo.png" alt="SG Logo">
+    <h1>GK GS MASTER</h1>
+</div>
+<h3>CUSTOM TYPING TEST</h3>
+<h3>⏱️ TIME: 15 MINUTES</h3>
+
+<label>अपना Custom Passage Paste करें:</label>
+
+<textarea id="customPassage" rows="5"
+placeholder="यहाँ अपना Hindi या English Passage लिखें..."></textarea>
+
+<button onclick="loadPassage()">Load Passage</button>
+
+<h3>Typing Passage</h3>
+<div id="passage">आपका Passage यहाँ दिखाई देगा।</div>
+
+<div class="stats">
+<div class="stat">Time<b id="time">15:00</b></div>
+<div class="stat">WPM<b id="wpm">0</b></div>
+<div class="stat">Accuracy<b id="accuracy">100%</b></div>
+<div class="stat">Correct<b id="correct">0</b></div>
+<div class="stat">Wrong<b id="wrong">0</b></div>
+<div class="stat">Backspace<b id="back">0</b></div>
+</div>
+
+<textarea id="typing" rows="6"
+placeholder="Start दबाकर Typing करें..."
+disabled></textarea>
+
+<div style="text-align:center">
+<button onclick="startTest()">START</button>
+<button onclick="submitTest()">SUBMIT</button>
+<button onclick="resetTest()">RESET</button>
+</div>
+
+<div id="result">
+<h2>YOUR RESULT</h2>
+<p id="resultText"></p>
+</div>
+
+</div>
+
+<script>
+let passage="";
+let totalTime=15*60;
+let remaining=totalTime;
+let timer=null;
+let started=false;
+let backspaces=0;
+
+const typing=document.getElementById("typing");
+
+function loadPassage(){
+ passage=document.getElementById("customPassage").value.trim();
+
+ if(!passage){
+ alert("Please enter your passage!");
+ return;
+ }
+
+ resetTest();
+ document.getElementById("passage").textContent=passage;
+}
+
+function startTest(){
+
+ if(!passage){
+ alert("पहले अपना Passage Load करें!");
+ return;
+ }
+
+ if(started)return;
+
+ started=true;
+ typing.disabled=false;
+ typing.focus();
+
+ timer=setInterval(()=>{
+ remaining--;
+ updateTime();
+
+ if(remaining<=0){
+ submitTest();
+ }
+ },1000);
+}
+
+function updateTime(){
+ let min=Math.floor(remaining/60);
+ let sec=remaining%60;
+
+ document.getElementById("time").textContent=
+ String(min).padStart(2,"0")+":"+
+ String(sec).padStart(2,"0");
+}
+
+typing.addEventListener("keydown",function(e){
+ if(e.key==="Backspace"){
+ backspaces++;
+ document.getElementById("back").textContent=backspaces;
+ }
+});
+
+typing.addEventListener("input",calculate);
+
+function calculate(){
+
+ let typed=typing.value;
+ let correct=0;
+
+ for(let i=0;i<typed.length;i++){
+ if(typed[i]===passage[i]){
+ correct++;
+ }
+ }
+
+ let wrong=typed.length-correct;
+ let accuracy=typed.length?
+ (correct/typed.length)*100:100;
+
+ let elapsed=totalTime-remaining;
+ let minutes=Math.max(elapsed/60,1/60);
+
+ let wpm=Math.round((typed.length/5)/minutes);
+
+ document.getElementById("correct").textContent=correct;
+ document.getElementById("wrong").textContent=wrong;
+ document.getElementById("accuracy").textContent=
+ accuracy.toFixed(1)+"%";
+ document.getElementById("wpm").textContent=wpm;
+}
+
+function submitTest(){
+
+ if(!started && !typing.value){
+ alert("पहले Start दबाएँ!");
+ return;
+ }
+
+ clearInterval(timer);
+ started=false;
+ typing.disabled=true;
+
+ calculate();
+
+ document.getElementById("result").style.display="block";
+
+ document.getElementById("resultText").innerHTML=
+ "Time Used: "+formatTime(totalTime-remaining)+
+ "<br>Typing Speed: "+document.getElementById("wpm").textContent+" WPM"+
+ "<br>Accuracy: "+document.getElementById("accuracy").textContent+
+ "<br>Correct Characters: "+document.getElementById("correct").textContent+
+ "<br>Wrong Characters: "+document.getElementById("wrong").textContent+
+ "<br>Backspace: "+backspaces;
+}
+
+function formatTime(seconds){
+ return Math.floor(seconds/60)+" min "+seconds%60+" sec";
+}
+
+function resetTest(){
+
+ clearInterval(timer);
+ timer=null;
+ started=false;
+ remaining=totalTime;
+ backspaces=0;
+
+ typing.value="";
+ typing.disabled=true;
+
+ document.getElementById("time").textContent="15:00";
+ document.getElementById("wpm").textContent="0";
+ document.getElementById("accuracy").textContent="100%";
+ document.getElementById("correct").textContent="0";
+ document.getElementById("wrong").textContent="0";
+ document.getElementById("back").textContent="0";
+ document.getElementById("result").style.display="none";
+
+ if(passage){
+ document.getElementById("passage").textContent=passage;
+ }
+}
+</script>
+
+<footer style="text-align:center;margin-top:20px;color:#ffad55">
+© 2026 STATIC GK GS MASTER | All Rights Reserved
+</footer>
+
+</body>
+</html>
