@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STATIC GK GS MASTER</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#101827;
+  color:white;
+  padding:15px;
+}
+.container{
+  max-width:600px;
+  margin:25px auto;
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 5px 20px #0005;
+}
+h2{text-align:center;color:#ff9d32}
+.header{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  color:#ffb45c;
+}
+#question{
+  font-size:19px;
+  margin:25px 0;
+}
+.option{
+  display:block;
+  background:#334155;
+  padding:13px;
+  border-radius:8px;
+  margin:10px 0;
+  cursor:pointer;
+}
+.option:hover{background:#475569}
+button{
+  border:0;
+  padding:11px 16px;
+  border-radius:7px;
+  margin:5px 2px;
+  background:#f28c28;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:disabled{opacity:.5}
+#timer{color:#ffb45c;font-weight:bold}
+#result{margin-top:15px;text-align:center}
+a{color:#38bdf8}
+footer{text-align:center;color:#aaa;margin-top:20px}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>STATIC GK GS MASTER</h2>
+
+<div class="header">
+ <span id="qno">Question: 0</span>
+ <span id="timer">30 Seconds</span>
+ <button onclick="switchLang()" id="langBtn">English</button>
+</div>
+
+<hr>
+
+<div id="question">Start Button दबाएं</div>
+<div id="options"></div>
+
+<div style="text-align:center;margin-top:20px">
+ <button onclick="startQuiz()" id="startBtn">START</button>
+ <button onclick="previousQ()" id="prevBtn" disabled>Previous</button>
+ <button onclick="nextQ()" id="nextBtn" disabled>Next</button>
+ <button onclick="submitQuiz()" id="submitBtn" disabled>Submit</button>
+</div>
+
+<div id="result"></div>
+
+<hr>
+
+<div style="text-align:center">
+ <a href="https://t.me/staticgkgsmaster" target="_blank">
+   Join Telegram Channel
+ </a>
+</div>
+
+<footer>
+© 2026 STATIC GK GS MASTER | All Rights Reserved
+</footer>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+q:"Java में Method Overloading किस Polymorphism का उदाहरण है?",
+h:"Java में Method Overloading किस Polymorphism का उदाहरण है?",
+e:"Method overloading in Java is an example of which type of polymorphism?",
+o:["Runtime Polymorphism","Compile-time Polymorphism","Dynamic Binding","Inheritance"],
+a:1
+},
+{
+q:"Java में दो Interfaces में समान Default Method होने पर Class को क्या करना चाहिए?",
+h:"Java में दो Interfaces में समान Default Method होने पर Class को क्या करना चाहिए?",
+e:"What must a class do when two interfaces provide the same default method?",
+o:["Ignore both","Override the conflicting method","Declare final","Use static"],
+a:1
+},
+{
+q:"OSI Model में Data Encryption और Decryption किस Layer का कार्य है?",
+h:"OSI Model में Data Encryption और Decryption किस Layer का कार्य है?",
+e:"Which OSI layer handles data encryption and decryption?",
+o:["Session Layer","Transport Layer","Presentation Layer","Network Layer"],
+a:2
+},
+{
+q:"TCP Three-Way Handshake का सही क्रम क्या है?",
+h:"TCP Three-Way Handshake का सही क्रम क्या है?",
+e:"What is the correct sequence of TCP three-way handshake?",
+o:["ACK, SYN, FIN","SYN, SYN-ACK, ACK","SYN, ACK, FIN","FIN, SYN, ACK"],
+a:1
+},
+{
+q:"IPv6 Address की लंबाई कितनी होती है?",
+h:"IPv6 Address की लंबाई कितनी होती है?",
+e:"What is the length of an IPv6 address?",
+o:["32 bits","64 bits","128 bits","256 bits"],
+a:2
+},
+{
+q:"DNS सामान्यतः किस Port का उपयोग करता है?",
+h:"DNS सामान्यतः किस Port का उपयोग करता है?",
+e:"Which port is commonly used by DNS?",
+o:["25","53","80","110"],
+a:1
+},
+{
+q:"Subnet Mask 255.255.255.192 में कितने Usable Host Addresses होते हैं?",
+h:"Subnet Mask 255.255.255.192 में कितने Usable Host Addresses होते हैं?",
+e:"How many usable host addresses are available with subnet mask 255.255.255.192?",
+o:["30","62","64","126"],
+a:1
+},
+{
+q:"ARP Protocol का मुख्य कार्य क्या है?",
+h:"ARP Protocol का मुख्य कार्य क्या है?",
+e:"What is the primary function of ARP?",
+o:["IP to MAC address resolution","MAC to Domain resolution","Encrypting IP packets","Assigning IP automatically"],
+a:0
+},
+{
+q:"RSA Cryptographic Algorithm किस प्रकार की Cryptography पर आधारित है?",
+h:"RSA Cryptographic Algorithm किस प्रकार की Cryptography पर आधारित है?",
+e:"RSA is based on which type of cryptography?",
+o:["Symmetric Key","Asymmetric Key","Hash Function","Stream Cipher"],
+a:1
+},
+{
+q:"SHA-256 Algorithm कितने Bit का Hash Output देता है?",
+h:"SHA-256 Algorithm कितने Bit का Hash Output देता है?",
+e:"How many bits does SHA-256 produce?",
+o:["128 bits","160 bits","256 bits","512 bits"],
+a:2
+},
+{
+q:"Digital Signature मुख्यतः किन Security Properties को सुनिश्चित करता है?",
+h:"Digital Signature मुख्यतः किन Security Properties को सुनिश्चित करता है?",
+e:"Which security properties are primarily provided by digital signatures?",
+o:["Confidentiality and Compression","Authentication and Integrity","Availability and Compression","Encryption only"],
+a:1
+},
+{
+q:"Cache Memory में Temporal Locality का क्या अर्थ है?",
+h:"Cache Memory में Temporal Locality का क्या अर्थ है?",
+e:"What does temporal locality mean in cache memory?",
+o:["Nearby locations are accessed","Recently accessed data is likely to be accessed again","Data is accessed sequentially only","Random memory access"],
+a:1
+},
+{
+q:"Direct Mapped Cache में Cache Line निर्धारित करने का Formula क्या है?",
+h:"Direct Mapped Cache में Cache Line निर्धारित करने का Formula क्या है?",
+e:"What formula determines the cache line in a direct-mapped cache?",
+o:["Block Number MOD Number of Cache Lines","Block Number DIV Cache Size","Cache Size + Block Size","Tag + Offset"],
+a:0
+},
+{
+q:"8086 Microprocessor की Address Bus कितने Bit की होती है?",
+h:"8086 Microprocessor की Address Bus कितने Bit की होती है?",
+e:"What is the address bus width of the 8086 microprocessor?",
+o:["8 bits","16 bits","20 bits","32 bits"],
+a:2
+},
+{
+q:"8086 Microprocessor अधिकतम कितनी Memory Address कर सकता है?",
+h:"8086 Microprocessor अधिकतम कितनी Memory Address कर सकता है?",
+e:"What is the maximum memory addressable by 8086?",
+o:["64 KB","256 KB","1 MB","4 MB"],
+a:2
+},
+{
+q:"RISC Architecture की प्रमुख विशेषता क्या है?",
+h:"RISC Architecture की प्रमुख विशेषता क्या है?",
+e:"What is a major characteristic of RISC architecture?",
+o:["Complex instructions","Simple and often fixed-length instructions","Large microcode dependency","Memory-to-memory operations only"],
+a:1
+},
+{
+q:"DMA का मुख्य उद्देश्य क्या है?",
+h:"DMA का मुख्य उद्देश्य क्या है?",
+e:"What is the primary purpose of Direct Memory Access?",
+o:["Increase CPU clock","Transfer data between I/O and memory with reduced CPU involvement","Delete cache","Decode instructions"],
+a:1
+},
+{
+q:"Compiler में Lexical Analysis का मुख्य कार्य क्या है?",
+h:"Compiler में Lexical Analysis का मुख्य कार्य क्या है?",
+e:"What is the primary function of lexical analysis?",
+o:["Generate machine code","Convert character stream into tokens","Optimize machine instructions","Allocate memory"],
+a:1
+},
+{
+q:"Compiler में Left Recursion किस समस्या का कारण बन सकती है?",
+h:"Compiler में Left Recursion किस समस्या का कारण बन सकती है?",
+e:"What problem can left recursion cause in a top-down parser?",
+o:["Infinite Recursion","Memory Encryption","Code Optimization","Register Allocation"],
+a:0
+},
+{
+q:"Regular Expressions को Recognize करने के लिए किस Automaton का उपयोग होता है?",
+h:"Regular Expressions को Recognize करने के लिए किस Automaton का उपयोग होता है?",
+e:"Which automaton recognizes regular expressions?",
+o:["Pushdown Automaton","Finite Automaton","Turing Machine only","Linear Bounded Automaton"],
+a:1
+},
+{
+q:"Context-Free Languages को Recognize करने के लिए किस Automaton का उपयोग होता है?",
+h:"Context-Free Languages को Recognize करने के लिए किस Automaton का उपयोग होता है?",
+e:"Which automaton recognizes context-free languages?",
+o:["Finite Automaton","Pushdown Automaton","DFA only","Mealy Machine"],
+a:1
+},
+{
+q:"Pumping Lemma का उपयोग मुख्यतः किसे सिद्ध करने के लिए किया जाता है?",
+h:"Pumping Lemma का उपयोग मुख्यतः किसे सिद्ध करने के लिए किया जाता है?",
+e:"The pumping lemma is commonly used to prove which property?",
+o:["A language is regular","A language is not regular","A grammar is ambiguous","A machine is deterministic"],
+a:1
+},
+{
+q:"Database में ACID Properties की Isolation का क्या अर्थ है?",
+h:"Database में ACID Properties की Isolation का क्या अर्थ है?",
+e:"What does isolation mean in ACID properties?",
+o:["Transactions execute independently without interfering","Data is permanently stored","Transactions always roll back","Database is encrypted"],
+a:0
+},
+{
+q:"Database में Phantom Read कब होता है?",
+h:"Database में Phantom Read कब होता है?",
+e:"When does a phantom read occur in a database?",
+o:["A row disappears permanently","Re-executing a range query returns additional or missing rows due to another transaction","Server crashes","A table is dropped"],
+a:1
+},
+{
+q:"SQL में ROW_NUMBER() Function का उपयोग किसलिए होता है?",
+h:"SQL में ROW_NUMBER() Function का उपयोग किसलिए होता है?",
+e:"What is the purpose of ROW_NUMBER() in SQL?",
+o:["Count database tables","Assign sequential numbers to rows","Delete duplicate records","Calculate average"],
+a:1
+},
+{
+q:"SQL में कौन-सा JOIN दोनों Tables के सभी Records को शामिल करता है?",
+h:"SQL में कौन-सा JOIN दोनों Tables के सभी Records को शामिल करता है?",
+e:"Which JOIN includes all records from both tables?",
+o:["INNER JOIN","LEFT JOIN","RIGHT JOIN","FULL OUTER JOIN"],
+a:3
+}
+];
+];
+
+let current=0;
+let time=30;
+let interval=null;
+let started=false;
+let lang="hi";
+let answers={};
+
+function startQuiz(){
+ if(started)return;
+ started=true;
+ document.getElementById("startBtn").disabled=true;
+ document.getElementById("nextBtn").disabled=false;
+ document.getElementById("prevBtn").disabled=false;
+ document.getElementById("submitBtn").disabled=false;
+ showQuestion();
+}
+
+function showQuestion(){
+ clearInterval(interval);
+ time=30;
+
+ if(current>=questions.length){
+  submitQuiz();
+  return;
+ }
+
+ let q=questions[current];
+
+ document.getElementById("qno").innerText=
+ (lang==="hi"?"प्रश्न संख्या: ":"Question: ")+(current+1);
+
+ document.getElementById("question").innerText=
+ lang==="hi"?q.h:q.e;
+
+ document.getElementById("options").innerHTML="";
+
+ q.o.forEach((option,i)=>{
+  let div=document.createElement("label");
+  div.className="option";
+
+  let checked=answers[current]===i?"checked":"";
+
+  div.innerHTML=`
+  <input type="radio" name="answer"
+  value="${i}" ${checked}>
+  ${option}`;
+
+  div.querySelector("input").addEventListener("change",()=>{
+   answers[current]=i;
+  });
+
+  document.getElementById("options").appendChild(div);
+ });
+
+ startTimer();
+}
+
+function startTimer(){
+ document.getElementById("timer").innerText=
+ "⏱️ "+time+" Seconds";
+
+ interval=setInterval(()=>{
+  time--;
+  document.getElementById("timer").innerText=
+  "⏱️ "+time+" Seconds";
+
+  if(time<=0){
+   clearInterval(interval);
+   nextQ();
+  }
+ },1000);
+}
+
+function nextQ(){
+ if(!started)return;
+ if(current<questions.length-1){
+  current++;
+  showQuestion();
+ }else{
+  submitQuiz();
+ }
+}
+
+function previousQ(){
+ if(current>0){
+  current--;
+  showQuestion();
+ }
+}
+
+function submitQuiz(){
+ clearInterval(interval);
+ started=false;
+
+ let score=0;
+ questions.forEach((q,i)=>{
+  if(answers[i]===q.a)score++;
+ });
+
+ document.getElementById("question").innerText="QUIZ COMPLETED";
+ document.getElementById("options").innerHTML="";
+ document.getElementById("qno").innerText="Result";
+
+ document.getElementById("timer").innerText="Finished";
+
+ document.getElementById("result").innerHTML=
+ `Total Questions: ${questions.length}<br>
+ Correct Answers: ${score}<br>
+ Wrong Answers: ${questions.length-score}<br>
+ <h2>Score: ${score}/${questions.length}</h2>`;
+
+ ["nextBtn","prevBtn","submitBtn"].forEach(id=>{
+  document.getElementById(id).disabled=true;
+ });
+}
+
+function switchLang(){
+ lang=lang==="hi"?"en":"hi";
+ document.getElementById("langBtn").innerText=
+ lang==="hi"?"English":"हिंदी";
+
+ if(started)showQuestion();
+}
+
+</script>
+</body>
+</html>
